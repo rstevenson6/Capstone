@@ -5,4 +5,5 @@
   RewriteRule ^(.*)$ index.php/$1 [L]
 </IfModule>
 
+ErrorDocument 404 /errors/404.php
 RedirectMatch 404 /\.git
