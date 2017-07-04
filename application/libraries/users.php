@@ -11,15 +11,27 @@ class Users
     'bob' => 'user'
   ];
 
-  public function validateUser($username)
+  public function isAuthorised($username)
   {
     if (array_key_exists($username, $this->users))
+    {
+      return TRUE;
+    }
+    else
+    {
+      return FALSE;
+    }
+  }
+
+  public function getUserRole($username)
+  {
+    if (isAuthorised($username))
     {
       return $this->users["$username"];
     }
     else
     {
-      return 404;
+      return null;
     }
   }
 }
