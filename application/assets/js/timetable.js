@@ -46,7 +46,7 @@ function loadTimetable(timetable, data) {
                 else {
                     $(target).addClass('block');
                 }
-                $('tr.hour_' + datum.startTime + ' td.' + day).text("ATTT");
+                $('tr.hour_' + datum.startTime + ' td.' + day).text(datum.subj + ' ' + datum.courseNo + ' ' + datum.section);
             }
         }
     }
