@@ -8,6 +8,9 @@ class ldap
 
   $enable_debug_output = TRUE;
 
+  // tracks if a connection has been made
+  $connected = FALSE;
+
   $eol = '<br />';
   // ldap settings
   // this will only work on campus, do not change it
@@ -38,13 +41,15 @@ class ldap
     }
 
     if (auth_ldap($username, $plainpass)===TRUE) {
+      $connected = TRUE;
       m_debug_write('Authentication successful');
     } else {
+      $connected = FALSE;
       m_debug_write('Authentication failure');
     }
   }
 
-  function auth_ldap($username, $plainpass)
+  public function auth_ldap($username, $plainpass)
   {
     m_debug_write('LDAP authentication attempted');
 
@@ -161,7 +166,7 @@ class ldap
     }
   }
 
-  function m_debug_write($message)
+  private function m_debug_write($message)
   {
     // this function was gutted for demo, now it only outputs the debug message
     global $enable_debug_output;
