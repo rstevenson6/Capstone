@@ -3,6 +3,7 @@
   <?php $this->load->view('templates/header'); ?>
   <body>
     <h1>Timetable Visualizer</h1>
+    <?= validation_errors(); ?>
     <?= form_open('welcome/index'); ?>
 
       <label for="username">Username</label>

@@ -6,7 +6,8 @@ class Main extends CI_Controller {
 	{
 		parent::__construct();
 		// TODO: LDAP integration with login
-		//$this->load->helper('url_helper');
+		$this->load->library('users');
+		$this->load->helper('url');
 	}
 
 	public function index()
@@ -16,7 +17,17 @@ class Main extends CI_Controller {
 		$this->form_validation->set_rules('username', 'Username', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
 
-		$this->load->view('landing');
+		if ($this->form_validation->run() === FALSE)
+		{
+			$this->load->view('landing');
+		}
+		else
+		{
+			$username = $this->input->post('username');
+			$password = $this->input->post('password'); // unused for now
+			$data['msg'] = $this->users->getUserRole($username);
+			$this->load->view('temp/display', $data);
+		}
 	}
 
 	public function timetable()
