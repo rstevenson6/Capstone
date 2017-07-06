@@ -6,12 +6,12 @@ class Main extends CI_Controller {
 	{
 		parent::__construct();
 		// TODO: LDAP integration with login
-		$this->load->library('users');
-		$this->load->helper('url');
 	}
 
 	public function index()
 	{
+        $this->load->library('users');
+
 		$this->load->helper('form');
         $this->load->library('form_validation');
 		$this->form_validation->set_rules('username', 'Username', 'required');
