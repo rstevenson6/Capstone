@@ -13,24 +13,20 @@ ex_data = [{
     TAName: "Dilbert"
 }];
 
-function loadTimetable(timetable, data) {
-    console.log("load");
+function loadTimetable(data) {
+
     for(var datum_idx in data) {
-        console.log("datum");
+
         var datum = data[datum_idx];
-        var startHour = parseInt(datum.startTime / 100);
-        var halfHour = datum.startTime % 100 !== 0;
         var duration = datum.endTime - datum.startTime;
         var blocks = duration / 50;
 
         for(var day in datum.days) {
 
-            console.log(day);
             if(!datum.days[day]) {
                 continue;
             }
 
-            console.log("blocks: " + blocks);
             for (var block = 0; block < blocks; block++) {
 
                 var target = 'tr.hour_' + (datum.startTime + block*50) + ' td.' + day;
@@ -46,8 +42,9 @@ function loadTimetable(timetable, data) {
                 else {
                     $(target).addClass('block');
                 }
-                $('tr.hour_' + datum.startTime + ' td.' + day).text(datum.subj + ' ' + datum.courseNo + ' ' + datum.section);
             }
+
+            $('tr.hour_' + datum.startTime + ' td.' + day).text(datum.subj + ' ' + datum.courseNo + ' ' + datum.section);
         }
     }
 }
