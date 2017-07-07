@@ -1,0 +1,83 @@
+#main-container {
+    width: 100%;
+}
+
+#left-container {
+    float: left;
+    width: 70%;
+}
+
+#right-container {
+    float: right;
+    width: 30%;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+table {
+    width: 100%;
+}
+
+th {
+    padding: 4px;
+}
+
+td {
+    width: 100000px;
+}
+
+.block {
+    background-color: darkgray;
+}
+
+.block-top {
+    border-radius: 16px 16px 0 0;
+}
+
+.block-bot {
+    border-radius: 0 0 16px 16px;
+}
+
+.block-single {
+    border-radius: 16px 16px 16px 16px;
+}
+
+
+/*
+
+.hour {
+    background-color: #7fcdff;
+}
+
+.mon {
+    background-color: #ff0000;
+}
+
+.tue {
+    background-color: #ff4000;
+}
+
+.wed {
+    background-color: #ffa500;
+}
+
+.thu {
+    background-color: #ffe500;
+}
+
+.fri {
+    background-color: #a8ff00;
+}
+
+.sat {
+    background-color: #55ff00;
+}
+
+.sun {
+    background-color: #00ffaf;
+}
+
+*/
