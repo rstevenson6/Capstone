@@ -13,6 +13,57 @@ ex_data = [{
     TAName: "Dilbert"
 }];
 
+function parseDays(day_string) {
+    var arr = day_string.split(", ");
+    var days = {"mon": false, "tue": false, "wed": false, "thu": false, "fri": false}
+    for(var day in arr) {
+        day = arr[day];
+
+        switch (day.toUpperCase()) {
+            case "M":
+                days["mon"] = true;
+                break;
+            case "TU":
+                days["tue"] = true;
+                break;
+            case "W":
+                days["wed"] = true;
+                break;
+            case "TH":
+                days["thu"] = true;
+                break;
+            case "F":
+                days["fri"] = true;
+                break;
+            default:
+                throw "Invalid day string! (M, Tu, W, Th, F) " + arr;
+        }
+    }
+    return days;
+}
+
+function timeToInt(time_string) {
+
+    var match = /(\d{1,2}):(\d{2})/.exec(time_string);
+    var first = match[1];
+    var second = match[2];
+
+    switch (second) {
+        case "20":
+        case "30":
+            second = "50";
+            break;
+        case "50":
+        case "00":
+            second = "00";
+            break;
+        default:
+            throw "Unusual Time";
+    }
+
+    return parseInt(first+second);
+}
+
 function loadTimetable(data) {
 
     for(var datum_idx in data) {
@@ -48,3 +99,24 @@ function loadTimetable(data) {
         }
     }
 }
+
+$(document).ready(function(){
+    $('#load-classes').click(function(){
+        $.ajax({
+            type: "POST",
+            url: "/ajax/getClasses",
+            dataType: 'json',
+            data: {name: "Fazackerley, Scott"},
+            success: function(result){
+                result = result.map(function(val) {
+                    val["days"] = parseDays(val["days"]);
+                    val["startTime"] = timeToInt(val["startTime"]);;
+                    val["endTime"] = timeToInt(val["endTime"]);
+                    return val;
+                });
+                ex_data = result;
+                loadTimetable(result);
+            }
+        });
+    });
+});

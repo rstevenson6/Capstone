@@ -517,6 +517,9 @@
         </div>
         <div id="course">
             Course
+            <button id="load-classes">
+                Load Classes
+            </button>
         </div>
     </div>
 </div>
