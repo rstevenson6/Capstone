@@ -25,7 +25,7 @@ class Users
 
   public function getUserRole($username)
   {
-    if (isAuthorised($username))
+    if ($this->isAuthorised($username))
     {
       return $this->users["$username"];
     }
