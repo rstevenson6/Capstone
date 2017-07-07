@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <?php $this->load->view('templates/header'); ?>
   <body>
     <h1>Timetable Visualizer</h1>
     <?= validation_errors(); ?>
