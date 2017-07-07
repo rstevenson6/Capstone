@@ -26,7 +26,7 @@ class Main extends CI_Controller {
 			$username = $this->input->post('username');
 			$password = $this->input->post('password'); // unused for now
 			$data['msg'] = $this->users->getUserRole($username);
-			$this->load->view('temp/display', $data);
+			$this->load->view('timetable', $data);
 		}
 	}
 
