@@ -6,6 +6,8 @@
     <title>Timetable</title>
     <link rel="stylesheet" href="<?php echo asset_url(); ?>/css/timetable.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="<?php echo asset_url(); ?>/js/seedrandom.min.js"></script>
+    <script src="<?php echo asset_url(); ?>/js/colorcolor.min.js"></script>
     <script src="<?php echo asset_url(); ?>/js/timetable.js"></script>
 </head>
 

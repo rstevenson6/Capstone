@@ -64,6 +64,20 @@ function timeToInt(time_string) {
     return parseInt(first+second);
 }
 
+function colorize(subj, courseNo, section) {
+    Math.seedrandom(subj);
+    var hue = parseInt(Math.random()*360);
+
+    Math.seedrandom(courseNo);
+    var sat = parseInt(40+Math.random()*30);
+
+    Math.seedrandom(section);
+    var val = parseInt(70+Math.random()*30);
+
+    var col = "hsv(" + hue + "," + sat + "%," + val + "%)";
+    return colorcolor(col, "hex");
+}
+
 function loadTimetable(data) {
 
     for(var datum_idx in data) {
@@ -71,6 +85,10 @@ function loadTimetable(data) {
         var datum = data[datum_idx];
         var duration = datum.endTime - datum.startTime;
         var blocks = duration / 50;
+
+        console.log(datum.subj, datum.courseNo);
+        console.log(datum);
+
 
         for(var day in datum.days) {
 
@@ -93,6 +111,7 @@ function loadTimetable(data) {
                 else {
                     $(target).addClass('block');
                 }
+                $(target).css("background-color", colorize(datum.subj, datum.courseNo, datum.section));
             }
 
             $('tr.hour_' + datum.startTime + ' td.' + day).text(datum.subj + ' ' + datum.courseNo + ' ' + datum.section);
@@ -104,7 +123,7 @@ $(document).ready(function(){
     $('#load-classes').click(function(){
         $.ajax({
             type: "POST",
-            url: "/ajax/getClasses",
+            url: "/ajax/getTermOneClasses",
             dataType: 'json',
             data: {name: "Fazackerley, Scott"},
             success: function(result){

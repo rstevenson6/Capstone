@@ -13,9 +13,15 @@ class Ajax extends CI_Controller {
         show_404();
     }
 
-    public function getClasses()
+    public function getTermOneClasses()
     {
-        $query = $this->db_model->loadClasses();
+        $query = $this->db_model->loadClassesByTerm(1);
+        echo json_encode($query->result());
+    }
+
+    public function getTermTwoClasses()
+    {
+        $query = $this->db_model->loadClassesByTerm(2);
         echo json_encode($query->result());
     }
 }

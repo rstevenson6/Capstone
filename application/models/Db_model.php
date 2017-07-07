@@ -43,6 +43,14 @@ class Db_model extends CI_Model {
         return $query;
     }
 
+    public function LoadClassesByTerm($term)
+    {
+        $sql = "SELECT * FROM class WHERE term = ?";
+        $query = $this->db->query($sql, $term);
+
+        return $query;
+    }
+
     public function LoadProfs()
     {
         $sql = "SELECT * FROM instructors";
