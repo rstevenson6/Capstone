@@ -5,15 +5,12 @@ class Excel extends CI_Controller{
   public function __construct()
   {
     parent::__construct();
-    $this->load->library('excel');
+    $this->load->library('excel_lib');
   }
 
   public function index()
   {
     $file = './files/test.xlsx';
-
-    //load the excel library
-    $this->load->library('excel');
 
     //read file from path
     $objPHPExcel = PHPExcel_IOFactory::load($file);
@@ -38,6 +35,10 @@ class Excel extends CI_Controller{
     //send the data in an array format
     $data['header'] = $header;
     $data['values'] = $arr_data;
+    $output = new \stdClass(); // http://bit.ly/2u6tt24
+    $output->header = $header;
+    $output->arr_data = $arr_data;
+    $data['data'] = json_encode($output);
 
     $this->load->view('temp/test_excel', $data);
   }

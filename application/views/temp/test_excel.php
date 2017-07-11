@@ -15,4 +15,4 @@
   </tr>
 </table>
 
-<?php } else {echo "data is set.";} ?>
+<?php } else {echo var_dump(json_decode($data));} ?>
