@@ -522,6 +522,21 @@
             <button id="load-classes">
                 Load Classes
             </button>
+            <input id="entry">
+                <input type="text" name="subj">subj<br>
+                <input type="text" name="courseNo">courseNo<br>
+                <input type="text" name="section">section<br>
+                <input type="time" name="startTime">start<br>
+                <input type="time" name="endTime">end<br>
+                <input type="checkbox" name="mon">mon<br>
+                <input type="checkbox" name="tue">tue<br>
+                <input type="checkbox" name="wed">wed<br>
+                <input type="checkbox" name="thu">thu<br>
+                <input type="checkbox" name="fri">fri<br>
+                <input type="checkbox" name="sat">sat<br>
+                <input type="checkbox" name="sun">sun<br>
+                <input type="submit" name="submit"><br>
+            </form>
         </div>
     </div>
 </div>

@@ -119,6 +119,8 @@ function loadTimetable(data) {
     }
 }
 
+
+
 $(document).ready(function(){
     $('#load-classes').click(function(){
         $.ajax({
@@ -137,5 +139,10 @@ $(document).ready(function(){
                 loadTimetable(result);
             }
         });
+    });
+
+    $('#entry').submit(function(event){
+        console.log($(this).serializeArray());
+        event.preventDefault();
     });
 });
