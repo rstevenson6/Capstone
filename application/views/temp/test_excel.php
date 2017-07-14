@@ -1,4 +1,6 @@
-<?php if (!isset($data)) { ?>
+<?php
+if (!isset($data)) {
+?>
 
 <table border="1">
   <tr>
@@ -15,4 +17,23 @@
   </tr>
 </table>
 
-<?php } else {echo var_dump(json_decode($data));} ?>
+<?php
+}
+else
+{
+  $html = '<table border="1"><tr>';
+  foreach ($data['header'][1] as $item) {
+    $html .= '<th>'.$item.'</th>';
+  }
+  $html .= '</tr>';
+  foreach ($data['arr_data'] as $items) {
+    $html .= '<tr>';
+    foreach ($items as $item) {
+      $html .= '<td>'.$item.'</td>';
+    }
+    $html .= '</tr>';
+  }
+  $html .= '</table>';
+  echo $html;
+}
+?>
