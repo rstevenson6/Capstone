@@ -108,5 +108,19 @@ class Database_Functions
             return 'failure';
         }
     }
+    #Search Queries:
 
+    public function searchProf($name){
+        $sql = "SELECT * FROM instructors WHERE NAME LIKE %?%;";
+        $query = $this->db->query(array($sql,$name));
+
+        return $query;
+    }
+
+    public function searchTA($name){
+        $sql = "SELECT * FROM TA WHERE NAME LIKE %?%;";
+        $query = $this->db->query(array($sql,$name));
+
+        return $query;
+    }
 }
