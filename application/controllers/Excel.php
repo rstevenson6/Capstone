@@ -27,7 +27,7 @@ class Excel extends CI_Controller {
     $this->load->view('temp/display', $data);
   }
 
-  public function index($sheetName)
+  public function index($sheetName = 'Winter%202017-18')
   {
     $sheetName = urldecode($sheetName);
 

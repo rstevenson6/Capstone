@@ -17,6 +17,3 @@ application/logs/*
 /vendor/
 
 .idea/
-
-#test edplan
-edplan.xlsx
