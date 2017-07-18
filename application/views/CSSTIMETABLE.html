@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <link rel="stylesheet" type="text/css" href="timetable.css">
+    <title></title>
+   <style>
+
+</style>
+	</head>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>
+    <script type="text/javascript">
+        var app = angular.module('Timetable', [])
+        app.controller('checkboxtree', function ($scope) {
+            //This will hide the DIV by default.
+            $scope.IsVisible = false;
+			            $scope.Visible = false;
+
+            $scope.ShowHide = function () {
+                //If DIV is visible it will be hidden and vice versa.
+                $scope.IsVisible = $scope.Show;
+				                $scope.Visible = $scope.Hide;
+
+            }
+        });
+  
+  </script>
+
+<body><div class="header">
+    <div class="header-inner">
+<h1><b><center>TIMETABLE VISUALIZER
+<img src="C:\Users\hannah\Desktop\PROJECT\clock2.png" /> 
+</div>       
+</div></center></b></h1></div>
+<div class="content">
+ <div class="sidebar left">
+        <div class="sidebar-inner">
+
+  	<form action="/action_page.php">
+<input type="file" accept=".xls,.xlsx" />  
+	<button type="button">EXPORT FILE</button>
+		<button type="button">SAVE FILE</button>
+
+	</form>
+	
+<hr>
+		
+	<div ng-app="Timetable" ng-controller="checkboxtree">
+<label for="check">
+<div><div>
+<li><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" /> UNIT 1<div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />COSC</</br> <div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />100</</br> <div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />COSC 111</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />COSC 121</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />COSC 123</</br> <div ng-show="IsVisible"></ul>
+</ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />200</</br> <div ng-show="IsVisible">
+
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />COSC 211</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />COSC 222</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />COSC 223</</br> <div ng-show="IsVisible"></ul>
+</ul></ul>
+
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />PHYS</</br> <div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />100</</br> <div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />PHYS 111</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />PHYS 122</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />PHYS 131</</br> <div ng-show="IsVisible"></ul></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />200</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />300</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />400</</br> <div ng-show="IsVisible"></ul>
+</li>
+
+</ul> </ul>
+</div></div>
+
+
+<div>
+<div ng-app="Timetable" ng-controller="checkboxtree">
+<label for="check">
+<li><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" /> UNIT 2<div ng-show="IsVisible">
+
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />GEOG</</br> <div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />100</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />200</</br> <div ng-show="IsVisible"></ul>
+</ul></div>
+ </div>
+ 
+ 
+ <div>
+ <div ng-app="Timetable" ng-controller="checkboxtree">
+
+ <li><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" /> UNIT 3<div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />BIOL</</br> <div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />100</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />200</</br> <div ng-show="IsVisible"></ul></li>
+ 
+</li>
+
+</ul> </ul>
+</div></div>
+
+
+<div>
+<div ng-app="Timetable" ng-controller="checkboxtree">
+<label for="check">
+<li><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" /> UNIT 4<div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />COSC</</br> <div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />100</</br> <div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />COSC 111</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />COSC 121</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />COSC 123</</br> <div ng-show="IsVisible"></ul>
+</ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />200</</br> <div ng-show="IsVisible">
+
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />COSC 211</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />COSC 222</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />COSC 223</</br> <div ng-show="IsVisible"></ul>
+</ul></ul>
+
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />PHYS</</br> <div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />100</</br> <div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />PHYS 111</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />PHYS 122</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />PHYS 131</</br> <div ng-show="IsVisible"></ul></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />200</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />300</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />400</</br> <div ng-show="IsVisible"></ul>
+</li>
+
+</ul> </ul>
+</div></div>
+
+
+<div>
+<div ng-app="Timetable" ng-controller="checkboxtree">
+<label for="check">
+<li><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" /> UNIT 5<div ng-show="IsVisible">
+
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />GEOG</</br> <div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />100</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />200</</br> <div ng-show="IsVisible"></ul>
+</ul></div>
+ </div>
+ 
+ 
+ <div>
+ <div ng-app="Timetable" ng-controller="checkboxtree">
+
+ <li><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" /> UNIT 6<div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />BIOL</</br> <div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />100</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />200</</br> <div ng-show="IsVisible"></ul></li>
+</ul></div>
+ </div>
+ 
+ 
+ <div>
+ 
+ <div ng-app="Timetable" ng-controller="checkboxtree">
+
+<li><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" /> UNIT 7<div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />COSC</</br> <div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />100</</br> <div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />COSC 111</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />COSC 121</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />COSC 123</</br> <div ng-show="IsVisible"></ul>
+</ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />200</</br> <div ng-show="IsVisible">
+
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />COSC 211</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />COSC 222</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />COSC 223</</br> <div ng-show="IsVisible"></ul>
+</ul></ul>
+
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />PHYS</</br> <div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />100</</br> <div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />PHYS 111</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />PHYS 122</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />PHYS 131</</br> <div ng-show="IsVisible"></ul></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />200</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />300</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />400</</br> <div ng-show="IsVisible"></ul>
+</li>
+
+</ul> </ul>
+</div></div>
+
+
+<div>
+<div ng-app="Timetable" ng-controller="checkboxtree">
+<label for="check">
+<li><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" /> UNIT 8<div ng-show="IsVisible">
+
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />GEOG</</br> <div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />100</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />200</</br> <div ng-show="IsVisible"></ul>
+</ul></div>
+ </div>
+ 
+ 
+ <div>
+ <div ng-app="Timetable" ng-controller="checkboxtree">
+
+ <li><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" /> UNIT 9<div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />BIOL</</br> <div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />100</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />200</</br> <div ng-show="IsVisible"></ul></li>
+ 
+</li>
+
+</ul> </ul>
+</div></div>
+
+
+<div>
+<div ng-app="Timetable" ng-controller="checkboxtree">
+<label for="check">
+<li><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" /> UNIT 10<div ng-show="IsVisible">
+
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />GEOG</</br> <div ng-show="IsVisible">
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />100</</br> <div ng-show="IsVisible"></ul>
+<ul><input type="checkbox" id="check" ng-model="Show" ng-change="ShowHide()" />200</</br> <div ng-show="IsVisible"></ul>
+</ul></div>
+</div
+    </div>
+ 
+ </div>
+
+
+
+</div>
+
+</div>
+</div>
+ 
+</body>
+
+</head>
+</html>
