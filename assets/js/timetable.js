@@ -1,21 +1,8 @@
-var ex_data;
-
-ex_data = [{
-    subj: "COSC",
-    courseNo: "419J",
-    section: "L01",
-    term: 1,
-    actType: null,
-    days: {"mon": false, "tue": true, "wed": false, "thu": true, "fri": false},
-    startTime: 1200,
-    endTime: 1450,
-    instructor: "Scott Fazackerley",
-    TAName: "Dilbert"
-}];
+var course_data = [];
 
 function parseDays(day_string) {
     var arr = day_string.split(", ");
-    var days = {"mon": false, "tue": false, "wed": false, "thu": false, "fri": false}
+    var days = {"mon": false, "tue": false, "wed": false, "thu": false, "fri": false};
     for(var day in arr) {
         day = arr[day];
 
@@ -36,7 +23,7 @@ function parseDays(day_string) {
                 days["fri"] = true;
                 break;
             default:
-                throw "Invalid day string! (M, Tu, W, Th, F) " + arr;
+                throw "Invalid day string! (M, Tu, W, Th, F) " + day;
         }
     }
     return days;
@@ -48,6 +35,8 @@ function timeToInt(time_string) {
     var first = match[1];
     var second = match[2];
 
+    // Just some weird conversion so I can easily use integers to match times
+    // Can change later
     switch (second) {
         case "20":
         case "30":
@@ -58,7 +47,7 @@ function timeToInt(time_string) {
             second = "00";
             break;
         default:
-            throw "Unusual Time";
+            throw "Unusual Time: " + second;
     }
 
     return parseInt(first+second);
@@ -78,11 +67,16 @@ function colorize(subj, courseNo, section) {
     return colorcolor(col, "hex");
 }
 
+// Takes an array of course objects
 function loadTimetable(data) {
 
-    for(var datum_idx in data) {
+    course_data = course_data.concat(data);
 
-        var datum = data[datum_idx];
+    clearTimetable();
+
+    for(var datum_idx in course_data) {
+
+        var datum = course_data[datum_idx];
         var duration = datum.endTime - datum.startTime;
         var blocks = duration / 50;
 
@@ -98,30 +92,47 @@ function loadTimetable(data) {
 
             for (var block = 0; block < blocks; block++) {
 
-                var target = 'tr.hour_' + (datum.startTime + block*50) + ' td.' + day;
+                var cell = $('#timetable tr.hour_' + (datum.startTime + block*50) + ' td.' + day);
+
+                cell.css("background-color", colorize(datum.subj, datum.courseNo, datum.section));
+
                 if(blocks === 1) {
-                    $(target).addClass('block block-single');
+                    cell.addClass('block block-single').text(datum.subj + ' ' + datum.courseNo + ' ' + datum.section);
                 }
                 else if(block === 0) {
-                    $(target).addClass('block block-top');
+                    cell.addClass('block block-top').text(datum.subj + ' ' + datum.courseNo + ' ' + datum.section);
                 }
                 else if(block === blocks-1) {
-                    $(target).addClass('block block-bot');
+                    cell.addClass('block block-bot');
                 }
                 else {
-                    $(target).addClass('block');
+                    cell.addClass('block');
                 }
-                $(target).css("background-color", colorize(datum.subj, datum.courseNo, datum.section));
             }
-
-            $('tr.hour_' + datum.startTime + ' td.' + day).text(datum.subj + ' ' + datum.courseNo + ' ' + datum.section);
         }
     }
 }
 
+function clearTimetable() {
+    $('#timetable td').removeClass('block block-single block-top block-bot');
+}
 
+// Returns key-value pairs of input element's names and values
+(function ( $ ) {
+
+    $.fn.serializeObject = function() {
+        var result = { };
+        $.each(this.serializeArray(), function () {
+            result[this.name] = this.value;
+        });
+        return result;
+    };
+
+}( jQuery ));
 
 $(document).ready(function(){
+    console.log("Ready");
+
     $('#load-classes').click(function(){
         $.ajax({
             type: "POST",
@@ -135,14 +146,28 @@ $(document).ready(function(){
                     val["endTime"] = timeToInt(val["endTime"]);
                     return val;
                 });
-                ex_data = result;
                 loadTimetable(result);
             }
         });
     });
 
     $('#entry').submit(function(event){
-        console.log($(this).serializeArray());
+        var obj = $(this).serializeObject();
+
+        var day_array = ['mon','tue','wed','thu','fri','sat','sun'];
+        var days = {};
+
+        for(var day_idx in day_array) {
+            var day = day_array[day_idx];
+            days[day] = (obj[day] === "true");
+
+        }
+        obj['days'] = days;
+        obj["startTime"] = timeToInt(obj["startTime"]);
+        obj["endTime"] = timeToInt(obj["endTime"]);
+
+        loadTimetable([obj]);
+
         event.preventDefault();
     });
 });

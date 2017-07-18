@@ -522,19 +522,23 @@
             <button id="load-classes">
                 Load Classes
             </button>
-            <input id="entry">
-                <input type="text" name="subj">subj<br>
-                <input type="text" name="courseNo">courseNo<br>
-                <input type="text" name="section">section<br>
-                <input type="time" name="startTime">start<br>
-                <input type="time" name="endTime">end<br>
-                <input type="checkbox" name="mon">mon<br>
-                <input type="checkbox" name="tue">tue<br>
-                <input type="checkbox" name="wed">wed<br>
-                <input type="checkbox" name="thu">thu<br>
-                <input type="checkbox" name="fri">fri<br>
-                <input type="checkbox" name="sat">sat<br>
-                <input type="checkbox" name="sun">sun<br>
+            <form id="entry">
+                <input type="text" name="subj">Subject<br>
+                <input type="text" name="courseNo">Course Number<br>
+                <input type="text" name="section">Section<br>
+                <input type="text" name="actType">Activity Type<br>
+                <input type="text" name="instructor">Instructor<br>
+                <input type="text" name="TAName">TA Name<br>
+                <input type="text" name="term">Term<br>
+                <input type="time" name="startTime">Start<br>
+                <input type="time" name="endTime">End<br>
+                <input type="hidden" name="mon" value="false"><input type="checkbox" name="mon" value="true">mon<br>
+                <input type="hidden" name="tue" value="false"><input type="checkbox" name="tue" value="true">tue<br>
+                <input type="hidden" name="wed" value="false"><input type="checkbox" name="wed" value="true">wed<br>
+                <input type="hidden" name="thu" value="false"><input type="checkbox" name="thu" value="true">thu<br>
+                <input type="hidden" name="fri" value="false"><input type="checkbox" name="fri" value="true">fri<br>
+                <input type="hidden" name="sat" value="false"><input type="checkbox" name="sat" value="true">sat<br>
+                <input type="hidden" name="sun" value="false"><input type="checkbox" name="sun" value="true">sun<br>
                 <input type="submit" name="submit"><br>
             </form>
         </div>
