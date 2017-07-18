@@ -18,4 +18,8 @@ class Welcome extends CI_Controller {
 
 		$this->load->view('landing');
 	}
+
+	public function testing(){
+        $this->load->library('unit_test');
+    }
 }
