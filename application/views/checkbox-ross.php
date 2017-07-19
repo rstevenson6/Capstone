@@ -1,49 +1,66 @@
 <!DOCTYPE html>
 <?php
+$this->load->database();
 $query = LoadClasses();
 
 
+foreach ($query->result() as $row) {
 
-foreach ($query->result() as $row{
+    $subj = $row->subj;
+    $subj = strtoupper($subj);
+    $courseNo = $row->courseNo;
+    $section= $row->section;
 
-$subj = $row->subj;
-$subj = strtoupper($subj);
-$courseNo = $row->courseNo;
+    $ANTH = array();
+    $BIOL = array();
+    $CHEM = array();
+    $PSYC = array();
+    $COSC = array();
+    $MATH = array();
+    $PHYS = array();
+    $STAT = array();
+    $HIST = array();
+    $SOCI = array();
+    $EESC = array();
+    $ECON = array();
+    $PHIL = array();
+    $POLI = array();
 
-if(strcmp($subj, "ANTH"){
-
-}elseif(strcmp($subj,"INDG")){
-
-}elseif(strcmp($subj,"BIOL")){
-
-}elseif(strcmp($subj,"CHEM")){
-
-}elseif(strcmp($subj,"PSYC")){
-
-}elseif(strcmp($subj,"COSC")){
-
-}elseif(strcmp($subj,"MATH")){
-
-}elseif(strcmp($subj,"PHYS")){
-
-}elseif(strcmp($subj,"STAT")){
-
-}elseif(strcmp($subj,"HIST")){
-
-}elseif(strcmp($subj,"SOCI")){
-
-}elseif(strcmp($subj,"EESC")){
-
-}elseif(strcmp($subj,"ECON")){
-
-}elseif(strcmp($subj,"PHIL")){
-
-}elseif(strcmp($subj,"POLI")){
+    if (strcmp($subj, "ANTH")) {
+        $ANTH [] = $courseNo;
+    } elseif (strcmp($subj, "INDG")) {
+        $INDG [] = $courseNo;
+    } elseif (strcmp($subj, "BIOL")) {
+        $CHEM  [] = $courseNo;
+    } elseif (strcmp($subj, "CHEM")) {
+        $CHEM [] = $courseNo;
+    } elseif (strcmp($subj, "PSYC")) {
+        $PSYC [] = $courseNo;
+    } elseif (strcmp($subj, "COSC")) {
+        $COSC [] = $courseNo;
+    } elseif (strcmp($subj, "MATH")) {
+        $MATH [] = $courseNo;
+    } elseif (strcmp($subj, "PHYS")) {
+        $PHYS [] = $courseNo;
+    } elseif (strcmp($subj, "STAT")) {
+        $STAT [] = $courseNo;
+    } elseif (strcmp($subj, "HIST")) {
+        $HIST [] = $courseNo;
+    } elseif (strcmp($subj, "SOCI")) {
+        $SOCI [] = $courseNo;
+    } elseif (strcmp($subj, "EESC")) {
+        $EESC [] = $courseNo;
+    } elseif (strcmp($subj, "ECON")) {
+        $ECON [] = $courseNo;
+    } elseif (strcmp($subj, "PHIL")) {
+        $PHIL [] = $courseNo;
+    } elseif (strcmp($subj, "POLI")) {
+        $POLI [] = $courseNo;
+    }
 
 }
 
-
->
+?>
 
 <html>
 <head>
@@ -1678,101 +1695,101 @@ if(strcmp($subj, "ANTH"){
                 </ul>
             </li>
 
-                <div>
-                    <input type="checkbox"/><a href="#">POLI </a>
-                </div>
-                <ul class="accordion">
-                    <li>
-                        <div>
-                            <input type="checkbox"/><a href="#">100</a>
-                        </div>
-                        <ul class="accordion">
-                            <li>
-                                <div>
-                                    <input type="checkbox"/><a href="#">100 level course</a>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <input type="checkbox"/><a href="#">100 level course</a>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <input type="checkbox"/><a href="#">100 level course</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <div>
-                            <input type="checkbox"/><a href="#">200</a>
-                        </div>
-                        <ul class="accordion">
-                            <li>
-                                <div>
-                                    <input type="checkbox"/><a href="#">200 level course</a>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <input type="checkbox"/><a href="#">200 level course</a>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <input type="checkbox"/><a href="#">200 level course</a>
-                                </div>
-                            </li>
-                        </ul>
-                    <li>
-                        <div>
-                            <input type="checkbox"/><a href="#">300</a>
-                        </div>
-                        <ul class="accordion">
-                            <li>
-                                <div>
-                                    <input type="checkbox"/><a href="#">300 level course</a>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <input type="checkbox"/><a href="#">300 level course</a>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <input type="checkbox"/><a href="#">300 level course</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <div>
-                            <input type="checkbox"/><a href="#">400</a>
-                        </div>
-                        <ul class="accordion">
-                            <li>
-                                <div>
-                                    <input type="checkbox"/><a href="#">400 level course</a>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <input type="checkbox"/><a href="#">400 level course</a>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <input type="checkbox"/><a href="#">400 level course</a>
-                                </div>
-                            </li>
-                            </li>
+            <div>
+                <input type="checkbox"/><a href="#">POLI </a>
+            </div>
+            <ul class="accordion">
+                <li>
+                    <div>
+                        <input type="checkbox"/><a href="#">100</a>
+                    </div>
+                    <ul class="accordion">
+                        <li>
+                            <div>
+                                <input type="checkbox"/><a href="#">100 level course</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="checkbox"/><a href="#">100 level course</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="checkbox"/><a href="#">100 level course</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <div>
+                        <input type="checkbox"/><a href="#">200</a>
+                    </div>
+                    <ul class="accordion">
+                        <li>
+                            <div>
+                                <input type="checkbox"/><a href="#">200 level course</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="checkbox"/><a href="#">200 level course</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="checkbox"/><a href="#">200 level course</a>
+                            </div>
+                        </li>
+                    </ul>
+                <li>
+                    <div>
+                        <input type="checkbox"/><a href="#">300</a>
+                    </div>
+                    <ul class="accordion">
+                        <li>
+                            <div>
+                                <input type="checkbox"/><a href="#">300 level course</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="checkbox"/><a href="#">300 level course</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="checkbox"/><a href="#">300 level course</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <div>
+                        <input type="checkbox"/><a href="#">400</a>
+                    </div>
+                    <ul class="accordion">
+                        <li>
+                            <div>
+                                <input type="checkbox"/><a href="#">400 level course</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="checkbox"/><a href="#">400 level course</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="checkbox"/><a href="#">400 level course</a>
+                            </div>
+                        </li>
+                        </li>
 
-                        </ul>
-                    </li>
+                    </ul>
+                </li>
 
-                </ul>
+            </ul>
             </li>
             </li>
             </li>

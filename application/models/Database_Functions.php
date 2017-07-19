@@ -5,7 +5,7 @@ class Database_Functions
     #LOAD FUNCTIONS: LoadClasses LoadProfs, LoadTAs
 
     public function LoadClasses()
-    {   $sql ="SELECT subj, courseNo, section FROM class";
+    {   $sql ="SELECT subj, courseNo, section FROM class ORDER BY subj DESC";
         $query = $this->db->query($sql);
 
         return $query;

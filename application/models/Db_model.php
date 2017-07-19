@@ -1,6 +1,7 @@
 <?php
 
-class Db_model extends CI_Model {
+class Db_model extends CI_Model
+{
 
     public function __construct()
     {
@@ -69,7 +70,7 @@ class Db_model extends CI_Model {
 
     public function LoadClassKeys()
     {
-        $sql ="SELECT subj, courseNo, section FROM class";
+        $sql = "SELECT subj, courseNo, section FROM class";
         $query = $this->db->query($sql);
 
         return $query;
@@ -131,7 +132,7 @@ class Db_model extends CI_Model {
 
     public function DeleteProf($name)
     {
-        $sql ="DELETE FROM instructors WHERE name = ?";
+        $sql = "DELETE FROM instructors WHERE name = ?";
         $query = $this->db->query($sql, $name);
 
         return $query;
@@ -151,7 +152,7 @@ class Db_model extends CI_Model {
     public function updateSectionTime($subj, $courseNo, $section, $days, $startTime, $endTime)
     {
         $sql = "UPDATE class SET days = ?, startTime = ?, endTime = ? WHERE subj = ? AND courseNo = ? AND section = ?";
-        $query = $this->db->query(array($sql, array($days, $startTime, $endTime,$subj, $courseNo, $section)));
+        $query = $this->db->query(array($sql, array($days, $startTime, $endTime, $subj, $courseNo, $section)));
 
         return $query;
     }
