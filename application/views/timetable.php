@@ -522,6 +522,9 @@
             <button id="load-classes">
                 Load Classes
             </button>
+            <button id="wipe-classes">
+                Wipe Timetable
+            </button>
             <form id="entry">
                 <input type="text" name="subj">Subject<br>
                 <input type="text" name="courseNo">Course Number<br>

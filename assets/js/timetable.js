@@ -68,12 +68,24 @@ function colorize(subj, courseNo, section) {
 }
 
 // Takes an array of course objects
-function loadTimetable(data) {
+function newTimetable(data) {
+
+    course_data = data;
+
+    clearTimetable();
+    displayTimetable();
+}
+
+// Takes an array of course objects
+function appendTimetable(data) {
 
     course_data = course_data.concat(data);
 
     clearTimetable();
+    displayTimetable();
+}
 
+function displayTimetable() {
     for(var datum_idx in course_data) {
 
         var datum = course_data[datum_idx];
@@ -114,9 +126,15 @@ function loadTimetable(data) {
 }
 
 function clearTimetable() {
-    $('#timetable td').removeClass('block block-single block-top block-bot');
+    $('#timetable td').text('').css({'background-color': ''}).removeClass('block block-single block-top block-bot');
 }
 
+function deleteTimetable() {
+    course_data = [];
+    clearTimetable();
+}
+
+// Custom jQuery function
 // Returns key-value pairs of input element's names and values
 (function ( $ ) {
 
@@ -129,6 +147,7 @@ function clearTimetable() {
     };
 
 }( jQuery ));
+
 
 $(document).ready(function(){
     console.log("Ready");
@@ -146,9 +165,13 @@ $(document).ready(function(){
                     val["endTime"] = timeToInt(val["endTime"]);
                     return val;
                 });
-                loadTimetable(result);
+                newTimetable(result);
             }
         });
+    });
+
+    $('#wipe-classes').click(function () {
+        deleteTimetable();
     });
 
     $('#entry').submit(function(event){
@@ -166,7 +189,7 @@ $(document).ready(function(){
         obj["startTime"] = timeToInt(obj["startTime"]);
         obj["endTime"] = timeToInt(obj["endTime"]);
 
-        loadTimetable([obj]);
+        appendTimetable([obj]);
 
         event.preventDefault();
     });
