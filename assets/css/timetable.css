@@ -4,12 +4,13 @@
 
 #left-container {
     float: left;
-    width: 70%;
+    width: 75%;
+    overflow: hidden;
 }
 
 #right-container {
     float: right;
-    width: 30%;
+    width: 25%;
 }
 
 table, th, td {
@@ -18,7 +19,7 @@ table, th, td {
 }
 
 table {
-    width: 100%;
+    width: 95%;
 }
 
 th {
@@ -26,7 +27,6 @@ th {
 }
 
 td {
-    width: 100000px;
 }
 
 .block {

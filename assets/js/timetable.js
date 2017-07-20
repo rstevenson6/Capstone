@@ -31,6 +31,10 @@ function parseDays(day_string) {
 
 function timeToInt(time_string) {
 
+    if(parseInt(time_string) % 50 === 0) {
+        return parseInt(time_string);
+    }
+
     var match = /(\d{1,2}):(\d{2})/.exec(time_string);
     var first = match[1];
     var second = match[2];
@@ -107,6 +111,7 @@ function displayTimetable() {
                 var cell = $('#timetable tr.hour_' + (datum.startTime + block*50) + ' td.' + day);
 
                 cell.css("background-color", colorize(datum.subj, datum.courseNo, datum.section));
+                cell.data('index', datum_idx);
 
                 if(blocks === 1) {
                     cell.addClass('block block-single').text(datum.subj + ' ' + datum.courseNo + ' ' + datum.section);
@@ -126,7 +131,7 @@ function displayTimetable() {
 }
 
 function clearTimetable() {
-    $('#timetable td').text('').css({'background-color': ''}).removeClass('block block-single block-top block-bot');
+    $('#timetable td').removeData('index').text('').css({'background-color': ''}).removeClass('block block-single block-top block-bot');
 }
 
 function deleteTimetable() {
@@ -152,7 +157,7 @@ function deleteTimetable() {
 $(document).ready(function(){
     console.log("Ready");
 
-    $('#load-classes').click(function(){
+    $('#load-courses').click(function(){
         $.ajax({
             type: "POST",
             url: "/ajax/getTermOneClasses",
@@ -170,11 +175,13 @@ $(document).ready(function(){
         });
     });
 
-    $('#wipe-classes').click(function () {
+    $('#wipe-courses').click(function () {
         deleteTimetable();
     });
 
-    $('#entry').submit(function(event){
+    $('#course-entry').submit(function(event){
+        event.preventDefault();
+
         var obj = $(this).serializeObject();
 
         var day_array = ['mon','tue','wed','thu','fri','sat','sun'];
@@ -190,7 +197,62 @@ $(document).ready(function(){
         obj["endTime"] = timeToInt(obj["endTime"]);
 
         appendTimetable([obj]);
+    });
 
+    $('#timetable td').click(function() {
+        var datum_idx = $(this).data("index");
+        if(datum_idx === undefined) { console.log("datum_idx undefined!"); return; }
+        populateCourseForm($('#course-edit'), datum_idx);
+    });
+
+    function populateCourseForm(form, datum_idx) {
+        var datum = course_data[datum_idx];
+        for(var key in datum) {
+            if(key === "days") {
+                for(var dayKey in datum["days"]) {
+                    $("input[name='" + dayKey + "']", form).prop("checked", datum["days"][dayKey]);
+                }
+                continue;
+            }
+            $("input[name='" + key + "']", form).val(datum[key]);
+        }
+        form.data('edit-index', datum_idx);
+    }
+
+    function clearCourseForm(form) {
+        $("input[type='text']", form).val('');
+        $("input[type='time']", form).val('');
+        $("input[type='checkbox']").prop("checked", false);
+        form.removeData('edit-index');
+    }
+
+    $("#course-edit input[name='cancel']").click(function() {
+        clearCourseForm($("#course-edit"));
+    });
+
+    $("#course-edit").submit(function(event){
         event.preventDefault();
+        console.log("Course-edit");
+        var datum_idx = $(this).data('edit-index');
+        console.log(datum_idx);
+        if(datum_idx === undefined) { console.log("datum_idx undefined!"); return; }
+        course_data.splice(datum_idx, 1);
+
+        var obj = $(this).serializeObject();
+
+        var day_array = ['mon','tue','wed','thu','fri','sat','sun'];
+        var days = {};
+
+        for(var day_idx in day_array) {
+            var day = day_array[day_idx];
+            days[day] = (obj[day] === "true");
+
+        }
+        obj['days'] = days;
+        obj["startTime"] = timeToInt(obj["startTime"]);
+        obj["endTime"] = timeToInt(obj["endTime"]);
+
+        clearCourseForm($("#course-edit"));
+        appendTimetable([obj]);
     });
 });
