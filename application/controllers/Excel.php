@@ -18,7 +18,6 @@ class Excel extends CI_Controller {
   {
     parent::__construct();
     $this->load->library('excel/phpexcel');
-    $this->load->library('excel/filters/myreadfilter');
   }
 
   public function test()
@@ -27,17 +26,16 @@ class Excel extends CI_Controller {
     $this->load->view('temp/display', $data);
   }
 
-  public function index($sheetName = 'Winter%202017-18')
+  public function index()
   {
-    $sheetName = urldecode($sheetName);
-
     $file = './files/edplan.xlsx';
-    if (!file_exists($file) || !isset($sheetName)) {
-      return;
+    if (!file_exists($file)) {
+      // TODO: display an error message saying the file was not found
+      show_404();
+      exit();
     }
 
     $objReader = PHPExcel_IOFactory::createReaderForFile($file);
-    $objReader->setLoadSheetsOnly($sheetName);
     $objPHPExcel = $objReader->load($file);
     $objWorksheet = $objPHPExcel->getActiveSheet();
 
