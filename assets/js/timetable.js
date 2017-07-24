@@ -251,17 +251,21 @@ $(document).ready(function(){
         clearCourseForm($("#course-edit"));
     });
 
+    //Course edit form submission
     $("#course-edit").submit(function(event){
         event.preventDefault();
+
+        //Close form
         $('#edit-menu').slideUp();
         $('#course-menu').slideDown();
 
-        console.log("Course-edit");
+        //Check to see if the index to the course data is defined on form
         var datum_idx = $(this).data('edit-index');
-        console.log(datum_idx);
         if(datum_idx === undefined) { console.log("datum_idx undefined!"); return; }
+        //Remove the course from the course data
         course_data.splice(datum_idx, 1);
 
+        //Get form inputs as key-value pairs
         var obj = $(this).serializeObject();
 
         var day_array = ['mon','tue','wed','thu','fri','sat','sun'];
@@ -277,6 +281,7 @@ $(document).ready(function(){
         obj["endTime"] = timeToInt(obj["endTime"]);
 
         clearCourseForm($("#course-edit"));
+        //Add the new "edited" course to the course data and refresh timetable
         appendTimetable([obj]);
     });
 });
