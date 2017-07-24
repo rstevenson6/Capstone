@@ -1,3 +1,5 @@
+//Data is stored in key-value pairs with the same naming as the database.
+//Only difference is that the days are stored in their own object as booleans
 var course_data = [];
 
 function parseDays(day_string) {
@@ -59,19 +61,24 @@ function timeToInt(time_string) {
 
 function colorize(subj, courseNo, section) {
     Math.seedrandom(subj);
-    var hue = parseInt(Math.random()*360);
+    var hueR = Math.random();
+    Math.seedrandom(subj + courseNo);
+    var satR = Math.random();
+    Math.seedrandom(subj + courseNo + section);
+    var valR = Math.random();
 
-    Math.seedrandom(courseNo);
-    var sat = parseInt(40+Math.random()*30);
+    var hue = parseInt(hueR*360);
 
-    Math.seedrandom(section);
-    var val = parseInt(70+Math.random()*30);
+    var sat = parseInt(40+satR*30);
+
+    var val = parseInt(70+valR*30);
 
     var col = "hsv(" + hue + "," + sat + "%," + val + "%)";
     return colorcolor(col, "hex");
 }
 
 // Takes an array of course objects
+// Overwrite course data and refresh timetable
 function newTimetable(data) {
 
     course_data = data;
@@ -81,6 +88,7 @@ function newTimetable(data) {
 }
 
 // Takes an array of course objects
+// Adds array of course to current course array and refresh timetable
 function appendTimetable(data) {
 
     course_data = course_data.concat(data);
@@ -96,21 +104,22 @@ function displayTimetable() {
         var duration = datum.endTime - datum.startTime;
         var blocks = duration / 50;
 
-        console.log(datum.subj, datum.courseNo);
-        console.log(datum);
-
-
+        //Iterate through the days
         for(var day in datum.days) {
 
+            //If the day is not set, or false, skip.
             if(!datum.days[day]) {
                 continue;
             }
 
+            //Style each half-hour "block"
             for (var block = 0; block < blocks; block++) {
 
                 var cell = $('#timetable tr.hour_' + (datum.startTime + block*50) + ' td.' + day);
 
+                //Set seeded color
                 cell.css("background-color", colorize(datum.subj, datum.courseNo, datum.section));
+                //Store index to course data for future reference
                 cell.data('index', datum_idx);
 
                 if(blocks === 1) {
@@ -130,17 +139,19 @@ function displayTimetable() {
     }
 }
 
+//Clear timetable but retain course data
 function clearTimetable() {
     $('#timetable td').removeData('index').text('').css({'background-color': ''}).removeClass('block block-single block-top block-bot');
 }
 
+//Clear timetable and delete course data
 function deleteTimetable() {
     course_data = [];
     clearTimetable();
 }
 
 // Custom jQuery function
-// Returns key-value pairs of input element's names and values
+// Returns key-value pairs of a form's input element's names and values
 (function ( $ ) {
 
     $.fn.serializeObject = function() {
@@ -153,10 +164,10 @@ function deleteTimetable() {
 
 }( jQuery ));
 
-
+//Wait for document load
 $(document).ready(function(){
-    console.log("Ready");
 
+    //Load example courses on click
     $('#load-courses').click(function(){
         $.ajax({
             type: "POST",
@@ -179,14 +190,17 @@ $(document).ready(function(){
         deleteTimetable();
     });
 
+    //Manual entry form submission
     $('#course-entry').submit(function(event){
         event.preventDefault();
 
+        //Get form fields as key(name attribute)-value pairs
         var obj = $(this).serializeObject();
 
         var day_array = ['mon','tue','wed','thu','fri','sat','sun'];
         var days = {};
 
+        //Populate a "day" object to follow the structure of the course objects
         for(var day_idx in day_array) {
             var day = day_array[day_idx];
             days[day] = (obj[day] === "true");
@@ -199,12 +213,17 @@ $(document).ready(function(){
         appendTimetable([obj]);
     });
 
+    //Edit course on click
     $('#timetable td').click(function() {
         var datum_idx = $(this).data("index");
         if(datum_idx === undefined) { console.log("datum_idx undefined!"); return; }
         populateCourseForm($('#course-edit'), datum_idx);
+        $('#edit-menu').slideDown();
+        $('#course-menu').slideUp();
     });
 
+    //Populates a form with course data
+    //Form must have fields named the same as the db
     function populateCourseForm(form, datum_idx) {
         var datum = course_data[datum_idx];
         for(var key in datum) {
@@ -227,11 +246,16 @@ $(document).ready(function(){
     }
 
     $("#course-edit input[name='cancel']").click(function() {
+        $('#edit-menu').slideUp();
+        $('#course-menu').slideDown();
         clearCourseForm($("#course-edit"));
     });
 
     $("#course-edit").submit(function(event){
         event.preventDefault();
+        $('#edit-menu').slideUp();
+        $('#course-menu').slideDown();
+
         console.log("Course-edit");
         var datum_idx = $(this).data('edit-index');
         console.log(datum_idx);

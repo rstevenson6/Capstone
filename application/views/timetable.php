@@ -514,15 +514,18 @@
         </div>
     </div>
     <div id="right-container" class="container">
-            Course Menu
+        Course Menu
+        <br>
+        <button id="load-courses">
+            Load Example Courses
+        </button>
         <div id="course-menu">
-            Course
-            <button id="load-courses">
-                Load Classes
-            </button>
             <button id="wipe-courses">
                 Wipe Timetable
             </button>
+            <h2>
+                Manual Entry
+            </h2>
             <form id="course-entry">
                 <input type="text" name="subj">Subject<br>
                 <input type="text" name="courseNo">Course Number<br>
@@ -545,7 +548,9 @@
         </div>
         <br>
         <div id="edit-menu">
-            Edit Selected Course
+            <h2>
+                Edit Selected Course
+            </h2>
             <form id="course-edit">
                 <input type="text" name="subj">Subject<br>
                 <input type="text" name="courseNo">Course Number<br>
