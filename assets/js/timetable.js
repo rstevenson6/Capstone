@@ -1,21 +1,10 @@
-var ex_data;
-
-ex_data = [{
-    subj: "COSC",
-    courseNo: "419J",
-    section: "L01",
-    term: 1,
-    actType: null,
-    days: {"mon": false, "tue": true, "wed": false, "thu": true, "fri": false},
-    startTime: 1200,
-    endTime: 1450,
-    instructor: "Scott Fazackerley",
-    TAName: "Dilbert"
-}];
+//Data is stored in key-value pairs with the same naming as the database.
+//Only difference is that the days are stored in their own object as booleans
+var course_data = [];
 
 function parseDays(day_string) {
     var arr = day_string.split(", ");
-    var days = {"mon": false, "tue": false, "wed": false, "thu": false, "fri": false}
+    var days = {"mon": false, "tue": false, "wed": false, "thu": false, "fri": false};
     for(var day in arr) {
         day = arr[day];
 
@@ -36,7 +25,7 @@ function parseDays(day_string) {
                 days["fri"] = true;
                 break;
             default:
-                throw "Invalid day string! (M, Tu, W, Th, F) " + arr;
+                throw "Invalid day string! (M, Tu, W, Th, F) " + day;
         }
     }
     return days;
@@ -44,10 +33,16 @@ function parseDays(day_string) {
 
 function timeToInt(time_string) {
 
+    if(parseInt(time_string) % 50 === 0) {
+        return parseInt(time_string);
+    }
+
     var match = /(\d{1,2}):(\d{2})/.exec(time_string);
     var first = match[1];
     var second = match[2];
 
+    // Just some weird conversion so I can easily use integers to match times
+    // Can change later
     switch (second) {
         case "20":
         case "30":
@@ -58,7 +53,7 @@ function timeToInt(time_string) {
             second = "00";
             break;
         default:
-            throw "Unusual Time";
+            throw "Unusual Time: " + second;
     }
 
     return parseInt(first+second);
@@ -66,61 +61,114 @@ function timeToInt(time_string) {
 
 function colorize(subj, courseNo, section) {
     Math.seedrandom(subj);
-    var hue = parseInt(Math.random()*360);
+    var hueR = Math.random();
+    Math.seedrandom(subj + courseNo);
+    var satR = Math.random();
+    Math.seedrandom(subj + courseNo + section);
+    var valR = Math.random();
 
-    Math.seedrandom(courseNo);
-    var sat = parseInt(40+Math.random()*30);
+    var hue = parseInt(hueR*360);
 
-    Math.seedrandom(section);
-    var val = parseInt(70+Math.random()*30);
+    var sat = parseInt(40+satR*30);
+
+    var val = parseInt(70+valR*30);
 
     var col = "hsv(" + hue + "," + sat + "%," + val + "%)";
     return colorcolor(col, "hex");
 }
 
-function loadTimetable(data) {
+// Takes an array of course objects
+// Overwrite course data and refresh timetable
+function newTimetable(data) {
 
-    for(var datum_idx in data) {
+    course_data = data;
 
-        var datum = data[datum_idx];
+    clearTimetable();
+    displayTimetable();
+}
+
+// Takes an array of course objects
+// Adds array of course to current course array and refresh timetable
+function appendTimetable(data) {
+
+    course_data = course_data.concat(data);
+
+    clearTimetable();
+    displayTimetable();
+}
+
+function displayTimetable() {
+    for(var datum_idx in course_data) {
+
+        var datum = course_data[datum_idx];
         var duration = datum.endTime - datum.startTime;
         var blocks = duration / 50;
 
-        console.log(datum.subj, datum.courseNo);
-        console.log(datum);
-
-
+        //Iterate through the days
         for(var day in datum.days) {
 
+            //If the day is not set, or false, skip.
             if(!datum.days[day]) {
                 continue;
             }
 
+            //Style each half-hour "block"
             for (var block = 0; block < blocks; block++) {
 
-                var target = 'tr.hour_' + (datum.startTime + block*50) + ' td.' + day;
+                var cell = $('#timetable tr.hour_' + (datum.startTime + block*50) + ' td.' + day);
+
+                //Set seeded color
+                cell.css("background-color", colorize(datum.subj, datum.courseNo, datum.section));
+                //Store index to course data for future reference
+                cell.data('index', datum_idx);
+
                 if(blocks === 1) {
-                    $(target).addClass('block block-single');
+                    cell.addClass('block block-single').text(datum.subj + ' ' + datum.courseNo + ' ' + datum.section);
                 }
                 else if(block === 0) {
-                    $(target).addClass('block block-top');
+                    cell.addClass('block block-top').text(datum.subj + ' ' + datum.courseNo + ' ' + datum.section);
                 }
                 else if(block === blocks-1) {
-                    $(target).addClass('block block-bot');
+                    cell.addClass('block block-bot');
                 }
                 else {
-                    $(target).addClass('block');
+                    cell.addClass('block');
                 }
-                $(target).css("background-color", colorize(datum.subj, datum.courseNo, datum.section));
             }
-
-            $('tr.hour_' + datum.startTime + ' td.' + day).text(datum.subj + ' ' + datum.courseNo + ' ' + datum.section);
         }
     }
 }
 
+//Clear timetable but retain course data
+function clearTimetable() {
+    $('#timetable td').removeData('index').text('').css({'background-color': ''}).removeClass('block block-single block-top block-bot');
+}
+
+//Clear timetable and delete course data
+function deleteTimetable() {
+    course_data = [];
+    clearTimetable();
+}
+
+// Custom jQuery function
+// Returns key-value pairs of a form's input element's names and values
+(function ( $ ) {
+
+    $.fn.serializeObject = function() {
+        var result = { };
+        $.each(this.serializeArray(), function () {
+            result[this.name] = this.value;
+        });
+        return result;
+    };
+
+}( jQuery ));
+
+//Wait for document load
 $(document).ready(function(){
-    $('#load-classes').click(function(){
+
+    //Load example courses on click
+    $('#load-courses').click(function(){
         $.ajax({
             type: "POST",
             url: "/ajax/getTermOneClasses",
@@ -133,9 +181,107 @@ $(document).ready(function(){
                     val["endTime"] = timeToInt(val["endTime"]);
                     return val;
                 });
-                ex_data = result;
-                loadTimetable(result);
+                newTimetable(result);
             }
         });
+    });
+
+    $('#wipe-courses').click(function () {
+        deleteTimetable();
+    });
+
+    //Manual entry form submission
+    $('#course-entry').submit(function(event){
+        event.preventDefault();
+
+        //Get form fields as key(name attribute)-value pairs
+        var obj = $(this).serializeObject();
+
+        var day_array = ['mon','tue','wed','thu','fri','sat','sun'];
+        var days = {};
+
+        //Populate a "day" object to follow the structure of the course objects
+        for(var day_idx in day_array) {
+            var day = day_array[day_idx];
+            days[day] = (obj[day] === "true");
+
+        }
+        obj['days'] = days;
+        obj["startTime"] = timeToInt(obj["startTime"]);
+        obj["endTime"] = timeToInt(obj["endTime"]);
+
+        appendTimetable([obj]);
+    });
+
+    //Edit course on click
+    $('#timetable td').click(function() {
+        var datum_idx = $(this).data("index");
+        if(datum_idx === undefined) { console.log("datum_idx undefined!"); return; }
+        populateCourseForm($('#course-edit'), datum_idx);
+        $('#edit-menu').slideDown();
+        $('#course-menu').slideUp();
+    });
+
+    //Populates a form with course data
+    //Form must have fields named the same as the db
+    function populateCourseForm(form, datum_idx) {
+        var datum = course_data[datum_idx];
+        for(var key in datum) {
+            if(key === "days") {
+                for(var dayKey in datum["days"]) {
+                    $("input[name='" + dayKey + "']", form).prop("checked", datum["days"][dayKey]);
+                }
+                continue;
+            }
+            $("input[name='" + key + "']", form).val(datum[key]);
+        }
+        form.data('edit-index', datum_idx);
+    }
+
+    function clearCourseForm(form) {
+        $("input[type='text']", form).val('');
+        $("input[type='time']", form).val('');
+        $("input[type='checkbox']").prop("checked", false);
+        form.removeData('edit-index');
+    }
+
+    $("#course-edit input[name='cancel']").click(function() {
+        $('#edit-menu').slideUp();
+        $('#course-menu').slideDown();
+        clearCourseForm($("#course-edit"));
+    });
+
+    //Course edit form submission
+    $("#course-edit").submit(function(event){
+        event.preventDefault();
+
+        //Close form
+        $('#edit-menu').slideUp();
+        $('#course-menu').slideDown();
+
+        //Check to see if the index to the course data is defined on form
+        var datum_idx = $(this).data('edit-index');
+        if(datum_idx === undefined) { console.log("datum_idx undefined!"); return; }
+        //Remove the course from the course data
+        course_data.splice(datum_idx, 1);
+
+        //Get form inputs as key-value pairs
+        var obj = $(this).serializeObject();
+
+        var day_array = ['mon','tue','wed','thu','fri','sat','sun'];
+        var days = {};
+
+        for(var day_idx in day_array) {
+            var day = day_array[day_idx];
+            days[day] = (obj[day] === "true");
+
+        }
+        obj['days'] = days;
+        obj["startTime"] = timeToInt(obj["startTime"]);
+        obj["endTime"] = timeToInt(obj["endTime"]);
+
+        clearCourseForm($("#course-edit"));
+        //Add the new "edited" course to the course data and refresh timetable
+        appendTimetable([obj]);
     });
 });
