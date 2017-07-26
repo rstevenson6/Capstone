@@ -514,14 +514,63 @@
         </div>
     </div>
     <div id="right-container" class="container">
+        Course Menu
+        <br>
+        <button id="load-courses">
+            Load Example Courses
+        </button>
         <div id="course-menu">
-            Course Menu
-        </div>
-        <div id="course">
-            Course
-            <button id="load-classes">
-                Load Classes
+            <button id="wipe-courses">
+                Wipe Timetable
             </button>
+            <h2>
+                Manual Entry
+            </h2>
+            <form id="course-entry">
+                <input type="text" name="subj">Subject<br>
+                <input type="text" name="courseNo">Course Number<br>
+                <input type="text" name="section">Section<br>
+                <input type="text" name="actType">Activity Type<br>
+                <input type="text" name="instructor">Instructor<br>
+                <input type="text" name="TAName">TA Name<br>
+                <input type="text" name="term">Term<br>
+                <input type="time" name="startTime">Start<br>
+                <input type="time" name="endTime">End<br>
+                <input type="hidden" name="mon" value="false"><input type="checkbox" name="mon" value="true">mon<br>
+                <input type="hidden" name="tue" value="false"><input type="checkbox" name="tue" value="true">tue<br>
+                <input type="hidden" name="wed" value="false"><input type="checkbox" name="wed" value="true">wed<br>
+                <input type="hidden" name="thu" value="false"><input type="checkbox" name="thu" value="true">thu<br>
+                <input type="hidden" name="fri" value="false"><input type="checkbox" name="fri" value="true">fri<br>
+                <input type="hidden" name="sat" value="false"><input type="checkbox" name="sat" value="true">sat<br>
+                <input type="hidden" name="sun" value="false"><input type="checkbox" name="sun" value="true">sun<br>
+                <input type="submit" name="submit"><br>
+            </form>
+        </div>
+        <br>
+        <div id="edit-menu">
+            <h2>
+                Edit Selected Course
+            </h2>
+            <form id="course-edit">
+                <input type="text" name="subj">Subject<br>
+                <input type="text" name="courseNo">Course Number<br>
+                <input type="text" name="section">Section<br>
+                <input type="text" name="actType">Activity Type<br>
+                <input type="text" name="instructor">Instructor<br>
+                <input type="text" name="TAName">TA Name<br>
+                <input type="text" name="term">Term<br>
+                <input type="time" name="startTime">Start<br>
+                <input type="time" name="endTime">End<br>
+                <input type="hidden" name="mon" value="false"><input type="checkbox" name="mon" value="true">mon<br>
+                <input type="hidden" name="tue" value="false"><input type="checkbox" name="tue" value="true">tue<br>
+                <input type="hidden" name="wed" value="false"><input type="checkbox" name="wed" value="true">wed<br>
+                <input type="hidden" name="thu" value="false"><input type="checkbox" name="thu" value="true">thu<br>
+                <input type="hidden" name="fri" value="false"><input type="checkbox" name="fri" value="true">fri<br>
+                <input type="hidden" name="sat" value="false"><input type="checkbox" name="sat" value="true">sat<br>
+                <input type="hidden" name="sun" value="false"><input type="checkbox" name="sun" value="true">sun<br>
+                <input type="hidden" name="index" value="">
+                <input type="submit" name="submit"><input type="button" name="cancel" value="Cancel"><br>
+            </form>
         </div>
     </div>
 </div>
