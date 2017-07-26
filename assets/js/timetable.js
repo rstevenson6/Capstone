@@ -159,6 +159,7 @@ function deleteTimetable() {
         $.each(this.serializeArray(), function () {
             result[this.name] = this.value;
         });
+        console.log(this.serializeArray());
         return result;
     };
 
@@ -283,5 +284,77 @@ $(document).ready(function(){
         clearCourseForm($("#course-edit"));
         //Add the new "edited" course to the course data and refresh timetable
         appendTimetable([obj]);
+    });
+
+    // Populate select with profs
+    $.ajax({
+        type: "POST",
+        url: "/ajax/getProfs",
+        dataType: 'json',
+        success: function(result) {
+            var prof_select = $('#instructor-list');
+            for(var obj_idx in result) {
+                var prof = result[obj_idx]["name"];
+                prof_select.append($('<option>', {
+                    value: prof,
+                    text: prof
+                }));
+            }
+        }
+    });
+
+    // Populate select with TAs
+    $.ajax({
+        type: "POST",
+        url: "/ajax/getTAs",
+        dataType: 'json',
+        success: function(result) {
+            var TA_select = $('#TA-list');
+            for(var obj_idx in result) {
+                var TA = result[obj_idx]["name"];
+                TA_select.append($('<option>', {
+                    value: TA,
+                    text: TA
+                }));
+            }
+        }
+    });
+
+    //Load instructor courses on click
+    $('#load-instructor').click(function(){
+        $.ajax({
+            type: "POST",
+            url: "/ajax/getProfClasses",
+            dataType: 'json',
+            data: {name: $('#instructor-list').val()},
+            success: function(result){
+                result = result.map(function(val) {
+                    val["days"] = parseDays(val["days"]);
+                    val["startTime"] = timeToInt(val["startTime"]);;
+                    val["endTime"] = timeToInt(val["endTime"]);
+                    return val;
+                });
+                newTimetable(result);
+            }
+        });
+    });
+
+    //Load TA courses on click
+    $('#load-TA').click(function(){
+        $.ajax({
+            type: "POST",
+            url: "/ajax/getTAClasses",
+            dataType: 'json',
+            data: {name: $('#TA-list').val()},
+            success: function(result){
+                result = result.map(function(val) {
+                    val["days"] = parseDays(val["days"]);
+                    val["startTime"] = timeToInt(val["startTime"]);;
+                    val["endTime"] = timeToInt(val["endTime"]);
+                    return val;
+                });
+                newTimetable(result);
+            }
+        });
     });
 });

@@ -519,10 +519,27 @@
         <button id="load-courses">
             Load Example Courses
         </button>
+        <button id="wipe-courses">
+            Wipe Timetable
+        </button>
+        <br><br>
+        <select id="instructor-list">
+            <option value="">None</option>
+        </select>
+        <br>
+        <button id="load-instructor">
+            Load Instructor
+        </button>
+        <br><br>
+        <select id="TA-list">
+            <option value="">None</option>
+        </select>
+        <br>
+        <button id="load-TA">
+            Load TA
+        </button>
+        <br><br>
         <div id="course-menu">
-            <button id="wipe-courses">
-                Wipe Timetable
-            </button>
             <h2>
                 Manual Entry
             </h2>
