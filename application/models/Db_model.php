@@ -145,6 +145,14 @@ class Db_model extends CI_Model {
         return $query;
     }
 
+    public function EmptyAll()
+    {
+        $query = $this->db->empty_table('instructors');
+        $query = $this->db->empty_table('class');
+        $query = $this->db->empty_table('ta');
+
+        return true; // not sure how to get around this hardcoding
+    }
 
     #UPDATE FUNCTIONS: UpdateSection
 

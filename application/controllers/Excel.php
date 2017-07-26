@@ -22,7 +22,7 @@ class Excel extends CI_Controller {
     $this->load->library('excel/phpexcel');
   }
 
-  public function index()
+  public function import()
   {
     $file = './files/edplan.xlsx';
     if (!file_exists($file)) {
@@ -30,6 +30,8 @@ class Excel extends CI_Controller {
       show_404();
       exit();
     }
+
+    $this->db_model->EmptyAll();
 
     $objReader = PHPExcel_IOFactory::createReaderForFile($file);
     $objPHPExcel = $objReader->load($file);
@@ -59,12 +61,42 @@ class Excel extends CI_Controller {
     }
 
     $output = array('header'=>$header,'arr_data'=>$arr_data);
-    echo var_dump($output);
-    $this->saveDataToDatabase($output);
+    $this->_saveDataToDatabase($output);
     $data['data'] = $output;
+    return true;
   }
 
-  private function saveDataToDatabase($data)
+  public function export()
+  {
+    $query = $this->db_model->LoadClasses();
+
+    if(!$query)  {
+      return false;
+    }
+
+    $objPHPExcel = new PHPExcel();
+    $objPHPExcel->getProperties()->setTitle("export")->setDescription("none");
+    $objPHPExcel->setActiveSheetIndex(0);
+
+    $fields = $query->list_fields();
+    $objPHPExcel->getActiveSheet()->fromArray($fields, null, "A1");
+    $objPHPExcel->getActiveSheet()->fromArray($query->result_array(), null, "A2");
+    $objPHPExcel->setActiveSheetIndex(0);
+
+    // Sending headers to force the user to download the file
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment;filename="edplan_'.date('dMy').'.xlsx"');
+    header('Cache-Control: max-age=0');
+
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+    //$objWriter->save('./files/output.xlsx'); //uncoment to save a local copy
+    $objWriter->save('php://output');
+
+    return true;
+  }
+
+  // Currently does NOT import TAs
+  private function _saveDataToDatabase($data)
   {
     $profs=[]; // to keep trach of seen profs
     foreach ($data['arr_data'] as $items) {
@@ -125,5 +157,6 @@ class Excel extends CI_Controller {
       // save class to database
       $this->db_model->InsertClass($subj, $courseNo, $section, $term, $actType, $days, $startTime, $endTime, $instructor, $TAName);
     }
+    return true;
   }
 }
