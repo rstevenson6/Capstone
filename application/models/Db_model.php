@@ -147,7 +147,7 @@ class Db_model extends CI_Model
     }
 
 
-    #UPDATE FUNCTIONS: UpdateSection
+    #UPDATE FUNCTIONS: UpdateSection, UpdateSectionTeacher, UpdateSectionTa
 
     public function updateSectionTime($subj, $courseNo, $section, $days, $startTime, $endTime)
     {
@@ -157,4 +157,22 @@ class Db_model extends CI_Model
         return $query;
     }
 
+    public function updateSectionTeacher($name, $subj, $courseNo, $section)
+    {
+        $sql = "UPDATE class SET instructor = ?, WHERE subj = ? AND courseNo = ? AND section = ?";
+        $query = $this->db->query(array($sql, array($name, $subj, $courseNo, $section)));
+
+        return $query;
+    }
+
+    public function updateSectionTA($subj, $courseNo, $section, $name)
+    {
+        $sql = "UPDATE class SET TAName = ?, WHERE subj = ? AND courseNo = ? AND section = ?";
+        $query = $this->db->query(array($sql, array($name, $subj, $courseNo, $section)));
+
+        return $query;
+    }
+
 }
+
+?>

@@ -32,7 +32,7 @@ class Database_Functions
         $query = $this->db->query($sql, array($subj, $courseNo, $section, $term, $actType, $days, $startTime, $endTime, $instructor, $TAName));
 
         if ($query == True) {
-            return 'Sucess';
+            return 'Success';
         } else {
             return 'failure';
         }
@@ -44,7 +44,7 @@ class Database_Functions
         $query = $this->db->query($sql, array($name, $dept, $unit));
 
         if ($query == True) {
-            return 'Sucess';
+            return 'Success';
         } else {
             return 'failure';
         }
@@ -55,7 +55,7 @@ class Database_Functions
         $query = $this->db->query($sql, array($name, $year, $faculty));
 
         if ($query == True) {
-            return 'Sucess';
+            return 'Success';
         } else {
             return 'failure';
         }
@@ -68,7 +68,7 @@ class Database_Functions
         $query = $this->db->query($sql, array($subj, $courseNo, $section));
 
         if ($query == True) {
-            return 'Sucess';
+            return 'Success';
         } else {
             return 'failure';
         }
@@ -79,7 +79,7 @@ class Database_Functions
         $query = $this->db->query($sql, $name);
 
         if ($query == True) {
-            return 'Sucess';
+            return 'Success';
         } else {
             return 'failure';
         }
@@ -90,7 +90,7 @@ class Database_Functions
         $query = $this->db->query($sql, $name);
 
         if ($query == True) {
-            return 'Sucess';
+            return 'Success';
         } else {
             return 'failure';
         }
@@ -103,7 +103,7 @@ class Database_Functions
         $query = $this->db->query(array($sql, array($days, $startTime, $endTime,$subj, $courseNo, $section)));
 
         if ($query == True) {
-            return 'Sucess';
+            return 'Success';
         } else {
             return 'failure';
         }
@@ -120,6 +120,21 @@ class Database_Functions
     public function searchTA($name){
         $sql = "SELECT * FROM TA WHERE NAME LIKE %?%;";
         $query = $this->db->query(array($sql,$name));
+
+        return $query;
+    }
+    public function updateSectionTeacher($name, $subj, $courseNo, $section)
+    {
+        $sql = "UPDATE class SET instructor = ?, WHERE subj = ? AND courseNo = ? AND section = ?";
+        $query = $this->db->query(array($sql, array($name, $subj, $courseNo, $section)));
+
+        return $query;
+    }
+
+    public function updateSectionTA($subj, $courseNo, $section, $name)
+    {
+        $sql = "UPDATE class SET TAName = ?, WHERE subj = ? AND courseNo = ? AND section = ?";
+        $query = $this->db->query(array($sql, array($name, $subj, $courseNo, $section)));
 
         return $query;
     }
