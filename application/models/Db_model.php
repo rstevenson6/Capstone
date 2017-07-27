@@ -157,9 +157,9 @@ class Db_model extends CI_Model
         return $query;
     }
 
-    public function updateSectionTeacher($name, $subj, $courseNo, $section)
+    public function updateSectionProf($subj, $courseNo, $section, $name)
     {
-        $sql = "UPDATE class SET instructor = ?, WHERE subj = ? AND courseNo = ? AND section = ?";
+        $sql = "UPDATE class SET instructor = ? WHERE subj = ? AND courseNo = ? AND section = ?";
         $query = $this->db->query(array($sql, array($name, $subj, $courseNo, $section)));
 
         return $query;
@@ -167,12 +167,26 @@ class Db_model extends CI_Model
 
     public function updateSectionTA($subj, $courseNo, $section, $name)
     {
-        $sql = "UPDATE class SET TAName = ?, WHERE subj = ? AND courseNo = ? AND section = ?";
+        $sql = "UPDATE class SET TAName = ? WHERE subj = ? AND courseNo = ? AND section = ?";
         $query = $this->db->query(array($sql, array($name, $subj, $courseNo, $section)));
 
         return $query;
     }
+    #Search Queries:
 
+    public function searchProf($name){
+        $sql = "SELECT * FROM instructors WHERE NAME LIKE %?%;";
+        $query = $this->db->query(array($sql,$name));
+
+        return $query;
+    }
+
+    public function searchTA($name){
+        $sql = "SELECT * FROM TA WHERE NAME LIKE %?%;";
+        $query = $this->db->query(array($sql,$name));
+
+        return $query;
+    }
 }
 
 ?>

@@ -114,7 +114,6 @@ sort($POLI);
 
 
                                     if ($current[0] != next($ANTH)[0] && $current[0] != 4) {
-                                        echo "</li>";
                                         echo "<li>";
                                         echo "<div>";
                                         echo "<input type='checkbox'/><a href='#'>";
@@ -122,6 +121,7 @@ sort($POLI);
                                         echo "00";
                                         echo "</a>";
                                         echo "</div>";
+                                        echo "</li>";
                                     }
                                     $current = next($ANTH);
                                 }
@@ -158,7 +158,6 @@ sort($POLI);
 
 
                                     if ($current[0] != next($GWST)[0] && $current[0] != 4) {
-                                        echo "</li>";
                                         echo "<li>";
                                         echo "<div>";
                                         echo "<input type='checkbox'/><a href='#'>";
@@ -166,6 +165,7 @@ sort($POLI);
                                         echo "00";
                                         echo "</a>";
                                         echo "</div>";
+                                        echo "</li>";
                                     }
                                     $current = next($GWST);
                                 }
@@ -202,7 +202,6 @@ sort($POLI);
 
 
                                     if ($current[0] != next($GEOG)[0] && $current[0 != 4]) {
-                                        echo "</li>";
                                         echo "<li>";
                                         echo "<div>";
                                         echo "<input type='checkbox'/><a href='#'>";
@@ -210,6 +209,7 @@ sort($POLI);
                                         echo "00";
                                         echo "</a>";
                                         echo "</div>";
+                                        echo "</li>";
                                     }
                                     $current = next($GEOG);
                                 }
@@ -245,7 +245,6 @@ sort($POLI);
 
 
                                     if ($current[0] != next($INDG)[0] && $current[0 != 4]) {
-                                        echo "</li>";
                                         echo "<li>";
                                         echo "<div>";
                                         echo "<input type='checkbox'/><a href='#'>";
@@ -253,6 +252,7 @@ sort($POLI);
                                         echo "00";
                                         echo "</a>";
                                         echo "</div>";
+                                        echo "</li>";
                                     }
                                     $current = next($INDG);
                                 }
@@ -294,7 +294,6 @@ sort($POLI);
 
 
                                             if ($current[0] != next($BIOL)[0] && $current[0] != 4) {
-                                                echo "</li>";
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
@@ -302,6 +301,7 @@ sort($POLI);
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
+                                                echo "</li>";
                                             }
                                             $current = next($BIOL);
                                         }
@@ -345,7 +345,6 @@ sort($POLI);
 
 
                                             if ($current[0] != next($CHEM)[0] && $current[0] != 4) {
-                                                echo "</li>";
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
@@ -353,6 +352,7 @@ sort($POLI);
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
+                                                echo "</li>";
                                             }
                                             $current = next($CHEM);
                                         }
@@ -397,7 +397,6 @@ sort($POLI);
 
 
                                             if ($current[0] != next($PSYC)[0] && $current[0] != 4) {
-                                                echo "</li>";
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
@@ -405,6 +404,7 @@ sort($POLI);
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
+                                                echo "</li>";
                                             }
                                             $current = next($PSYC);
                                         }
@@ -448,7 +448,6 @@ sort($POLI);
 
 
                                             if ($current[0] != next($COSC)[0] && $current[0] != 4) {
-                                                echo "</li>";
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
@@ -456,6 +455,7 @@ sort($POLI);
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
+                                                echo "</li>";
                                             }
                                             $current = next($COSC);
                                         }
@@ -492,7 +492,6 @@ sort($POLI);
 
 
                                             if ($current[0] != next($MATH)[0] && $current[0] != 4) {
-                                                echo "</li>";
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
@@ -500,6 +499,7 @@ sort($POLI);
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
+                                                echo "</li>";
                                             }
                                             $current = next($MATH);
                                         }
@@ -536,7 +536,6 @@ sort($POLI);
 
 
                                             if ($current[0] != next($PHYS)[0] && $current[0] != 4) {
-                                                echo "</li>";
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
@@ -544,6 +543,7 @@ sort($POLI);
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
+                                                echo "</li>";
                                             }
                                             $current = next($PHYS);
                                         }
@@ -579,7 +579,6 @@ sort($POLI);
 
 
                                             if ($current[0] != next($STAT)[0] && $current[0] != 4) {
-                                                echo "</li>";
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
@@ -587,6 +586,7 @@ sort($POLI);
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
+                                                echo "</li>";
                                             }
                                             $current = next($STAT);
                                         }
@@ -630,7 +630,6 @@ sort($POLI);
 
 
                                             if ($current[0] != next($HIST)[0] && $current[0] != 4) {
-                                                echo "</li>";
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
@@ -638,6 +637,7 @@ sort($POLI);
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
+                                                echo "</li>";
                                             }
                                             $current = next($HIST);
                                         }
@@ -674,7 +674,6 @@ sort($POLI);
 
 
                                             if ($current[0] != next($SOCI)[0] && $current[0] != 4) {
-                                                echo "</li>";
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
@@ -682,6 +681,7 @@ sort($POLI);
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
+                                                echo "</li>";
                                             }
                                             $current = next($SOCI);
                                         }
@@ -726,7 +726,7 @@ sort($POLI);
 
 
                                             if ($current[0] != next($EESC)[0] && $current[0] != 4) {
-                                                echo "</li>";
+
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
@@ -734,6 +734,7 @@ sort($POLI);
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
+                                                echo "</li>";
                                             }
                                             $current = next($EESC);
                                         }
@@ -777,7 +778,6 @@ sort($POLI);
 
 
                                             if ($current[0] != next($PHIL)[0] && $current[0] != 4) {
-                                                echo "</li>";
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
@@ -785,6 +785,7 @@ sort($POLI);
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
+                                                echo "</li>";
                                             }
                                             $current = next($PHIL);
                                         }
@@ -820,7 +821,6 @@ sort($POLI);
 
 
                                             if ($current[0] != next($POLI)[0] && $current[0] != 4) {
-                                                echo "</li>";
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
@@ -828,6 +828,7 @@ sort($POLI);
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
+                                                echo "</li>";
                                             }
                                             $current = next($POLI);
                                         }
