@@ -31,7 +31,7 @@ class Excel extends CI_Controller {
       exit();
     }
 
-    $this->db_model->EmptyAll();
+    $this->db_model->deleteAll();
 
     $objReader = PHPExcel_IOFactory::createReaderForFile($file);
     $objPHPExcel = $objReader->load($file);
@@ -68,7 +68,7 @@ class Excel extends CI_Controller {
 
   public function export()
   {
-    $query = $this->db_model->LoadClasses();
+    $query = $this->db_model->loadClasses();
 
     if(!$query)  {
       return false;
@@ -104,8 +104,8 @@ class Excel extends CI_Controller {
       $profName = $items[$this->_headerCols['faculty name']];
       $dept = $items[$this->_headerCols['subject']];
       if (!in_array($profName,$profs) && isset($profName)) {
-        // save prof to database | this needs to happen first because of forein key constraints
-        $this->db_model->InsertProf($profName, $dept, $unit);
+        // save prof to database | this needs to happen first because of foreign key constraints
+        $this->db_model->insertProf($profName, $dept, $unit);
         array_push($profs,$profName);
       }
     }
@@ -155,7 +155,7 @@ class Excel extends CI_Controller {
         }
       }
       // save class to database
-      $this->db_model->InsertClass($subj, $courseNo, $section, $term, $actType, $days, $startTime, $endTime, $instructor, $TAName);
+      $this->db_model->insertClass($subj, $courseNo, $section, $term, $actType, $days, $startTime, $endTime, $instructor, $TAName);
     }
     return true;
   }
