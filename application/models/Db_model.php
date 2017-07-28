@@ -1,6 +1,7 @@
 <?php
 
-class Db_model extends CI_Model {
+class Db_model extends CI_Model
+{
 
     public function __construct()
     {
@@ -85,7 +86,7 @@ class Db_model extends CI_Model {
 
     public function LoadClassKeys()
     {
-        $sql ="SELECT subj, courseNo, section FROM class";
+        $sql = "SELECT subj, courseNo, section FROM class";
         $query = $this->db->query($sql);
 
         return $query;
@@ -147,7 +148,7 @@ class Db_model extends CI_Model {
 
     public function DeleteProf($name)
     {
-        $sql ="DELETE FROM instructors WHERE name = ?";
+        $sql = "DELETE FROM instructors WHERE name = ?";
         $query = $this->db->query($sql, $name);
 
         return $query;
@@ -162,14 +163,46 @@ class Db_model extends CI_Model {
     }
 
 
-    #UPDATE FUNCTIONS: UpdateSection
+    #UPDATE FUNCTIONS: UpdateSection, UpdateSectionTeacher, UpdateSectionTa
 
     public function updateSectionTime($subj, $courseNo, $section, $days, $startTime, $endTime)
     {
         $sql = "UPDATE class SET days = ?, startTime = ?, endTime = ? WHERE subj = ? AND courseNo = ? AND section = ?";
-        $query = $this->db->query(array($sql, array($days, $startTime, $endTime,$subj, $courseNo, $section)));
+        $query = $this->db->query(array($sql, array($days, $startTime, $endTime, $subj, $courseNo, $section)));
 
         return $query;
     }
 
+    public function updateSectionProf($subj, $courseNo, $section, $name)
+    {
+        $sql = "UPDATE class SET instructor = ? WHERE subj = ? AND courseNo = ? AND section = ?";
+        $query = $this->db->query(array($sql, array($name, $subj, $courseNo, $section)));
+
+        return $query;
+    }
+
+    public function updateSectionTA($subj, $courseNo, $section, $name)
+    {
+        $sql = "UPDATE class SET TAName = ? WHERE subj = ? AND courseNo = ? AND section = ?";
+        $query = $this->db->query(array($sql, array($name, $subj, $courseNo, $section)));
+
+        return $query;
+    }
+    #Search Queries:
+
+    public function searchProf($name){
+        $sql = "SELECT * FROM instructors WHERE NAME LIKE %?%;";
+        $query = $this->db->query(array($sql,$name));
+
+        return $query;
+    }
+
+    public function searchTA($name){
+        $sql = "SELECT * FROM TA WHERE NAME LIKE %?%;";
+        $query = $this->db->query(array($sql,$name));
+
+        return $query;
+    }
 }
+
+?>
