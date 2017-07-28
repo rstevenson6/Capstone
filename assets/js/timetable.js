@@ -194,7 +194,6 @@ $(document).ready(function(){
             type: "POST",
             url: "/ajax/getTermOneClasses",
             dataType: 'json',
-            data: {name: "Fazackerley, Scott"},
             success: function(result){
                 result = result.map(function(val) {
                     val["days"] = parseDays(val["days"]);
@@ -224,7 +223,7 @@ $(document).ready(function(){
         //Populate a "day" object to follow the structure of the course objects
         for(var day_idx in day_array) {
             var day = day_array[day_idx];
-            days[day] = (obj[day] === "true");
+            days[day] = obj[day];
             delete obj[day];
         }
         obj['days'] = days;
@@ -284,8 +283,6 @@ $(document).ready(function(){
         //Check to see if the index to the course data is defined on form
         var datum_idx = $(this).data('edit-index');
         if(datum_idx === undefined) { console.log("datum_idx undefined!"); return; }
-        //Remove the course from the course data
-        course_data.splice(datum_idx, 1);
 
         //Get form inputs as key-value pairs
         var obj = $(this).serializeObject();
@@ -297,13 +294,16 @@ $(document).ready(function(){
 
         for(var day_idx in day_array) {
             var day = day_array[day_idx];
-            days[day] = (obj[day] === "true");
+            days[day] = obj[day];
             delete obj[day];
         }
         obj['days'] = days;
         obj["startTime"] = timeToInt(obj["startTime"]);
         obj["endTime"] = timeToInt(obj["endTime"]);
 
+
+        //Remove the course from the course data
+        course_data.splice(datum_idx, 1);
         clearCourseForm($("#course-edit"));
         //Add the new "edited" course to the course data and refresh timetable
         appendTimetable([obj]);

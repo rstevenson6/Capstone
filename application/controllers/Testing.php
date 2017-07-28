@@ -11,13 +11,14 @@ class Testing extends CI_Controller
         $this->load->model("db_model");
     }
 
+
     public function index()
     {
         // Save the debug mode
         $db_debug_mode = $this->db->db_debug;
         // Disable debugging for the tests
         //$this->db->db_debug = FALSE;
-
+        
         // Begin transaction in testing mode
         $this->db->trans_start(TRUE);
 
@@ -37,6 +38,7 @@ class Testing extends CI_Controller
         $this->insertClassTest();
         $this->insertProfTest();
         $this->insertTATest();
+        $this->insertDuplicateClassTest();
         $this->deleteClassTest();
         $this->deleteProfTest();
         $this->deleteTATest();
@@ -58,6 +60,19 @@ class Testing extends CI_Controller
     private function insertTATest()
     {
         $this->unit->run($this->db_model->insertTA("Doe, Jane", "CHEM", 3), TRUE, "Insert TA Test");
+    }
+
+    private function insertDuplicateClassTest()
+    {
+        $db_debug_mode = $this->db->db_debug;
+	$this->db->db_debug = FALSE;
+
+        $this->db_model->insertTA("Mr twin", "PHYS", 3);
+        $this->db_model->insertTA("Mr twin", "PHYS", 3);
+        
+        $this->db->db_debug = $db_debug_mode;
+
+        $this->unit->run($this->db->error()['code'], 1062, "Insert Duplicate Class Test");
     }
 
     private function deleteClassTest()
