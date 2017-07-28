@@ -185,6 +185,28 @@ function deleteTimetable() {
 
 }( jQuery ));
 
+function runTests() {
+  $.ajax({
+      type: "POST",
+      url: "/ajax/getProfClasses",
+      dataType: 'json',
+      data: {name: 'Gao, Yong'},
+      success: function(result){
+          result = result.map(function(val) {
+              val["days"] = parseDays(val["days"]);
+              val["startTime"] = timeToInt(val["startTime"]);;
+              val["endTime"] = timeToInt(val["endTime"]);
+              return val;
+          });
+          newTimetable(result);
+
+          var in_course_data = course_data.length > 0;
+
+          console.log("Prof class data loaded: " + in_course_data);
+      }
+  });
+}
+
 //Wait for document load
 $(document).ready(function(){
 
