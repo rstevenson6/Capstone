@@ -50,6 +50,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
+$route['export/export'] = 'export/export';
+$route['export/import'] = 'export/import';
+$route['excel'] = 'excel';
+$route['testing'] = 'testing';
 $route['(:any)'] = 'main/$1';
 $route['default_controller'] = 'main';
 

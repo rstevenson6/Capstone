@@ -36,7 +36,7 @@ class Db_model extends CI_Model
         return $query;
     }
 
-    public function LoadClasses()
+    public function loadClasses()
     {
         $sql = "SELECT * FROM class";
         $query = $this->db->query($sql);
@@ -44,7 +44,7 @@ class Db_model extends CI_Model
         return $query;
     }
 
-    public function LoadClassesByTerm($term)
+    public function loadClassesByTerm($term)
     {
         $sql = "SELECT * FROM class WHERE term = ?";
         $query = $this->db->query($sql, $term);
@@ -52,7 +52,7 @@ class Db_model extends CI_Model
         return $query;
     }
 
-    public function LoadClassesByProf($prof)
+    public function loadClassesByProf($prof)
     {
         $sql = "SELECT * FROM class WHERE instructor = ?";
         $query = $this->db->query($sql, $prof);
@@ -60,7 +60,7 @@ class Db_model extends CI_Model
         return $query;
     }
 
-    public function LoadClassesByTA($TA)
+    public function loadClassesByTA($TA)
     {
         $sql = "SELECT * FROM class WHERE TAName = ?";
         $query = $this->db->query($sql, $TA);
@@ -68,7 +68,7 @@ class Db_model extends CI_Model
         return $query;
     }
 
-    public function LoadProfs()
+    public function loadProfs()
     {
         $sql = "SELECT * FROM instructors";
         $query = $this->db->query($sql);
@@ -76,7 +76,7 @@ class Db_model extends CI_Model
         return $query;
     }
 
-    public function LoadTAs()
+    public function loadTAs()
     {
         $sql = "SELECT * FROM TA";
         $query = $this->db->query($sql);
@@ -84,7 +84,7 @@ class Db_model extends CI_Model
         return $query;
     }
 
-    public function LoadClassKeys()
+    public function loadClassKeys()
     {
         $sql = "SELECT subj, courseNo, section FROM class";
         $query = $this->db->query($sql);
@@ -92,7 +92,7 @@ class Db_model extends CI_Model
         return $query;
     }
 
-    public function LoadProfKeys()
+    public function loadProfKeys()
     {
         $sql = "SELECT name FROM instructors";
         $query = $this->db->query($sql);
@@ -100,7 +100,7 @@ class Db_model extends CI_Model
         return $query;
     }
 
-    public function LoadTAKeys()
+    public function loadTAKeys()
     {
         $sql = "SELECT name FROM TA";
         $query = $this->db->query($sql);
@@ -111,7 +111,7 @@ class Db_model extends CI_Model
 
     #INSERT FUNCTIONS: InsertClass, InsertProf, InsertTA
 
-    public function InsertClass($subj, $courseNo, $section, $term, $actType, $days, $startTime, $endTime, $instructor, $TAName)
+    public function insertClass($subj, $courseNo, $section, $term, $actType, $days, $startTime, $endTime, $instructor, $TAName)
     {
         $sql = "INSERT into class VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $query = $this->db->query($sql, array($subj, $courseNo, $section, $term, $actType, $days, $startTime, $endTime, $instructor, $TAName));
@@ -119,7 +119,7 @@ class Db_model extends CI_Model
         return $query;
     }
 
-    public function InsertProf($name, $dept, $unit)
+    public function insertProf($name, $dept, $unit)
     {
         $sql = "INSERT into instructors VALUES (?, ?, ?)";
         $query = $this->db->query($sql, array($name, $dept, $unit));
@@ -127,7 +127,7 @@ class Db_model extends CI_Model
         return $query;
     }
 
-    public function InsertTA($name, $year, $faculty)
+    public function insertTA($name, $year, $faculty)
     {
         $sql = "INSERT into TA VALUES (?, ?, ?)";
         $query = $this->db->query($sql, array($name, $year, $faculty));
@@ -136,9 +136,9 @@ class Db_model extends CI_Model
     }
 
 
-    #REMOVE FUNCTIONS: removeSection
+    #REMOVE FUNCTIONS: deleteClass
 
-    public function RemoveSection($subj, $courseNo, $section)
+    public function deleteClass($subj, $courseNo, $section)
     {
         $sql = "DELETE FROM class WHERE subj = ? AND courseNo = ? AND section = ?";
         $query = $this->db->query($sql, array($subj, $courseNo, $section));
@@ -146,7 +146,7 @@ class Db_model extends CI_Model
         return $query;
     }
 
-    public function DeleteProf($name)
+    public function deleteProf($name)
     {
         $sql = "DELETE FROM instructors WHERE name = ?";
         $query = $this->db->query($sql, $name);
@@ -154,7 +154,7 @@ class Db_model extends CI_Model
         return $query;
     }
 
-    public function DeleteTA($name)
+    public function deleteTA($name)
     {
         $sql = "DELETE FROM TA WHERE name = ?";
         $query = $this->db->query($sql, $name);
@@ -162,32 +162,41 @@ class Db_model extends CI_Model
         return $query;
     }
 
+    public function deleteAll()
+    {
+        $query1 = $this->db->empty_table('instructors');
+        $query2 = $this->db->empty_table('class');
+        $query3 = $this->db->empty_table('ta');
 
-    #UPDATE FUNCTIONS: UpdateSection, UpdateSectionTeacher, UpdateSectionTa
+        return $query1 && $query2 && $query3;
+    }
 
-    public function updateSectionTime($subj, $courseNo, $section, $days, $startTime, $endTime)
+    #UPDATE FUNCTIONS: UpdateClass, UpdateClassProf, UpdateClassTA
+
+    public function updateClassTime($subj, $courseNo, $section, $days, $startTime, $endTime)
     {
         $sql = "UPDATE class SET days = ?, startTime = ?, endTime = ? WHERE subj = ? AND courseNo = ? AND section = ?";
-        $query = $this->db->query(array($sql, array($days, $startTime, $endTime, $subj, $courseNo, $section)));
+        $query = $this->db->query($sql, array($days, $startTime, $endTime, $subj, $courseNo, $section));
 
         return $query;
     }
 
-    public function updateSectionProf($subj, $courseNo, $section, $name)
+    public function updateClassProf($subj, $courseNo, $section, $name)
     {
         $sql = "UPDATE class SET instructor = ? WHERE subj = ? AND courseNo = ? AND section = ?";
-        $query = $this->db->query(array($sql, array($name, $subj, $courseNo, $section)));
+        $query = $this->db->query($sql, array($name, $subj, $courseNo, $section));
 
         return $query;
     }
 
-    public function updateSectionTA($subj, $courseNo, $section, $name)
+    public function updateClassTA($subj, $courseNo, $section, $name)
     {
         $sql = "UPDATE class SET TAName = ? WHERE subj = ? AND courseNo = ? AND section = ?";
-        $query = $this->db->query(array($sql, array($name, $subj, $courseNo, $section)));
+        $query = $this->db->query($sql, array($name, $subj, $courseNo, $section));
 
         return $query;
     }
+
     #Search Queries:
 
     public function searchProf($name){
@@ -204,5 +213,3 @@ class Db_model extends CI_Model
         return $query;
     }
 }
-
-?>
