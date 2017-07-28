@@ -4,7 +4,7 @@ var course_data = [];
 
 function parseDays(day_string) {
     var arr = day_string.split(", ");
-    var days = {"mon": false, "tue": false, "wed": false, "thu": false, "fri": false};
+    var days = {"mon": false, "tue": false, "wed": false, "thu": false, "fri": false, "sat": false, "sun": false};
     for(var day in arr) {
         day = arr[day];
 
@@ -150,6 +150,25 @@ function deleteTimetable() {
     clearTimetable();
 }
 
+// Change to jquery serializeArray to return all checkboxes as true/false
+(function ( $ ) {
+    var originalSerializeArray = $.fn.serializeArray;
+    $.fn.extend({
+        serializeArray: function () {
+            var brokenSerialization = originalSerializeArray.apply(this);
+            var checkboxValues = $(this).find('input[type=checkbox]').map(function () {
+                return { 'name': this.name, 'value': this.checked };
+            }).get();
+            var checkboxKeys = $.map(checkboxValues, function (element) { return element.name; });
+            var withoutCheckboxes = $.grep(brokenSerialization, function (element) {
+                return $.inArray(element.name, checkboxKeys) == -1;
+            });
+
+            return $.merge(withoutCheckboxes, checkboxValues);
+        }
+    });
+}( jQuery ));
+
 // Custom jQuery function
 // Returns key-value pairs of a form's input element's names and values
 (function ( $ ) {
@@ -159,6 +178,7 @@ function deleteTimetable() {
         $.each(this.serializeArray(), function () {
             result[this.name] = this.value;
         });
+        console.log('fn');
         console.log(this.serializeArray());
         return result;
     };
@@ -205,7 +225,7 @@ $(document).ready(function(){
         for(var day_idx in day_array) {
             var day = day_array[day_idx];
             days[day] = (obj[day] === "true");
-
+            delete obj[day];
         }
         obj['days'] = days;
         obj["startTime"] = timeToInt(obj["startTime"]);
@@ -217,6 +237,7 @@ $(document).ready(function(){
     //Edit course on click
     $('#timetable td').click(function() {
         var datum_idx = $(this).data("index");
+        console.log(datum_idx);
         if(datum_idx === undefined) { console.log("datum_idx undefined!"); return; }
         populateCourseForm($('#course-edit'), datum_idx);
         $('#edit-menu').slideDown();
@@ -268,6 +289,8 @@ $(document).ready(function(){
 
         //Get form inputs as key-value pairs
         var obj = $(this).serializeObject();
+        console.log("OBJ");
+        console.log(obj);
 
         var day_array = ['mon','tue','wed','thu','fri','sat','sun'];
         var days = {};
@@ -275,7 +298,7 @@ $(document).ready(function(){
         for(var day_idx in day_array) {
             var day = day_array[day_idx];
             days[day] = (obj[day] === "true");
-
+            delete obj[day];
         }
         obj['days'] = days;
         obj["startTime"] = timeToInt(obj["startTime"]);
