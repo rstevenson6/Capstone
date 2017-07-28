@@ -21,6 +21,19 @@ class Testing extends CI_Controller
         // Begin transaction in testing mode
         $this->db->trans_start(TRUE);
 
+        $this->runDbTests();
+
+        // End transaction a roll-back to revert changes to db
+        $this->db->trans_complete();
+
+        // Restore debug mode
+        $this->db->db_debug = $db_debug_mode;
+
+        $this->load->view('tests');
+    }
+
+    private function runDbTests()
+    {
         $this->insertClassTest();
         $this->insertProfTest();
         $this->insertTATest();
@@ -30,14 +43,6 @@ class Testing extends CI_Controller
         $this->updateClassTimeTest();
         $this->updateClassProfTest();
         $this->updateClassTATest();
-
-        // End transaction a roll-back to revert changes to db
-        $this->db->trans_complete();
-
-        // Restore debug mode
-        $this->db->db_debug = $db_debug_mode;
-
-        $this->load->view('tests');
     }
 
     private function insertClassTest()
