@@ -51,8 +51,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 $route['export/export'] = 'export/export';
-$route['export/inport'] = 'export/inport';
+$route['export/import'] = 'export/import';
 $route['excel'] = 'excel';
+$route['testing'] = 'testing';
 $route['(:any)'] = 'main/$1';
 $route['default_controller'] = 'main';
 

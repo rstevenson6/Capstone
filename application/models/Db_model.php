@@ -160,7 +160,7 @@ class Db_model extends CI_Model
     public function updateSectionTime($subj, $courseNo, $section, $days, $startTime, $endTime)
     {
         $sql = "UPDATE class SET days = ?, startTime = ?, endTime = ? WHERE subj = ? AND courseNo = ? AND section = ?";
-        $query = $this->db->query(array($sql, array($days, $startTime, $endTime, $subj, $courseNo, $section)));
+        $query = $this->db->query($sql, array($days, $startTime, $endTime, $subj, $courseNo, $section));
 
         return $query;
     }
@@ -168,7 +168,7 @@ class Db_model extends CI_Model
     public function updateSectionProf($subj, $courseNo, $section, $name)
     {
         $sql = "UPDATE class SET instructor = ? WHERE subj = ? AND courseNo = ? AND section = ?";
-        $query = $this->db->query(array($sql, array($name, $subj, $courseNo, $section)));
+        $query = $this->db->query($sql, array($name, $subj, $courseNo, $section));
 
         return $query;
     }
@@ -176,7 +176,7 @@ class Db_model extends CI_Model
     public function updateSectionTA($subj, $courseNo, $section, $name)
     {
         $sql = "UPDATE class SET TAName = ? WHERE subj = ? AND courseNo = ? AND section = ?";
-        $query = $this->db->query(array($sql, array($name, $subj, $courseNo, $section)));
+        $query = $this->db->query($sql, array($name, $subj, $courseNo, $section));
 
         return $query;
     }
