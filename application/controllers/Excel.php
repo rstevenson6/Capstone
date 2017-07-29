@@ -150,7 +150,7 @@ class Excel extends CI_Controller {
             break;
 
           default:
-            exit("Error: unknown key\n".debug_backtrace());
+            throw new Exception("Error: unknown key", 1);
             break;
         }
       }
