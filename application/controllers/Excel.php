@@ -111,48 +111,53 @@ class Excel extends CI_Controller {
     }
     for ($i=2;$i<count($data['header'][1])+2;$i++) {
       $subj=$courseNo=$section=$term=$actType=$days=$startTime=$endTime=$instructor=$TAName=null;
-      foreach ($this->_headerCols as $key => $value) {
-        switch ($key) {
-          case 'subject':
-            $subj = $data['arr_data'][$i][$value];
-            break;
+      try {
+        foreach ($this->_headerCols as $key => $value) {
+          switch ($key) {
+            case 'subject':
+              $subj = $data['arr_data'][$i][$value];
+              break;
 
-          case 'course':
-            $courseNo = $data['arr_data'][$i][$value];
-            break;
+            case 'course':
+              $courseNo = $data['arr_data'][$i][$value];
+              break;
 
-          case 'section':
-            $section = $data['arr_data'][$i][$value];
-            break;
+            case 'section':
+              $section = $data['arr_data'][$i][$value];
+              break;
 
-          case 'term':
-            $term = $data['arr_data'][$i][$value];
-            break;
+            case 'term':
+              $term = $data['arr_data'][$i][$value];
+              break;
 
-          case 'primary act type':
-            $actType = $data['arr_data'][$i][$value];
-            break;
+            case 'primary act type':
+              $actType = $data['arr_data'][$i][$value];
+              break;
 
-          case 'days':
-            $days = $data['arr_data'][$i][$value];
-            break;
+            case 'days':
+              $days = $data['arr_data'][$i][$value];
+              break;
 
-          case 'start time':
-            $startTime = $data['arr_data'][$i][$value];
-            break;
+            case 'start time':
+              $startTime = $data['arr_data'][$i][$value];
+              break;
 
-          case 'end time':
-            $endTime = $data['arr_data'][$i][$value];
-            break;
+            case 'end time':
+              $endTime = $data['arr_data'][$i][$value];
+              break;
 
-          case 'faculty name':
-            $instructor = $data['arr_data'][$i][$value];
-            break;
+            case 'faculty name':
+              $instructor = $data['arr_data'][$i][$value];
+              break;
 
-          default:
-            throw new Exception("Error: unknown key", 1);
-            break;
+            default:
+              throw new Exception("Error: unknown key", 1);
+              break;
+          }
         }
+      } catch (Exception $e) {
+        echo "Exception: ", $e->getMessage(),"\n";
+        return false;
       }
       // save class to database
       $this->db_model->insertClass($subj, $courseNo, $section, $term, $actType, $days, $startTime, $endTime, $instructor, $TAName);
