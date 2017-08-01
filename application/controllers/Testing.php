@@ -65,7 +65,7 @@ class Testing extends CI_Controller
     private function insertDuplicateClassTest()
     {
         $db_debug_mode = $this->db->db_debug;
-	$this->db->db_debug = FALSE;
+        $this->db->db_debug = FALSE;
 
         $this->db_model->insertTA("Mr twin", "PHYS", 3);
         $this->db_model->insertTA("Mr twin", "PHYS", 3);
