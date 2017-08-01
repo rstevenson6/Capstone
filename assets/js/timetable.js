@@ -1,6 +1,8 @@
 //Data is stored in key-value pairs with the same naming as the database.
 //Only difference is that the days are stored in their own object as booleans
-var course_data = [];
+var view_courses = [];
+var new_courses = [];
+var edit_courses = [];
 
 function parseDays(day_string) {
     var arr = day_string.split(", ");
@@ -81,7 +83,7 @@ function colorize(subj, courseNo, section) {
 // Overwrite course data and refresh timetable
 function newTimetable(data) {
 
-    course_data = data;
+    view_courses = data;
 
     clearTimetable();
     displayTimetable();
@@ -91,16 +93,16 @@ function newTimetable(data) {
 // Adds array of course to current course array and refresh timetable
 function appendTimetable(data) {
 
-    course_data = course_data.concat(data);
+    view_courses = view_courses.concat(data);
 
     clearTimetable();
     displayTimetable();
 }
 
 function displayTimetable() {
-    for(var datum_idx in course_data) {
+    for(var datum_idx in view_courses) {
 
-        var datum = course_data[datum_idx];
+        var datum = view_courses[datum_idx];
         var duration = datum.endTime - datum.startTime;
         var blocks = duration / 50;
 
@@ -146,8 +148,18 @@ function clearTimetable() {
 
 //Clear timetable and delete course data
 function deleteTimetable() {
-    course_data = [];
+    view_courses = [];
     clearTimetable();
+}
+
+function courseInList(course, course_list) {
+    for(var course_idx in course_list) {
+        cur_course = course_list[course_idx];
+        if(cur_course["subj"] === course["subj"] && cur_course["courseNo"] === course["courseNo"] && cur_course["section"] === course["section"]) {
+            return true;
+        }
+    }
+    return false;
 }
 
 // Change to jquery serializeArray to return all checkboxes as true/false
@@ -184,28 +196,6 @@ function deleteTimetable() {
     };
 
 }( jQuery ));
-
-function runTests() {
-  $.ajax({
-      type: "POST",
-      url: "/ajax/getProfClasses",
-      dataType: 'json',
-      data: {name: 'Gao, Yong'},
-      success: function(result){
-          result = result.map(function(val) {
-              val["days"] = parseDays(val["days"]);
-              val["startTime"] = timeToInt(val["startTime"]);;
-              val["endTime"] = timeToInt(val["endTime"]);
-              return val;
-          });
-          newTimetable(result);
-
-          var in_course_data = course_data.length > 0;
-
-          console.log("Prof class data loaded: " + in_course_data);
-      }
-  });
-}
 
 //Wait for document load
 $(document).ready(function(){
@@ -268,7 +258,7 @@ $(document).ready(function(){
     //Populates a form with course data
     //Form must have fields named the same as the db
     function populateCourseForm(form, datum_idx) {
-        var datum = course_data[datum_idx];
+        var datum = view_courses[datum_idx];
         for(var key in datum) {
             if(key === "days") {
                 for(var dayKey in datum["days"]) {
@@ -325,7 +315,7 @@ $(document).ready(function(){
 
 
         //Remove the course from the course data
-        course_data.splice(datum_idx, 1);
+        view_courses.splice(datum_idx, 1);
         clearCourseForm($("#course-edit"));
         //Add the new "edited" course to the course data and refresh timetable
         appendTimetable([obj]);
