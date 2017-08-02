@@ -9,9 +9,7 @@
 <body>
 
 <?php
-$this->load->database();
-$query = LoadClasses();
-
+$query = $this->db_model->loadClasses();
 
 foreach ($query->result() as $row) {
 
@@ -34,6 +32,9 @@ foreach ($query->result() as $row) {
     $ECON = array();
     $PHIL = array();
     $POLI = array();
+    $GEOG = array();
+    $GWST = array();
+    $INDG = array();
 
     if (strcmp($subj, "ANTH")) {
         $ANTH [] = $courseNo . " " . $section;
@@ -65,6 +66,12 @@ foreach ($query->result() as $row) {
         $PHIL [] = $courseNo . " " . $section;
     } elseif (strcmp($subj, "POLI")) {
         $POLI [] = $courseNo . " " . $section;
+    } elseif (strcmp($subj, "GEOG")) {
+        $GEOG [] = $courseNo . " " . $section;
+    } elseif (strcmp($subj, "GWST")) {
+        $GEOG [] = $courseNo . " " . $section;
+    } elseif (strcmp($subj, "INDG")) {
+        $GEOG [] = $courseNo . " " . $section;
     }
 }
 sort($ANTH);
@@ -81,6 +88,9 @@ sort($EESC);
 sort($ECON);
 sort($PHIL);
 sort($POLI);
+sort($GEOG);
+sort($GWST);
+sort($INDG);
 ?>
 
 

@@ -52,6 +52,22 @@ class Db_model extends CI_Model
         return $query;
     }
 
+    public function loadClassesByProf($prof)
+    {
+        $sql = "SELECT * FROM class WHERE instructor = ?";
+        $query = $this->db->query($sql, $prof);
+
+        return $query;
+    }
+
+    public function loadClassesByTA($TA)
+    {
+        $sql = "SELECT * FROM class WHERE TAName = ?";
+        $query = $this->db->query($sql, $TA);
+
+        return $query;
+    }
+
     public function loadProfs()
     {
         $sql = "SELECT * FROM instructors";

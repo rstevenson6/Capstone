@@ -519,10 +519,27 @@
         <button id="load-courses">
             Load Example Courses
         </button>
+        <button id="wipe-courses">
+            Wipe Timetable
+        </button>
+        <br><br>
+        <select id="instructor-list">
+            <option value="">None</option>
+        </select>
+        <br>
+        <button id="load-instructor">
+            Load Instructor
+        </button>
+        <br><br>
+        <select id="TA-list">
+            <option value="">None</option>
+        </select>
+        <br>
+        <button id="load-TA">
+            Load TA
+        </button>
+        <br><br>
         <div id="course-menu">
-            <button id="wipe-courses">
-                Wipe Timetable
-            </button>
             <h2>
                 Manual Entry
             </h2>
@@ -536,13 +553,13 @@
                 <input type="text" name="term">Term<br>
                 <input type="time" name="startTime">Start<br>
                 <input type="time" name="endTime">End<br>
-                <input type="hidden" name="mon" value="false"><input type="checkbox" name="mon" value="true">mon<br>
-                <input type="hidden" name="tue" value="false"><input type="checkbox" name="tue" value="true">tue<br>
-                <input type="hidden" name="wed" value="false"><input type="checkbox" name="wed" value="true">wed<br>
-                <input type="hidden" name="thu" value="false"><input type="checkbox" name="thu" value="true">thu<br>
-                <input type="hidden" name="fri" value="false"><input type="checkbox" name="fri" value="true">fri<br>
-                <input type="hidden" name="sat" value="false"><input type="checkbox" name="sat" value="true">sat<br>
-                <input type="hidden" name="sun" value="false"><input type="checkbox" name="sun" value="true">sun<br>
+                <input type="checkbox" name="mon" >mon<br>
+                <input type="checkbox" name="tue" >tue<br>
+                <input type="checkbox" name="wed" >wed<br>
+                <input type="checkbox" name="thu" >thu<br>
+                <input type="checkbox" name="fri" >fri<br>
+                <input type="checkbox" name="sat" >sat<br>
+                <input type="checkbox" name="sun" >sun<br>
                 <input type="submit" name="submit"><br>
             </form>
         </div>
@@ -561,13 +578,13 @@
                 <input type="text" name="term">Term<br>
                 <input type="time" name="startTime">Start<br>
                 <input type="time" name="endTime">End<br>
-                <input type="hidden" name="mon" value="false"><input type="checkbox" name="mon" value="true">mon<br>
-                <input type="hidden" name="tue" value="false"><input type="checkbox" name="tue" value="true">tue<br>
-                <input type="hidden" name="wed" value="false"><input type="checkbox" name="wed" value="true">wed<br>
-                <input type="hidden" name="thu" value="false"><input type="checkbox" name="thu" value="true">thu<br>
-                <input type="hidden" name="fri" value="false"><input type="checkbox" name="fri" value="true">fri<br>
-                <input type="hidden" name="sat" value="false"><input type="checkbox" name="sat" value="true">sat<br>
-                <input type="hidden" name="sun" value="false"><input type="checkbox" name="sun" value="true">sun<br>
+                <input type="checkbox" name="mon" >mon<br>
+                <input type="checkbox" name="tue" >tue<br>
+                <input type="checkbox" name="wed" >wed<br>
+                <input type="checkbox" name="thu" >thu<br>
+                <input type="checkbox" name="fri" >fri<br>
+                <input type="checkbox" name="sat" >sat<br>
+                <input type="checkbox" name="sun" >sun<br>
                 <input type="hidden" name="index" value="">
                 <input type="submit" name="submit"><input type="button" name="cancel" value="Cancel"><br>
             </form>
