@@ -110,12 +110,12 @@ class Db_model extends CI_Model
 
     public function loadHeaders()
     {
-      return $this->db->get('excelheader');
+        return $this->db->get('excelheader');
     }
 
     public function loadUsers()
     {
-      return $this->db->get('user');
+        return $this->db->get('user');
     }
 
     #INSERT FUNCTIONS: InsertClass, InsertProf, InsertTA
@@ -146,19 +146,19 @@ class Db_model extends CI_Model
 
     public function insertHeaders($header)
     {
-      $data = array(
-        'header' => $header
-      );
-      return $this->db->insert('excelheader', $data);
+        $data = array(
+          'header' => $header
+        );
+        return $this->db->insert('excelheader', $data);
     }
 
     public function insertUsers($userName, $userRole)
     {
-      $data = array(
-        'userName' => $userName,
-        'userRole' => $userRole
-      );
-      return $this->db->insert('user', $data);
+        $data = array(
+          'userName' => $userName,
+          'userRole' => $userRole
+        );
+        return $this->db->insert('user', $data);
     }
 
     #REMOVE FUNCTIONS: deleteClass
@@ -198,18 +198,18 @@ class Db_model extends CI_Model
 
     public function deletetHeader($header)
     {
-      $data = array(
-        'header' => $header
-      );
-      return $this->db->delete('excelheader', $data);
+        $data = array(
+          'header' => $header
+        );
+        return $this->db->delete('excelheader', $data);
     }
 
     public function deleteUser($userName)
     {
-      $data = array(
-        'userName' => $userName
-      );
-      return $this->db->delete('user', $data);
+        $data = array(
+          'userName' => $userName
+        );
+        return $this->db->delete('user', $data);
     }
 
     #UPDATE FUNCTIONS: UpdateClass, UpdateClassProf, UpdateClassTA
@@ -240,20 +240,20 @@ class Db_model extends CI_Model
 
     public function updateHeader($header)
     {
-      $this->db->set('header', $data);
-      return $this->db->update('excelheader');
+        $this->db->set('header', $data);
+        return $this->db->update('excelheader');
     }
 
     public function updateUsername($userName)
     {
-      $this->db->set('userName', $data);
-      return $this->db->update('user');
+        $this->db->set('userName', $data);
+        return $this->db->update('user');
     }
 
     public function updateUserRole($userName, $userRole)
     {
-      $this->db->set('userRole', $userRole);
-      return $this->db->update('user');
+        $this->db->set('userRole', $userRole);
+        return $this->db->update('user');
     }
 
     #Search Queries:
