@@ -146,7 +146,7 @@ class Db_model extends CI_Model
         return $query;
     }
 
-    public function deleteAll()
+    public function deleteAllExcelData()
     {
         $query1 = $this->db->empty_table('instructors');
         $query2 = $this->db->empty_table('class');
