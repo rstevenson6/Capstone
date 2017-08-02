@@ -25,6 +25,22 @@ class Ajax extends CI_Controller {
         echo json_encode($query->result());
     }
 
+    public function updateClass()
+    {
+        $subj = $this->input->post('subj');
+        $courseNo = $this->input->post('courseNo');
+        $section = $this->input->post('section');
+        $term = $this->input->post('term');
+        $actType = $this->input->post('actType');
+        $days = $this->input->post('days');
+        $startTime = $this->input->post('startTime');
+        $endTime = $this->input->post('endTime');
+        $prof = $this->input->post('instructors');
+        $TA = $this->input->post('TAName');
+
+        $this->db_model->updateClass($subj, $courseNo, $section, $term, $actType, $days, $startTime, $endTime, $prof, $TA);
+    }
+
     public function getProfClasses()
     {
         $prof = $this->input->post('name');

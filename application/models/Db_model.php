@@ -173,6 +173,14 @@ class Db_model extends CI_Model
 
     #UPDATE FUNCTIONS: UpdateClass, UpdateClassProf, UpdateClassTA
 
+    public function updateClass($subj, $courseNo, $section, $term, $actType, $days, $startTime, $endTime, $prof, $TA)
+    {
+        $sql = "UPDATE class SET term = ?, actType = ?, days = ?, startTime = ?, endTime = ?, instructor = ?, TAName = ? WHERE subj = ? AND courseNo = ? AND section = ?";
+        $query = $this->db->query($sql, array($term, $actType, $days, $startTime, $endTime, $prof, $TA, $subj, $courseNo, $section));
+
+        return $query;
+    }
+
     public function updateClassTime($subj, $courseNo, $section, $days, $startTime, $endTime)
     {
         $sql = "UPDATE class SET days = ?, startTime = ?, endTime = ? WHERE subj = ? AND courseNo = ? AND section = ?";

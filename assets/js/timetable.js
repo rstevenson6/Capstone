@@ -26,11 +26,45 @@ function parseDays(day_string) {
             case "F":
                 days["fri"] = true;
                 break;
+            case "SA":
+                days["sat"] = true;
+                break;
+            case "SU":
+                days["sun"] = true;
+                break;
             default:
-                throw "Invalid day string! (M, Tu, W, Th, F) " + day;
+                throw "Invalid day string! (M, Tu, W, Th, F, Sa, Su): " + day;
         }
     }
     return days;
+}
+
+function formatDays(day_obj) {
+    day_string = "";
+
+    if(day_obj["mon"]) {
+        day_string += 'M, '
+    }
+    if(day_obj["tue"]) {
+        day_string += 'TU, '
+    }
+    if(day_obj["wed"]) {
+        day_string += 'W, '
+    }
+    if(day_obj["thu"]) {
+        day_string += 'TH, '
+    }
+    if(day_obj["fri"]) {
+        day_string += 'F, '
+    }
+    if(day_obj["sat"]) {
+        day_string += 'SA, '
+    }
+    if(day_obj["sun"]) {
+        day_string += 'SU, '
+    }
+    day_string = day_string.substring(0, day_string.length-2);
+    return day_string
 }
 
 function timeToInt(time_string) {
@@ -59,6 +93,18 @@ function timeToInt(time_string) {
     }
 
     return parseInt(first+second);
+}
+
+function intToTime(time) {
+
+    if(time % 50 !== 0) {
+        throw "Unusual Time: " + time;
+    }
+
+    var hours = Math.floor(time / 100);
+    var minutes = (time - Math.floor(time / 100)) === 0 ? 0 : 30;
+
+    return ('0'+hours).slice(-2) + ':' + ('0'+minutes).slice(-2) + ':00';
 }
 
 function colorize(subj, courseNo, section) {
@@ -156,10 +202,10 @@ function courseInList(course, course_list) {
     for(var course_idx in course_list) {
         cur_course = course_list[course_idx];
         if(cur_course["subj"] === course["subj"] && cur_course["courseNo"] === course["courseNo"] && cur_course["section"] === course["section"]) {
-            return true;
+            return course_idx;
         }
     }
-    return false;
+    return -1;
 }
 
 // Change to jquery serializeArray to return all checkboxes as true/false
@@ -238,10 +284,19 @@ $(document).ready(function(){
             days[day] = obj[day];
             delete obj[day];
         }
+
+        var cobj = jQuery.extend(true, {}, obj);
+        cobj['days'] = formatDays(days);
+
         obj['days'] = days;
         obj["startTime"] = timeToInt(obj["startTime"]);
         obj["endTime"] = timeToInt(obj["endTime"]);
 
+        course_idx = courseInList(cobj, new_courses);
+        if(course_idx !== -1) {
+            new_courses.splice(course_idx, 1);
+        }
+        new_courses.push(cobj);
         appendTimetable([obj]);
     });
 
@@ -266,7 +321,12 @@ $(document).ready(function(){
                 }
                 continue;
             }
-            $("input[name='" + key + "']", form).val(datum[key]);
+            else if(key === "startTime" || key === "endTime") {
+                $("input[name='" + key + "']", form).val(intToTime(datum[key]));
+            }
+            else {
+                $("input[name='" + key + "']", form).val(datum[key]);
+            }
         }
         form.data('edit-index', datum_idx);
     }
@@ -309,10 +369,19 @@ $(document).ready(function(){
             days[day] = obj[day];
             delete obj[day];
         }
+
+        var cobj = jQuery.extend(true, {}, obj);
+        cobj['days'] = formatDays(days);
+
         obj['days'] = days;
         obj["startTime"] = timeToInt(obj["startTime"]);
         obj["endTime"] = timeToInt(obj["endTime"]);
 
+        course_idx = courseInList(cobj, edit_courses);
+        if(course_idx !== -1) {
+            edit_courses.splice(course_idx, 1);
+        }
+        edit_courses.push(cobj);
 
         //Remove the course from the course data
         view_courses.splice(datum_idx, 1);
