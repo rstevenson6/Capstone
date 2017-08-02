@@ -108,6 +108,15 @@ class Db_model extends CI_Model
         return $query;
     }
 
+    public function loadHeaders()
+    {
+      return $this->db->get('excelheader');
+    }
+
+    public function loadUsers()
+    {
+      return $this->db->get('user');
+    }
 
     #INSERT FUNCTIONS: InsertClass, InsertProf, InsertTA
 
@@ -135,6 +144,23 @@ class Db_model extends CI_Model
         return $query;
     }
 
+    public function insertHeaders($header)
+    {
+      $data = array(
+        'header' => $header
+      );
+      return $this->db->insert('excelheader', $data);
+    }
+
+    public function insertUsers($userName, $userRole, $givenName)
+    {
+      $data = array(
+        'userName' => $userName,
+        'userRole' => $userRole,
+        'givenName' => $givenName
+      );
+      return $this->db->insert('user', $data);
+    }
 
     #REMOVE FUNCTIONS: deleteClass
 
@@ -171,6 +197,22 @@ class Db_model extends CI_Model
         return $query1 && $query2 && $query3;
     }
 
+    public function deletetHeaders($header)
+    {
+      $data = array(
+        'header' => $header
+      );
+      return $this->db->delete('excelheader', $data);
+    }
+
+    public function deleteUsers($userName)
+    {
+      $data = array(
+        'userName' => $userName
+      );
+      return $this->db->delete('user', $data);
+    }
+
     #UPDATE FUNCTIONS: UpdateClass, UpdateClassProf, UpdateClassTA
 
     public function updateClassTime($subj, $courseNo, $section, $days, $startTime, $endTime)
@@ -195,6 +237,30 @@ class Db_model extends CI_Model
         $query = $this->db->query($sql, array($name, $subj, $courseNo, $section));
 
         return $query;
+    }
+
+    public function updateHeader($header)
+    {
+      $this->db->set('header', $data);
+      return $this->db->update('excelheader');
+    }
+
+    public function updateUsername($userName)
+    {
+      $this->db->set('userName', $data);
+      return $this->db->update('user');
+    }
+
+    public function updateUserRole($userName, $userRole)
+    {
+      $this->db->set('userRole', $userRole);
+      return $this->db->update('user');
+    }
+
+    public function updateUserGivenName($userName, $givenName)
+    {
+      $this->db->set('userName', $userName);
+      return $this->db->update('user');
     }
 
     #Search Queries:

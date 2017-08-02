@@ -66,7 +66,7 @@ class Excel extends CI_Controller {
     header('Cache-Control: max-age=0');
 
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-    //$objWriter->save('./files/output.xlsx'); //uncoment to save a local copy
+    //$objWriter->save('./files/edplan_'.date('dMy').'.xlsx'); //uncoment to save a local copy
     $objWriter->save('php://output');
 
     return true;
