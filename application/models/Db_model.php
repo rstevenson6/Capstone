@@ -152,12 +152,11 @@ class Db_model extends CI_Model
       return $this->db->insert('excelheader', $data);
     }
 
-    public function insertUsers($userName, $userRole, $givenName)
+    public function insertUsers($userName, $userRole)
     {
       $data = array(
         'userName' => $userName,
-        'userRole' => $userRole,
-        'givenName' => $givenName
+        'userRole' => $userRole
       );
       return $this->db->insert('user', $data);
     }
@@ -197,7 +196,7 @@ class Db_model extends CI_Model
         return $query1 && $query2 && $query3;
     }
 
-    public function deletetHeaders($header)
+    public function deletetHeader($header)
     {
       $data = array(
         'header' => $header
@@ -205,7 +204,7 @@ class Db_model extends CI_Model
       return $this->db->delete('excelheader', $data);
     }
 
-    public function deleteUsers($userName)
+    public function deleteUser($userName)
     {
       $data = array(
         'userName' => $userName
@@ -254,12 +253,6 @@ class Db_model extends CI_Model
     public function updateUserRole($userName, $userRole)
     {
       $this->db->set('userRole', $userRole);
-      return $this->db->update('user');
-    }
-
-    public function updateUserGivenName($userName, $givenName)
-    {
-      $this->db->set('userName', $userName);
       return $this->db->update('user');
     }
 

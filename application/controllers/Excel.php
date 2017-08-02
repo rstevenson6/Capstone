@@ -2,18 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Excel extends CI_Controller {
 
-  var $_headers = [
-    'subject',
-    'course',
-    'section',
-    'term',
-    'primary act type',
-    'days',
-    'start time',
-    'end time',
-    'faculty name'
-  ];
-  var $_headerCols = [];
+  var $_headers=[];
 
   public function __construct()
   {
@@ -21,6 +10,11 @@ class Excel extends CI_Controller {
     $this->load->model('db_model');
     $this->load->library('excel/phpexcel');
     $this->load->library('excel_logic');
+
+    $headers = $this->db_model->loadHeaders()->result_array(); // TODO update DDL
+    foreach ($headers as $row) {
+      array_push($this->_headers, $row['header']);
+    }
   }
 
   public function import()
@@ -34,7 +28,7 @@ class Excel extends CI_Controller {
 
     $this->db_model->deleteAllExcelData();
 
-    echo var_dump($output = $this->excel_logic->extractExcelData($file));
+    echo var_dump($output = $this->excel_logic->extractExcelData($file,$this->_headers));
 
     if (!$this->_saveDataToDatabase($output)) {
       show_404();

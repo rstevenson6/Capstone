@@ -2,19 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Excel_logic
 {
-  var $_headers = [ //temp XXX // Change to use databse headers
-    'subject',
-    'course',
-    'section',
-    'term',
-    'primary act type',
-    'days',
-    'start time',
-    'end time',
-    'faculty name'
-  ];
-  
-  public function extractExcelData($file)
+  public function extractExcelData($file,$headers)
   {
     $objReader = PHPExcel_IOFactory::createReaderForFile($file);
     $objPHPExcel = $objReader->load($file);
@@ -27,7 +15,7 @@ class Excel_logic
       $data_value = $objPHPExcel->getActiveSheet()->getCell($cell)->getValue();
       if ($row == 1) { // Row 1 contains headers
         //If the header is in the predefined header list..
-        if (in_array(strtolower($data_value),$this->_headers)) {
+        if (in_array(strtolower($data_value),$headers)) {
           $header[$row][$column] = $data_value;
           $headerCols[strtolower($data_value)] = $column;
         }
