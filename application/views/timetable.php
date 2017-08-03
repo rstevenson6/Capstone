@@ -589,6 +589,9 @@
                 <input type="submit" name="submit"><input type="button" name="cancel" value="Cancel"><br>
             </form>
         </div>
+        <button id="save">
+            Save to DB
+        </button>
     </div>
 </div>
 </body>
