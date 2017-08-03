@@ -118,6 +118,11 @@ class Db_model extends CI_Model
         return $this->db->get('user');
     }
 
+    public function loadUser($userName)
+    {
+        return $this->db->get_where('user', array('userName' => $userName));
+    }
+
     #INSERT FUNCTIONS: InsertClass, InsertProf, InsertTA
 
     public function insertClass($subj, $courseNo, $section, $term, $actType, $days, $startTime, $endTime, $instructor, $TAName)
