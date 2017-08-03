@@ -102,7 +102,7 @@ function intToTime(time) {
     }
 
     var hours = Math.floor(time / 100);
-    var minutes = (time - Math.floor(time / 100)) === 0 ? 0 : 30;
+    var minutes = (time - Math.floor(time / 100)*100) === 0 ? 0 : 30;
 
     return ('0'+hours).slice(-2) + ':' + ('0'+minutes).slice(-2) + ':00';
 }
@@ -377,7 +377,7 @@ $(document).ready(function(){
         obj["startTime"] = timeToInt(obj["startTime"]);
         obj["endTime"] = timeToInt(obj["endTime"]);
 
-        course_idx = courseInList(cobj, edit_courses);
+        var course_idx = courseInList(cobj, edit_courses);
         if(course_idx !== -1) {
             edit_courses.splice(course_idx, 1);
         }
@@ -388,6 +388,25 @@ $(document).ready(function(){
         clearCourseForm($("#course-edit"));
         //Add the new "edited" course to the course data and refresh timetable
         appendTimetable([obj]);
+    });
+
+    $('#save').click(function(){
+        $.ajax({
+            type: "POST",
+            url: "/ajax/insertClasses",
+            data: {classes: new_courses},
+            success: function (result) {
+                console.log(result);
+                $.ajax({
+                    type: "POST",
+                    url: "/ajax/updateClasses",
+                    data: {classes: edit_courses},
+                    success: function (result) {
+                        console.log(result);
+                    }
+                });
+            }
+        });
     });
 
     // Populate select with profs
