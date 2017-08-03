@@ -38,7 +38,7 @@ class Testing extends CI_Controller
         $this->insertClassTest();
         $this->insertProfTest();
         $this->insertTATest();
-        $this->insertDuplicateClassTest();
+        $this->insertDuplicateTATest();
         $this->deleteClassTest();
         $this->deleteProfTest();
         $this->deleteTATest();
@@ -62,7 +62,7 @@ class Testing extends CI_Controller
         $this->unit->run($this->db_model->insertTA("Doe, Jane", "CHEM", 3), TRUE, "Insert TA Test");
     }
 
-    private function insertDuplicateClassTest()
+    private function insertDuplicateTATest()
     {
         $db_debug_mode = $this->db->db_debug;
         $this->db->db_debug = FALSE;
@@ -72,7 +72,7 @@ class Testing extends CI_Controller
         
         $this->db->db_debug = $db_debug_mode;
 
-        $this->unit->run($this->db->error()['code'], 1062, "Insert Duplicate Class Test");
+        $this->unit->run($this->db->error()['code'], 1062, "Insert Duplicate TA Test");
     }
 
     private function deleteClassTest()
