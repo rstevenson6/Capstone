@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Excel_logic
+class Excel_import_logic
 {
   public function extractExcelData($file,$headers)
   {

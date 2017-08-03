@@ -149,7 +149,7 @@ class Db_model extends CI_Model
         return $query;
     }
 
-    public function insertHeaders($header)
+    public function insertHeader($header)
     {
         $data = array(
           'header' => $header
@@ -157,7 +157,7 @@ class Db_model extends CI_Model
         return $this->db->insert('excelheader', $data);
     }
 
-    public function insertUsers($userName, $userRole)
+    public function insertUser($userName, $userRole)
     {
         $data = array(
           'userName' => $userName,
@@ -201,7 +201,7 @@ class Db_model extends CI_Model
         return $query1 && $query2 && $query3;
     }
 
-    public function deletetHeader($header)
+    public function deleteHeader($header)
     {
         $data = array(
           'header' => $header
@@ -251,22 +251,31 @@ class Db_model extends CI_Model
         return $query;
     }
 
-    public function updateHeader($header)
+    public function updateHeader($oldHeader, $newHeader)
     {
-        $this->db->set('header', $data);
-        return $this->db->update('excelheader');
+        $data = array(
+            'header' => $newHeader
+        );
+        $this->db->where('header', $oldHeader);
+        return $this->db->update('excelheader', $data);
     }
 
-    public function updateUsername($userName)
+    public function updateUsername($oldUserName, $newUserName)
     {
-        $this->db->set('userName', $data);
-        return $this->db->update('user');
+        $data = array(
+            'userName' => $newUserName
+        );
+        $this->db->where('userName', $oldUserName);
+        return $this->db->update('user', $data);
     }
 
     public function updateUserRole($userName, $userRole)
     {
-        $this->db->set('userRole', $userRole);
-        return $this->db->update('user');
+        $data = array(
+            'userRole' => $userRole
+        );
+        $this->db->where('userName', $userName);
+        return $this->db->update('user', $data);
     }
 
     #Search Queries:

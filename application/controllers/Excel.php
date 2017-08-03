@@ -9,9 +9,9 @@ class Excel extends CI_Controller {
     parent::__construct();
     $this->load->model('db_model');
     $this->load->library('excel/phpexcel');
-    $this->load->library('excel_logic');
+    $this->load->library('excel_import_logic');
 
-    $headers = $this->db_model->loadHeaders()->result_array(); // TODO update DDL
+    $headers = $this->db_model->loadHeaders()->result_array();
     foreach ($headers as $row) {
       array_push($this->_headers, $row['header']);
     }
@@ -28,7 +28,7 @@ class Excel extends CI_Controller {
 
     $this->db_model->deleteAllExcelData();
 
-    echo var_dump($output = $this->excel_logic->extractExcelData($file,$this->_headers));
+    echo var_dump($output = $this->excel_import_logic->extractExcelData($file,$this->_headers));
 
     if (!$this->_saveDataToDatabase($output)) {
       show_404();
