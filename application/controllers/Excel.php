@@ -27,8 +27,7 @@ class Excel extends CI_Controller {
     }
 
     $this->db_model->deleteAllExcelData();
-
-    echo var_dump($output = $this->excel_import_logic->extractExcelData($file,$this->_headers));
+    $output = $this->excel_import_logic->extractExcelData($file,$this->_headers);
 
     if (!$this->_saveDataToDatabase($output)) {
       show_404();
