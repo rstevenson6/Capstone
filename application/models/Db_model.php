@@ -108,6 +108,20 @@ class Db_model extends CI_Model
         return $query;
     }
 
+    public function loadHeaders()
+    {
+        return $this->db->get('excelheader');
+    }
+
+    public function loadUsers()
+    {
+        return $this->db->get('user');
+    }
+
+    public function loadUser($userName)
+    {
+        return $this->db->get_where('user', array('userName' => $userName));
+    }
 
     #INSERT FUNCTIONS: InsertClass, InsertProf, InsertTA
 
@@ -135,6 +149,22 @@ class Db_model extends CI_Model
         return $query;
     }
 
+    public function insertHeader($header)
+    {
+        $data = array(
+          'header' => $header
+        );
+        return $this->db->insert('excelheader', $data);
+    }
+
+    public function insertUser($userName, $userRole)
+    {
+        $data = array(
+          'userName' => $userName,
+          'userRole' => $userRole
+        );
+        return $this->db->insert('user', $data);
+    }
 
     #REMOVE FUNCTIONS: deleteClass
 
@@ -162,13 +192,29 @@ class Db_model extends CI_Model
         return $query;
     }
 
-    public function deleteAll()
+    public function deleteAllExcelData()
     {
         $query1 = $this->db->empty_table('instructors');
         $query2 = $this->db->empty_table('class');
         $query3 = $this->db->empty_table('ta');
 
         return $query1 && $query2 && $query3;
+    }
+
+    public function deleteHeader($header)
+    {
+        $data = array(
+          'header' => $header
+        );
+        return $this->db->delete('excelheader', $data);
+    }
+
+    public function deleteUser($userName)
+    {
+        $data = array(
+          'userName' => $userName
+        );
+        return $this->db->delete('user', $data);
     }
 
     #UPDATE FUNCTIONS: UpdateClass, UpdateClassProf, UpdateClassTA
@@ -203,6 +249,33 @@ class Db_model extends CI_Model
         $query = $this->db->query($sql, array($name, $subj, $courseNo, $section));
 
         return $query;
+    }
+
+    public function updateHeader($oldHeader, $newHeader)
+    {
+        $data = array(
+            'header' => $newHeader
+        );
+        $this->db->where('header', $oldHeader);
+        return $this->db->update('excelheader', $data);
+    }
+
+    public function updateUsername($oldUserName, $newUserName)
+    {
+        $data = array(
+            'userName' => $newUserName
+        );
+        $this->db->where('userName', $oldUserName);
+        return $this->db->update('user', $data);
+    }
+
+    public function updateUserRole($userName, $userRole)
+    {
+        $data = array(
+            'userRole' => $userRole
+        );
+        $this->db->where('userName', $userName);
+        return $this->db->update('user', $data);
     }
 
     #Search Queries:
