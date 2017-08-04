@@ -144,8 +144,8 @@ class Testing extends CI_Controller
 
     private function updateHeaderTest()
     {
-      $this->db_model->insertHeader("fakeHeader");
-      $this->unit->run($this->db_model->updateHeader("fakeHeader", "testFakeHeader"), TRUE, "Update Header Test");
+        $this->db_model->insertHeader("fakeHeader");
+        $this->unit->run($this->db_model->updateHeader("fakeHeader", "testFakeHeader"), TRUE, "Update Header Test");
     }
 
     private function updateUsernameTest()
@@ -162,33 +162,33 @@ class Testing extends CI_Controller
 
     public function excelImportTest()
     {
-      $this->load->library('excel_import_logic');
-      $this->load->library('excel/phpexcel');
-      $file = './files/test.xlsx';
-      $headers = ['course','days','faculty name','primary act type','subject','start time','end time'];
-      $output = $this->excel_import_logic->extractExcelData($file,$headers);
-      $answer = [
-        'header' => [
-          1 => [
-            'A' => 'Subject','B' => 'Course', 'C' => 'Primary Act Type',
-            'D' => 'Days', 'E' => 'Start Time', 'F' => 'End Time',
-            'G' => 'Faculty Name'
-          ]
-        ],
-        'arr_data' => [
-          2 => [
-            'A' => 'COSC','B' => (float) 111, 'C' => 'LEC', 'D' => 'M',
-            'E' => '08:30:00','F' => '10:30:00',
-            'G' => 'MOHAMED, ABDALLAH'
-          ]
-        ],
-        'headerCols' => [
-          'subject' => 'A','course'=> 'B', 'primary act type' => 'C',
-          'days' => 'D', 'start time' => 'E', 'end time' => 'F',
-          'faculty name' => 'G'
-        ]
-      ];
-      echo var_dump($output), var_dump($answer);
-      $this->unit->run($output, $answer, "Excel Test");
+        $this->load->library('excel_import_logic');
+        $this->load->library('excel/phpexcel');
+        $file = './files/test.xlsx';
+        $headers = ['course','days','faculty name','primary act type','subject','start time','end time'];
+        $output = $this->excel_import_logic->extractExcelData($file,$headers);
+        $answer = [
+            'header' => [
+                1 => [
+                    'A' => 'Subject','B' => 'Course', 'C' => 'Primary Act Type',
+                    'D' => 'Days', 'E' => 'Start Time', 'F' => 'End Time',
+                    'G' => 'Faculty Name'
+                ]
+            ],
+            'arr_data' => [
+                2 => [
+                    'A' => 'COSC','B' => (float) 111, 'C' => 'LEC', 'D' => 'M',
+                    'E' => '08:30:00','F' => '10:30:00',
+                    'G' => 'MOHAMED, ABDALLAH'
+                ]
+            ],
+            'headerCols' => [
+                'subject' => 'A','course'=> 'B', 'primary act type' => 'C',
+                'days' => 'D', 'start time' => 'E', 'end time' => 'F',
+                'faculty name' => 'G'
+            ]
+        ];
+        echo var_dump($output), var_dump($answer);
+        $this->unit->run($output, $answer, "Excel Test");
     }
 }
