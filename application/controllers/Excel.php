@@ -41,7 +41,7 @@ class Excel extends CI_Controller {
     $query = $this->db_model->loadClasses();
 
     if(!$query)  {
-      return false;
+      show_404();
     }
 
     $objPHPExcel = new PHPExcel();
@@ -61,8 +61,6 @@ class Excel extends CI_Controller {
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
     //$objWriter->save('./files/edplan_'.date('dMy').'.xlsx'); //uncoment to save a local copy
     $objWriter->save('php://output');
-
-    return true;
   }
 
   // Currently does NOT import TAs
@@ -127,11 +125,10 @@ class Excel extends CI_Controller {
         }
       } catch (Exception $e) {
         echo "Exception: ", $e->getMessage(),"\n";
-        return false;
+        show_404();
       }
       // save class to database
       $this->db_model->insertClass($subj, $courseNo, $section, $term, $actType, $days, $startTime, $endTime, $instructor, $TAName);
     }
-    return true;
   }
 }
