@@ -17,9 +17,9 @@ class Excel extends CI_Controller {
     }
   }
 
-  public function import()
+  public function import($file)
   {
-    $file = './files/edplan.xlsx';
+    // $file = './files/edplan.xlsx'; // temp for testing
     if (!file_exists($file)) {
       // TODO: display an error message saying the file was not found
       show_404();
@@ -32,8 +32,15 @@ class Excel extends CI_Controller {
     if (!$this->_saveDataToDatabase($output)) {
       show_404();
     }
-    $data['data'] = $output;
-    $this->load->view('timetable');
+
+    echo "import successful!";
+
+    if (file_exists($file)) {
+      echo "File will be deleted here";
+      //delet_files($file) or exit('failed deleting: ' . $filepath);
+    }
+
+    //redirect('/timetable');
   }
 
   public function export()
@@ -41,7 +48,7 @@ class Excel extends CI_Controller {
     $query = $this->db_model->loadClasses();
 
     if(!$query)  {
-      show_404();
+      return false;
     }
 
     $objPHPExcel = new PHPExcel();
@@ -125,10 +132,11 @@ class Excel extends CI_Controller {
         }
       } catch (Exception $e) {
         echo "Exception: ", $e->getMessage(),"\n";
-        show_404();
+        return false;
       }
       // save class to database
       $this->db_model->insertClass($subj, $courseNo, $section, $term, $actType, $days, $startTime, $endTime, $instructor, $TAName);
     }
+    return true;
   }
 }

@@ -53,6 +53,7 @@ class Main extends CI_Controller {
 		$config['overwrite']	= 'TRUE';
 		$config['file_name']	= 'edplan.xlsx';
 		$this->load->library('upload', $config);
+		$this->load->helper('file');
 
 		if (!$this->upload->do_upload('userfile'))
 		{
@@ -61,8 +62,11 @@ class Main extends CI_Controller {
 		}
 		else
 		{
-			$this->upload->data();
-			redirect('/timetable');
+			// file uploaded
+			$data = $this->upload->data();
+			$filepath = $data['full_path'];
+			// do import
+			redirect('excel/import/'.$filepath);
 		}
 	}
 }
