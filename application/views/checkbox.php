@@ -9,6 +9,7 @@
 <body>
 
 <?php
+
 $this->load->database();
 $query = LoadClasses();
 
@@ -35,12 +36,34 @@ $PHIL = array();
 $POLI = array();
 $OTHER = array();
 
+$query = $this->db_model->loadClasses();
+
+
 foreach ($query->result() as $row) {
 
     $subj = $row->subj;
     $subj = strtoupper($subj);
     $courseNo = $row->courseNo;
     $section = $row->section;
+
+
+    $ANTH = array();
+    $BIOL = array();
+    $CHEM = array();
+    $PSYC = array();
+    $COSC = array();
+    $MATH = array();
+    $PHYS = array();
+    $STAT = array();
+    $HIST = array();
+    $SOCI = array();
+    $EESC = array();
+    $ECON = array();
+    $PHIL = array();
+    $POLI = array();
+    $GEOG = array();
+    $GWST = array();
+    $INDG = array();
 
 
     if (strcmp($subj, "ANTH")) {
@@ -112,6 +135,8 @@ sort($ECON);
 sort($PHIL);
 sort($POLI);
 sort($OTHER);
+sort($INDG);
+
 ?>
 
 

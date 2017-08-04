@@ -35,9 +35,9 @@ class Main extends CI_Controller {
         $this->load->view('timetable');
     }
 
-    public function dbtest()
-    {
-        $this->load->database();
-        $this->load->view('dbtest');
-    }
+	public function checkbox()
+	{
+		$this->load->model('db_model');
+		$this->load->view('checkbox');
+	}
 }
