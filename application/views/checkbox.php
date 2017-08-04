@@ -12,6 +12,28 @@
 $this->load->database();
 $query = LoadClasses();
 
+$ANTH = array();
+$ASTR = array();
+$GWST = array();
+$GEOG = array();
+$BIOL = array();
+$SUST = array();
+$BIOC = array();
+$CHEM = array();
+$PSYC = array();
+$COSC = array();
+$MATH = array();
+$MDST = array();
+$PHYS = array();
+$STAT = array();
+$DATA = array();
+$HIST = array();
+$SOCI = array();
+$EESC = array();
+$ECON = array();
+$PHIL = array();
+$POLI = array();
+$OTHER = array();
 
 foreach ($query->result() as $row) {
 
@@ -20,27 +42,23 @@ foreach ($query->result() as $row) {
     $courseNo = $row->courseNo;
     $section = $row->section;
 
-    $ANTH = array();
-    $BIOL = array();
-    $CHEM = array();
-    $PSYC = array();
-    $COSC = array();
-    $MATH = array();
-    $PHYS = array();
-    $STAT = array();
-    $HIST = array();
-    $SOCI = array();
-    $EESC = array();
-    $ECON = array();
-    $PHIL = array();
-    $POLI = array();
 
     if (strcmp($subj, "ANTH")) {
         $ANTH [] = $courseNo . " " . $section;
+    } elseif (strcmp($subj, "ASTR")) {
+        $ASTR [] = $courseNo . " " . $section;
+    } elseif (strcmp($subj, "GWST")) {
+        $GWST [] = $courseNo . " " . $section;
+    } elseif (strcmp($subj, "GEOG")) {
+        $GEOG [] = $courseNo . " " . $section;
     } elseif (strcmp($subj, "INDG")) {
         $INDG [] = $courseNo . " " . $section;
     } elseif (strcmp($subj, "BIOL")) {
-        $CHEM  [] = $courseNo . " " . $section;
+        $BIOL  [] = $courseNo . " " . $section;
+    } elseif (strcmp($subj, "BIOC")) {
+        $BIOC [] = $courseNo . " " . $section;
+    } elseif (strcmp($subj, "SUST")) {
+        $SUST [] = $courseNo . " " . $section;
     } elseif (strcmp($subj, "CHEM")) {
         $CHEM [] = $courseNo . " " . $section;
     } elseif (strcmp($subj, "PSYC")) {
@@ -49,10 +67,14 @@ foreach ($query->result() as $row) {
         $COSC [] = $courseNo . " " . $section;
     } elseif (strcmp($subj, "MATH")) {
         $MATH [] = $courseNo . " " . $section;
+    } elseif (strcmp($subj, "MDST")) {
+        $MDST [] = $courseNo . " " . $section;
     } elseif (strcmp($subj, "PHYS")) {
         $PHYS [] = $courseNo . " " . $section;
     } elseif (strcmp($subj, "STAT")) {
         $STAT [] = $courseNo . " " . $section;
+    } elseif (strcmp($subj, "DATA")) {
+        $DATA [] = $courseNo . " " . $section;
     } elseif (strcmp($subj, "HIST")) {
         $HIST [] = $courseNo . " " . $section;
     } elseif (strcmp($subj, "SOCI")) {
@@ -65,15 +87,23 @@ foreach ($query->result() as $row) {
         $PHIL [] = $courseNo . " " . $section;
     } elseif (strcmp($subj, "POLI")) {
         $POLI [] = $courseNo . " " . $section;
+    } else {
+        $OTHER [] = $courseNo . " " . $section;
     }
 }
 sort($ANTH);
+sort($ASTR);
+sort($GWST);
+sort($GEOG);
+sort($BIOC);
 sort($BIOL);
+sort($DATA);
 sort($CHEM);
 sort($PSYC);
 sort($COSC);
 sort($MATH);
 sort($PHYS);
+sort($MDST);
 sort($STAT);
 sort($HIST);
 sort($SOCI);
@@ -81,6 +111,7 @@ sort($EESC);
 sort($ECON);
 sort($PHIL);
 sort($POLI);
+sort($OTHER);
 ?>
 
 
@@ -117,7 +148,7 @@ sort($POLI);
                                         echo "<li>";
                                         echo "<div>";
                                         echo "<input type='checkbox'/><a href='#'>";
-                                        echo next($ANTH[0]);
+                                        echo next($ANTH)[0];
                                         echo "00";
                                         echo "</a>";
                                         echo "</div>";
@@ -161,7 +192,7 @@ sort($POLI);
                                         echo "<li>";
                                         echo "<div>";
                                         echo "<input type='checkbox'/><a href='#'>";
-                                        echo next($GWST[0]);
+                                        echo next($GWST)[0];
                                         echo "00";
                                         echo "</a>";
                                         echo "</div>";
@@ -205,7 +236,7 @@ sort($POLI);
                                         echo "<li>";
                                         echo "<div>";
                                         echo "<input type='checkbox'/><a href='#'>";
-                                        echo next($GEOG[0]);
+                                        echo next($GEOG)[0];
                                         echo "00";
                                         echo "</a>";
                                         echo "</div>";
@@ -248,7 +279,7 @@ sort($POLI);
                                         echo "<li>";
                                         echo "<div>";
                                         echo "<input type='checkbox'/><a href='#'>";
-                                        echo next($INDG[0]);
+                                        echo next($INDG)[0];
                                         echo "00";
                                         echo "</a>";
                                         echo "</div>";
@@ -297,13 +328,101 @@ sort($POLI);
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
-                                                echo next($BIOL[0]);
+                                                echo next($BIOL)[0];
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
                                                 echo "</li>";
                                             }
                                             $current = next($BIOL);
+                                        }
+                                        echo "<li><div>";
+                                        echo "<input type='checkbox' id = '$current' value = '$current'/><a href='#'>";
+                                        echo $current;
+                                        echo "</a>";
+                                        echo "</li></div>"
+
+                                        ?>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="checkbox"/><a href="#">BIOC</a>
+                            </div>
+                            <ul class="accordion">
+                                <li>
+                                    <div>
+                                        <input type="checkbox"/><a href="#">100</a>
+
+                                    </div>
+                                    <ul class="accordion">
+                                        <?php
+                                        $current = current($BIOC);
+                                        while ($current != end($BIOC)) {
+                                            echo "<li><div>";
+                                            echo "<input type='checkbox' id = '$current' value = '$current'/><a href='#'>";
+                                            echo $current;
+                                            echo "</a>";
+                                            echo "</div></li>";
+
+
+                                            if ($current[0] != next($BIOC)[0] && $current[0] != 4) {
+                                                echo "<li>";
+                                                echo "<div>";
+                                                echo "<input type='checkbox'/><a href='#'>";
+                                                echo next($BIOC)[0];
+                                                echo "00";
+                                                echo "</a>";
+                                                echo "</div>";
+                                                echo "</li>";
+                                            }
+                                            $current = next($BIOC);
+                                        }
+                                        echo "<li><div>";
+                                        echo "<input type='checkbox' id = '$current' value = '$current'/><a href='#'>";
+                                        echo $current;
+                                        echo "</a>";
+                                        echo "</li></div>"
+
+                                        ?>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="checkbox"/><a href="#">SUST </a>
+                            </div>
+                            <ul class="accordion">
+                                <li>
+                                    <div>
+                                        <input type="checkbox"/><a href="#">100</a>
+
+                                    </div>
+                                    <ul class="accordion">
+                                        <?php
+                                        $current = current($SUST);
+                                        while ($current != end($SUST)) {
+                                            echo "<li><div>";
+                                            echo "<input type='checkbox' id = '$current' value = '$current'/><a href='#'>";
+                                            echo $current;
+                                            echo "</a>";
+                                            echo "</div></li>";
+
+
+                                            if ($current[0] != next($SUST)[0] && $current[0] != 4) {
+                                                echo "<li>";
+                                                echo "<div>";
+                                                echo "<input type='checkbox'/><a href='#'>";
+                                                echo next($SUST)[0];
+                                                echo "00";
+                                                echo "</a>";
+                                                echo "</div>";
+                                                echo "</li>";
+                                            }
+                                            $current = next($SUST);
                                         }
                                         echo "<li><div>";
                                         echo "<input type='checkbox' id = '$current' value = '$current'/><a href='#'>";
@@ -348,7 +467,7 @@ sort($POLI);
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
-                                                echo next($CHEM[0]);
+                                                echo next($CHEM)[0];
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
@@ -400,7 +519,7 @@ sort($POLI);
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
-                                                echo next($PSYC[0]);
+                                                echo next($PSYC)[0];
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
@@ -428,6 +547,50 @@ sort($POLI);
                     <ul class="accordion">
                         <li>
                             <div>
+                                <input type="checkbox"/><a href="#">ASTR </a>
+                            </div>
+                            <ul class="accordion">
+                                <li>
+                                    <div>
+                                        <input type="checkbox"/><a href="#">100</a>
+
+                                    </div>
+                                    <ul class="accordion">
+                                        <?php
+                                        $current = current($ASTR);
+                                        while ($current != end($ASTR)) {
+                                            echo "<li><div>";
+                                            echo "<input type='checkbox' id = '$current' value = '$current'/><a href='#'>";
+                                            echo $current;
+                                            echo "</a>";
+                                            echo "</div></li>";
+
+
+                                            if ($current[0] != next($ASTR)[0] && $current[0] != 4) {
+                                                echo "<li>";
+                                                echo "<div>";
+                                                echo "<input type='checkbox'/><a href='#'>";
+                                                echo next($ASTR)[0];
+                                                echo "00";
+                                                echo "</a>";
+                                                echo "</div>";
+                                                echo "</li>";
+                                            }
+                                            $current = next($ASTR);
+                                        }
+                                        echo "<li><div>";
+                                        echo "<input type='checkbox' id = '$current' value = '$current'/><a href='#'>";
+                                        echo $current;
+                                        echo "</a>";
+                                        echo "</li></div>"
+
+                                        ?>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div>
                                 <input type="checkbox"/><a href="#">COSC</a>
                             </div>
                             <ul class="accordion">
@@ -451,13 +614,57 @@ sort($POLI);
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
-                                                echo next($COSC[0]);
+                                                echo next($COSC)[0];
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
                                                 echo "</li>";
                                             }
                                             $current = next($COSC);
+                                        }
+                                        echo "<li><div>";
+                                        echo "<input type='checkbox' id = '$current' value = '$current'/><a href='#'>";
+                                        echo $current;
+                                        echo "</a>";
+                                        echo "</li></div>"
+
+                                        ?>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="checkbox"/><a href="#">DATA </a>
+                            </div>
+                            <ul class="accordion">
+                                <li>
+                                    <div>
+                                        <input type="checkbox"/><a href="#">100</a>
+
+                                    </div>
+                                    <ul class="accordion">
+                                        <?php
+                                        $current = current($DATA);
+                                        while ($current != end($DATA)) {
+                                            echo "<li><div>";
+                                            echo "<input type='checkbox' id = '$current' value = '$current'/><a href='#'>";
+                                            echo $current;
+                                            echo "</a>";
+                                            echo "</div></li>";
+
+
+                                            if ($current[0] != next($DATA)[0] && $current[0] != 4) {
+                                                echo "<li>";
+                                                echo "<div>";
+                                                echo "<input type='checkbox'/><a href='#'>";
+                                                echo next($DATA)[0];
+                                                echo "00";
+                                                echo "</a>";
+                                                echo "</div>";
+                                                echo "</li>";
+                                            }
+                                            $current = next($DATA);
                                         }
                                         echo "<li><div>";
                                         echo "<input type='checkbox' id = '$current' value = '$current'/><a href='#'>";
@@ -495,13 +702,57 @@ sort($POLI);
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
-                                                echo next($MATH[0]);
+                                                echo next($MATH)[0];
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
                                                 echo "</li>";
                                             }
                                             $current = next($MATH);
+                                        }
+                                        echo "<li><div>";
+                                        echo "<input type='checkbox' id = '$current' value = '$current'/><a href='#'>";
+                                        echo $current;
+                                        echo "</a>";
+                                        echo "</li></div>"
+
+                                        ?>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="checkbox"/><a href="#">MDST </a>
+                            </div>
+                            <ul class="accordion">
+                                <li>
+                                    <div>
+                                        <input type="checkbox"/><a href="#">100</a>
+
+                                    </div>
+                                    <ul class="accordion">
+                                        <?php
+                                        $current = current($MDST);
+                                        while ($current != end($MDST)) {
+                                            echo "<li><div>";
+                                            echo "<input type='checkbox' id = '$current' value = '$current'/><a href='#'>";
+                                            echo $current;
+                                            echo "</a>";
+                                            echo "</div></li>";
+
+
+                                            if ($current[0] != next($MDST)[0] && $current[0] != 4) {
+                                                echo "<li>";
+                                                echo "<div>";
+                                                echo "<input type='checkbox'/><a href='#'>";
+                                                echo next($MDST)[0];
+                                                echo "00";
+                                                echo "</a>";
+                                                echo "</div>";
+                                                echo "</li>";
+                                            }
+                                            $current = next($MDST);
                                         }
                                         echo "<li><div>";
                                         echo "<input type='checkbox' id = '$current' value = '$current'/><a href='#'>";
@@ -539,7 +790,7 @@ sort($POLI);
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
-                                                echo next($PHYS[0]);
+                                                echo next($PHYS)[0];
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
@@ -582,7 +833,7 @@ sort($POLI);
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
-                                                echo next($STAT[0]);
+                                                echo next($STAT)[0];
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
@@ -633,7 +884,7 @@ sort($POLI);
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
-                                                echo next($HIST[0]);
+                                                echo next($HIST)[0];
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
@@ -677,7 +928,7 @@ sort($POLI);
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
-                                                echo next($SOCI[0]);
+                                                echo next($SOCI)[0];
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
@@ -730,7 +981,7 @@ sort($POLI);
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
-                                                echo next($EESC[0]);
+                                                echo next($EESC)[0];
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
@@ -781,7 +1032,7 @@ sort($POLI);
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
-                                                echo next($PHIL[0]);
+                                                echo next($PHIL)[0];
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
@@ -824,7 +1075,7 @@ sort($POLI);
                                                 echo "<li>";
                                                 echo "<div>";
                                                 echo "<input type='checkbox'/><a href='#'>";
-                                                echo next($POLI[0]);
+                                                echo next($POLI)[0];
                                                 echo "00";
                                                 echo "</a>";
                                                 echo "</div>";
@@ -843,8 +1094,36 @@ sort($POLI);
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <div>
+                                <input type="checkbox"/><a href="#">OTHER</a>
+                            </div>
+                            <ul class="accordion">
+                                <li>
+                                    <ul class="accordion">
+                                        <?php
+                                        $current = current($BIOC);
+                                        while ($current != end($BIOC)) {
+                                            echo "<li><div>";
+                                            echo "<input type='checkbox' id = '$current' value = '$current'/><a href='#'>";
+                                            echo $current;
+                                            echo "</a>";
+                                            echo "</div></li>";
+                                            $current = next($BIOC);
+                                        }
+                                        echo "<li><div>";
+                                        echo "<input type='checkbox' id = '$current' value = '$current'/><a href='#'>";
+                                        echo $current;
+                                        echo "</a>";
+                                        echo "</li></div>"
+
+                                        ?>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
-                    <div><input type="submit" value="Submit"/></div>
+                    <div><input type="submit" value="submit"/></div>
                 </li>
             </ul>
         </li>
