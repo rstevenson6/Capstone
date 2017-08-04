@@ -110,7 +110,7 @@ class Db_model extends CI_Model
 
     public function loadHeaders()
     {
-        return $this->db->get('excelheader');
+        return $this->db->get('excelHeader');
     }
 
     public function loadUsers()
@@ -154,7 +154,7 @@ class Db_model extends CI_Model
         $data = array(
           'header' => $header
         );
-        return $this->db->insert('excelheader', $data);
+        return $this->db->insert('excelHeader', $data);
     }
 
     public function insertUser($userName, $userRole)
@@ -196,7 +196,7 @@ class Db_model extends CI_Model
     {
         $query1 = $this->db->empty_table('instructors');
         $query2 = $this->db->empty_table('class');
-        $query3 = $this->db->empty_table('ta');
+        $query3 = $this->db->empty_table('TA');
 
         return $query1 && $query2 && $query3;
     }
@@ -206,7 +206,7 @@ class Db_model extends CI_Model
         $data = array(
           'header' => $header
         );
-        return $this->db->delete('excelheader', $data);
+        return $this->db->delete('excelHeader', $data);
     }
 
     public function deleteUser($userName)
@@ -257,7 +257,7 @@ class Db_model extends CI_Model
             'header' => $newHeader
         );
         $this->db->where('header', $oldHeader);
-        return $this->db->update('excelheader', $data);
+        return $this->db->update('excelHeader', $data);
     }
 
     public function updateUsername($oldUserName, $newUserName)

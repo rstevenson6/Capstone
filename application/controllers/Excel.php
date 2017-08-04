@@ -8,7 +8,7 @@ class Excel extends CI_Controller {
   {
     parent::__construct();
     $this->load->model('db_model');
-    $this->load->library('excel/phpexcel');
+    $this->load->library('excel/Lib_PHPExcel');
     $this->load->library('excel_import_logic');
 
     $headers = $this->db_model->loadHeaders()->result_array();

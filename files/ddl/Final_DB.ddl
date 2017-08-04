@@ -54,7 +54,7 @@ FOREIGN KEY (TAName) REFERENCES TA(name)
 );
 
 CREATE TABLE user (
-userName varchar(30) NOT NULL, 
+userName varchar(30) NOT NULL,
 userRole varchar(10) NOT NULL,
 PRIMARY KEY (username)
 );
@@ -64,12 +64,12 @@ header varchar(50) NOT NULL,
 PRIMARY KEY (header)
 );
 
-insert into excelheader values ('subject');
-insert into excelheader values ('course');
-insert into excelheader values ('section');
-insert into excelheader values ('term');
-insert into excelheader values ('primary act type');
-insert into excelheader values ('days');
-insert into excelheader values ('start time');
-insert into excelheader values ('end time');
-insert into excelheader values ('faculty name');
+insert into excelHeader values ('subject');
+insert into excelHeader values ('course');
+insert into excelHeader values ('section');
+insert into excelHeader values ('term');
+insert into excelHeader values ('primary act type');
+insert into excelHeader values ('days');
+insert into excelHeader values ('start time');
+insert into excelHeader values ('end time');
+insert into excelHeader values ('faculty name');
