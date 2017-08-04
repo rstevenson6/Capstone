@@ -188,7 +188,6 @@ class Testing extends CI_Controller
                 'faculty name' => 'G'
             ]
         ];
-        echo var_dump($output), var_dump($answer);
         $this->unit->run($output, $answer, "Excel Test");
     }
 }
