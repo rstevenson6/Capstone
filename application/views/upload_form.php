@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <?= validation_errors(); ?>
     <?php echo $error; ?>
     <?= form_open_multipart('/do_upload'); ?>
 
