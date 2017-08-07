@@ -5,7 +5,7 @@ class Main extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->helper(array('form', 'url'));
+		$this->load->helper('form');
     $this->load->library('form_validation');
 
 		// TODO: LDAP integration with login
@@ -64,9 +64,11 @@ class Main extends CI_Controller {
 		{
 			// file uploaded
 			$data = $this->upload->data();
-			$filepath = $data['full_path'];
+			echo var_dump($data);
+			echo $filepath = './files/'.$data['file_name'];
+			$_SESSION['file'] = $filepath;
 			// do import
-			redirect('excel/import/'.$filepath);
+			redirect('excel/import');
 		}
 	}
 }

@@ -10,6 +10,7 @@ class Excel extends CI_Controller {
     $this->load->model('db_model');
     $this->load->library('excel/Lib_PHPExcel');
     $this->load->library('excel_import_logic');
+    $this->load->helper('file');
 
     $headers = $this->db_model->loadHeaders()->result_array();
     foreach ($headers as $row) {
@@ -17,10 +18,11 @@ class Excel extends CI_Controller {
     }
   }
 
-  public function import($file)
+  public function import()
   {
-    // $file = './files/edplan.xlsx'; // temp for testing
-    if (!file_exists($file)) {
+    //$file = './files/test_excel_files/edplan.xlsx'; // temp: for testing
+    $file = $_SESSION['file'];
+    if (!isset($file) || !file_exists($file)) {
       // TODO: display an error message saying the file was not found
       show_404();
       exit();
@@ -33,14 +35,10 @@ class Excel extends CI_Controller {
       show_404();
     }
 
-    echo "import successful!";
-
-    if (file_exists($file)) {
-      echo "File will be deleted here";
-      //delet_files($file) or exit('failed deleting: ' . $filepath);
-    }
-
-    //redirect('/timetable');
+    // delete file
+    unlink($file);
+    
+    redirect('/timetable');
   }
 
   public function export()
@@ -73,6 +71,7 @@ class Excel extends CI_Controller {
   // Currently does NOT import TAs
   private function _saveDataToDatabase($data)
   {
+    $this->db->trans_start();
     $profs=[]; // to keep trach of seen profs
     foreach ($data['arr_data'] as $items) {
       $profName=$dept=$unit=null;
@@ -137,6 +136,7 @@ class Excel extends CI_Controller {
       // save class to database
       $this->db_model->insertClass($subj, $courseNo, $section, $term, $actType, $days, $startTime, $endTime, $instructor, $TAName);
     }
+    $this->db->trans_complete();
     return true;
   }
 }
