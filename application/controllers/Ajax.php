@@ -25,6 +25,47 @@ class Ajax extends CI_Controller {
         echo json_encode($query->result());
     }
 
+    public function pushClasses()
+    {
+        $classes = $this->input->post('classes');
+
+        $this->db->trans_start();
+        foreach($classes as $class) {
+            $subj = empty($class['subj']) ? null : $class['subj'];
+            $courseNo = empty($class['courseNo']) ? null : $class['courseNo'];
+            $section = empty($class['section']) ? null : $class['section'];
+            $term = empty($class['term']) ? null : $class['term'];
+            $actType = empty($class['actType']) ? null : $class['actType'];
+            $days = empty($class['days']) ? null : $class['days'];
+            $startTime = empty($class['startTime']) ? null : $class['startTime'];
+            $endTime = empty($class['endTime']) ? null : $class['endTime'];
+            $prof = empty($class['instructor']) ? null : $class['instructor'];
+            $TA = empty($class['TAName']) ? null : $class['TAName'];
+
+            switch ($class["type"]) {
+                case 'insert':
+                    $this->db_model->insertClass($subj, $courseNo, $section, $term, $actType, $days, $startTime, $endTime, $prof, $TA);
+                    break;
+
+                case 'update':
+                    $this->db_model->updateClass($subj, $courseNo, $section, $term, $actType, $days, $startTime, $endTime, $prof, $TA);
+                    break;
+
+                case 'delete':
+
+                    break;
+
+                default:
+                    # code...
+                    break;
+            }
+        }
+
+        $this->db->trans_complete();
+
+        echo $this->db->trans_status();
+    }
+
     public function insertClasses()
     {
         $classes = $this->input->post('classes');
