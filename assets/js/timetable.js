@@ -4,7 +4,11 @@ var view_courses = [];
 var diff_courses = [];
 
 function parseDays(day_string) {
-    var arr = day_string.split("");
+    // Backwards compatibility stuff
+    var arr = day_string.split(", ");
+    if(arr.length === 1) {
+        arr = day_string.split("");
+    }
     var days = {"mon": false, "tue": false, "wed": false, "thu": false, "fri": false, "sat": false, "sun": false};
     for(var day in arr) {
         day = arr[day];
@@ -14,53 +18,57 @@ function parseDays(day_string) {
                 days["mon"] = true;
                 break;
             case "T":
+            case "TU":
                 days["tue"] = true;
                 break;
             case "W":
                 days["wed"] = true;
                 break;
             case "R":
+            case "TH":
                 days["thu"] = true;
                 break;
             case "F":
                 days["fri"] = true;
                 break;
+            case "S":
             case "SA":
                 days["sat"] = true;
                 break;
+            case "N":
             case "SU":
                 days["sun"] = true;
                 break;
             default:
-                throw "Invalid day string! (M, Tu, W, Th, F, Sa, Su): " + day;
+                throw "Invalid day string! (M, T, W, R, F, S, N): " + day;
         }
     }
     return days;
 }
 
 function formatDays(day_obj) {
-    day_string = "";
+    var day_string = "";
 
     if(day_obj["mon"]) {
-        day_string += 'M, '
+        day_string += 'M'
     }
     if(day_obj["tue"]) {
-        day_string += 'T, '
+        day_string += 'T'
     }
     if(day_obj["wed"]) {
-        day_string += 'W, '
+        day_string += 'W'
     }
     if(day_obj["thu"]) {
-        day_string += 'R, '
+        day_string += 'R'
     }
     if(day_obj["fri"]) {
-        day_string += 'F, '
+        day_string += 'F'
     }
     if(day_obj["sat"]) {
-        day_string += 'SA, '
+        day_string += 'S'
     }
     if(day_obj["sun"]) {
-        day_string += 'SU, '
+        day_string += 'N'
     }
     day_string = day_string.substring(0, day_string.length-2);
     return day_string
@@ -376,17 +384,14 @@ $(document).ready(function(){
         if(!obj["delete"]) {
           cobj["type"] = "update";
           diff_courses.push(cobj);
-          //Remove the course from the course data
+          //Remove the old course from the view to avoid a duplicate
           view_courses.splice(datum_idx, 1);
-          //Add the new "edited" course to the course data and refresh timetable
           appendTimetable([obj]);
         }
         else {
           cobj["type"] = "delete";
           diff_courses.push(cobj);
-          //Remove the course from the course data
           view_courses.splice(datum_idx, 1);
-          //Add the new "edited" course to the course data and refresh timetable
           newTimetable(view_courses);
         }
     });
@@ -397,6 +402,7 @@ $(document).ready(function(){
             url: "/ajax/pushClasses",
             data: {classes: diff_courses},
             success: function (result) {
+                console.log(result);
             }
         });
     });

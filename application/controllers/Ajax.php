@@ -31,16 +31,16 @@ class Ajax extends CI_Controller {
 
         $this->db->trans_start();
         foreach($classes as $class) {
-            $subj = empty($class['subj']) ? null : $class['subj'];
-            $courseNo = empty($class['courseNo']) ? null : $class['courseNo'];
-            $section = empty($class['section']) ? null : $class['section'];
-            $term = empty($class['term']) ? null : $class['term'];
-            $actType = empty($class['actType']) ? null : $class['actType'];
-            $days = empty($class['days']) ? null : $class['days'];
-            $startTime = empty($class['startTime']) ? null : $class['startTime'];
-            $endTime = empty($class['endTime']) ? null : $class['endTime'];
-            $prof = empty($class['instructor']) ? null : $class['instructor'];
-            $TA = empty($class['TAName']) ? null : $class['TAName'];
+            $subj      = empty($class['subj'])       ? null : $class['subj'];
+            $courseNo  = empty($class['courseNo'])   ? null : $class['courseNo'];
+            $section   = empty($class['section'])    ? null : $class['section'];
+            $term      = empty($class['term'])       ? null : $class['term'];
+            $actType   = empty($class['actType'])    ? null : $class['actType'];
+            $days      = empty($class['days'])       ? null : $class['days'];
+            $startTime = empty($class['startTime'])  ? null : $class['startTime'];
+            $endTime   = empty($class['endTime'])    ? null : $class['endTime'];
+            $prof      = empty($class['instructor']) ? null : $class['instructor'];
+            $TA        = empty($class['TAName'])     ? null : $class['TAName'];
 
             switch ($class["type"]) {
                 case 'insert':
@@ -52,11 +52,11 @@ class Ajax extends CI_Controller {
                     break;
 
                 case 'delete':
-
+                    $this->db_model->deleteClass($subj, $courseNo, $section);
                     break;
 
                 default:
-                    # code...
+                    throw new Exception("Expect: insert, update, delete Got: " . $class["type"]);
                     break;
             }
         }
@@ -72,16 +72,16 @@ class Ajax extends CI_Controller {
 
         $this->db->trans_start();
         foreach($classes as $class) {
-            $subj = empty($class['subj']) ? null : $class['subj'];
-            $courseNo = empty($class['courseNo']) ? null : $class['courseNo'];
-            $section = empty($class['section']) ? null : $class['section'];
-            $term = empty($class['term']) ? null : $class['term'];
-            $actType = empty($class['actType']) ? null : $class['actType'];
-            $days = empty($class['days']) ? null : $class['days'];
-            $startTime = empty($class['startTime']) ? null : $class['startTime'];
-            $endTime = empty($class['endTime']) ? null : $class['endTime'];
-            $prof = empty($class['instructor']) ? null : $class['instructor'];
-            $TA = empty($class['TAName']) ? null : $class['TAName'];
+            $subj      = empty($class['subj'])       ? null : $class['subj'];
+            $courseNo  = empty($class['courseNo'])   ? null : $class['courseNo'];
+            $section   = empty($class['section'])    ? null : $class['section'];
+            $term      = empty($class['term'])       ? null : $class['term'];
+            $actType   = empty($class['actType'])    ? null : $class['actType'];
+            $days      = empty($class['days'])       ? null : $class['days'];
+            $startTime = empty($class['startTime'])  ? null : $class['startTime'];
+            $endTime   = empty($class['endTime'])    ? null : $class['endTime'];
+            $prof      = empty($class['instructor']) ? null : $class['instructor'];
+            $TA        = empty($class['TAName'])     ? null : $class['TAName'];
 
             $this->db_model->insertClass($subj, $courseNo, $section, $term, $actType, $days, $startTime, $endTime, $prof, $TA);
         }
@@ -97,16 +97,16 @@ class Ajax extends CI_Controller {
 
         $this->db->trans_start();
         foreach($classes as $class) {
-            $subj = empty($class['subj']) ? null : $class['subj'];
-            $courseNo = empty($class['courseNo']) ? null : $class['courseNo'];
-            $section = empty($class['section']) ? null : $class['section'];
-            $term = empty($class['term']) ? null : $class['term'];
-            $actType = empty($class['actType']) ? null : $class['actType'];
-            $days = empty($class['days']) ? null : $class['days'];
-            $startTime = empty($class['startTime']) ? null : $class['startTime'];
-            $endTime = empty($class['endTime']) ? null : $class['endTime'];
-            $prof = empty($class['instructor']) ? null : $class['instructor'];
-            $TA = empty($class['TAName']) ? null : $class['TAName'];
+            $subj      = empty($class['subj'])       ? null : $class['subj'];
+            $courseNo  = empty($class['courseNo'])   ? null : $class['courseNo'];
+            $section   = empty($class['section'])    ? null : $class['section'];
+            $term      = empty($class['term'])       ? null : $class['term'];
+            $actType   = empty($class['actType'])    ? null : $class['actType'];
+            $days      = empty($class['days'])       ? null : $class['days'];
+            $startTime = empty($class['startTime'])  ? null : $class['startTime'];
+            $endTime   = empty($class['endTime'])    ? null : $class['endTime'];
+            $prof      = empty($class['instructor']) ? null : $class['instructor'];
+            $TA        = empty($class['TAName'])     ? null : $class['TAName'];
 
             $this->db_model->updateClass($subj, $courseNo, $section, $term, $actType, $days, $startTime, $endTime, $prof, $TA);
         }
@@ -118,32 +118,32 @@ class Ajax extends CI_Controller {
 
     public function insertClass()
     {
-        $subj = empty($this->input->post('subj')) ? null : $this->input->post('subj');
-        $courseNo = empty($this->input->post('courseNo')) ? null : $this->input->post('courseNo');
-        $section = empty($this->input->post('section')) ? null : $this->input->post('section');
-        $term = empty($this->input->post('term')) ? null : $this->input->post('term');
-        $actType = empty($this->input->post('actType')) ? null : $this->input->post('actType');
-        $days = empty($this->input->post('days')) ? null : $this->input->post('days');
+        $subj      = empty($this->input->post('subj')) ? null : $this->input->post('subj');
+        $courseNo  = empty($this->input->post('courseNo')) ? null : $this->input->post('courseNo');
+        $section   = empty($this->input->post('section')) ? null : $this->input->post('section');
+        $term      = empty($this->input->post('term')) ? null : $this->input->post('term');
+        $actType   = empty($this->input->post('actType')) ? null : $this->input->post('actType');
+        $days      = empty($this->input->post('days')) ? null : $this->input->post('days');
         $startTime = empty($this->input->post('startTime')) ? null : $this->input->post('startTime');
-        $endTime = empty($this->input->post('endTime')) ? null : $this->input->post('endTime');
-        $prof = empty($this->input->post('instructor')) ? null : $this->input->post('instructor');
-        $TA = empty($this->input->post('TAName')) ? null : $this->input->post('TAName');
+        $endTime   = empty($this->input->post('endTime')) ? null : $this->input->post('endTime');
+        $prof      = empty($this->input->post('instructor')) ? null : $this->input->post('instructor');
+        $TA        = empty($this->input->post('TAName')) ? null : $this->input->post('TAName');
 
         echo $this->db_model->insertClass($subj, $courseNo, $section, $term, $actType, $days, $startTime, $endTime, $prof, $TA);
     }
 
     public function updateClass()
     {
-        $subj = empty($class['subj']) ? null : $class['subj'];
-        $courseNo = empty($class['courseNo']) ? null : $class['courseNo'];
-        $section = empty($class['section']) ? null : $class['section'];
-        $term = empty($class['term']) ? null : $class['term'];
-        $actType = empty($class['actType']) ? null : $class['actType'];
-        $days = empty($class['days']) ? null : $class['days'];
-        $startTime = empty($class['startTime']) ? null : $class['startTime'];
-        $endTime = empty($class['endTime']) ? null : $class['endTime'];
-        $prof = empty($class['instructor']) ? null : $class['instructor'];
-        $TA = empty($class['TAName']) ? null : $class['TAName'];
+        $subj      = empty($class['subj'])       ? null : $class['subj'];
+        $courseNo  = empty($class['courseNo'])   ? null : $class['courseNo'];
+        $section   = empty($class['section'])    ? null : $class['section'];
+        $term      = empty($class['term'])       ? null : $class['term'];
+        $actType   = empty($class['actType'])    ? null : $class['actType'];
+        $days      = empty($class['days'])       ? null : $class['days'];
+        $startTime = empty($class['startTime'])  ? null : $class['startTime'];
+        $endTime   = empty($class['endTime'])    ? null : $class['endTime'];
+        $prof      = empty($class['instructor']) ? null : $class['instructor'];
+        $TA        = empty($class['TAName'])     ? null : $class['TAName'];
 
         echo $this->db_model->updateClass($subj, $courseNo, $section, $term, $actType, $days, $startTime, $endTime, $prof, $TA);
     }
