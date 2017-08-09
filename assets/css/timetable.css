@@ -35,19 +35,19 @@ td {
 
 .block {
     background-color: darkgray;
-    border-top-style: dashed;
-    border-bottom-style: dashed;
+    border-top-style: none;
+    border-bottom-style: none;
 }
 
 .block-top {
     border-radius: 16px 16px 0 0;
     border-top-style: solid;
-    border-bottom-style: dashed;
+    border-bottom-style: none;
 }
 
 .block-bot {
     border-radius: 0 0 16px 16px;
-    border-top-style: dashed;
+    border-top-style: none;
     border-bottom-style: solid;
 }
 
