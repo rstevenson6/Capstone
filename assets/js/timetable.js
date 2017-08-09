@@ -1,11 +1,14 @@
 //Data is stored in key-value pairs with the same naming as the database.
 //Only difference is that the days are stored in their own object as booleans
 var view_courses = [];
-var new_courses = [];
-var edit_courses = [];
+var diff_courses = [];
 
 function parseDays(day_string) {
+    // Backwards compatibility stuff
     var arr = day_string.split(", ");
+    if(arr.length === 1) {
+        arr = day_string.split("");
+    }
     var days = {"mon": false, "tue": false, "wed": false, "thu": false, "fri": false, "sat": false, "sun": false};
     for(var day in arr) {
         day = arr[day];
@@ -14,54 +17,58 @@ function parseDays(day_string) {
             case "M":
                 days["mon"] = true;
                 break;
+            case "T":
             case "TU":
                 days["tue"] = true;
                 break;
             case "W":
                 days["wed"] = true;
                 break;
+            case "R":
             case "TH":
                 days["thu"] = true;
                 break;
             case "F":
                 days["fri"] = true;
                 break;
+            case "S":
             case "SA":
                 days["sat"] = true;
                 break;
+            case "N":
             case "SU":
                 days["sun"] = true;
                 break;
             default:
-                throw "Invalid day string! (M, Tu, W, Th, F, Sa, Su): " + day;
+                throw "Invalid day string! (M, T, W, R, F, S, N): " + day;
         }
     }
     return days;
 }
 
 function formatDays(day_obj) {
-    day_string = "";
+    var day_string = "";
 
     if(day_obj["mon"]) {
-        day_string += 'M, '
+        day_string += 'M'
     }
     if(day_obj["tue"]) {
-        day_string += 'TU, '
+        day_string += 'T'
     }
     if(day_obj["wed"]) {
-        day_string += 'W, '
+        day_string += 'W'
     }
     if(day_obj["thu"]) {
-        day_string += 'TH, '
+        day_string += 'R'
     }
     if(day_obj["fri"]) {
-        day_string += 'F, '
+        day_string += 'F'
     }
     if(day_obj["sat"]) {
-        day_string += 'SA, '
+        day_string += 'S'
     }
     if(day_obj["sun"]) {
-        day_string += 'SU, '
+        day_string += 'N'
     }
     day_string = day_string.substring(0, day_string.length-2);
     return day_string
@@ -292,11 +299,12 @@ $(document).ready(function(){
         obj["startTime"] = timeToInt(obj["startTime"]);
         obj["endTime"] = timeToInt(obj["endTime"]);
 
-        course_idx = courseInList(cobj, new_courses);
+        course_idx = courseInList(cobj, diff_courses);
         if(course_idx !== -1) {
-            new_courses.splice(course_idx, 1);
+            diff_courses.splice(course_idx, 1);
         }
-        new_courses.push(cobj);
+        cobj["type"] = "insert"
+        diff_courses.push(cobj);
         appendTimetable([obj]);
     });
 
@@ -338,12 +346,6 @@ $(document).ready(function(){
         form.removeData('edit-index');
     }
 
-    $("#course-edit input[name='cancel']").click(function() {
-        $('#edit-menu').slideUp();
-        $('#course-menu').slideDown();
-        clearCourseForm($("#course-edit"));
-    });
-
     //Course edit form submission
     $("#course-edit").submit(function(event){
         event.preventDefault();
@@ -377,34 +379,30 @@ $(document).ready(function(){
         obj["startTime"] = timeToInt(obj["startTime"]);
         obj["endTime"] = timeToInt(obj["endTime"]);
 
-        var course_idx = courseInList(cobj, edit_courses);
-        if(course_idx !== -1) {
-            edit_courses.splice(course_idx, 1);
-        }
-        edit_courses.push(cobj);
-
-        //Remove the course from the course data
-        view_courses.splice(datum_idx, 1);
         clearCourseForm($("#course-edit"));
-        //Add the new "edited" course to the course data and refresh timetable
-        appendTimetable([obj]);
+
+        if(!obj["delete"]) {
+          cobj["type"] = "update";
+          diff_courses.push(cobj);
+          //Remove the old course from the view to avoid a duplicate
+          view_courses.splice(datum_idx, 1);
+          appendTimetable([obj]);
+        }
+        else {
+          cobj["type"] = "delete";
+          diff_courses.push(cobj);
+          view_courses.splice(datum_idx, 1);
+          newTimetable(view_courses);
+        }
     });
 
     $('#save').click(function(){
         $.ajax({
             type: "POST",
-            url: "/ajax/insertClasses",
-            data: {classes: new_courses},
+            url: "/ajax/pushClasses",
+            data: {classes: diff_courses},
             success: function (result) {
                 console.log(result);
-                $.ajax({
-                    type: "POST",
-                    url: "/ajax/updateClasses",
-                    data: {classes: edit_courses},
-                    success: function (result) {
-                        console.log(result);
-                    }
-                });
             }
         });
     });

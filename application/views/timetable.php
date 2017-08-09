@@ -589,6 +589,7 @@
                 <input type="checkbox" name="fri" >fri<br>
                 <input type="checkbox" name="sat" >sat<br>
                 <input type="checkbox" name="sun" >sun<br>
+                <input type="checkbox" name="delete" >Delete?<br>
                 <input type="hidden" name="index" value="">
                 <input type="submit" name="submit"><input type="button" name="cancel" value="Cancel"><br>
             </form>
