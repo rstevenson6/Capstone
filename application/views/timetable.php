@@ -516,6 +516,10 @@
     <div id="right-container" class="container">
         Course Menu
         <br>
+        <button onclick="location.href='<?= base_url().'upload' ?>'">
+            Import Excel
+        </button>
+        <br><br>
         <button id="load-courses">
             Load Example Courses
         </button>
