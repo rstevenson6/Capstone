@@ -9,6 +9,8 @@
       <input type="submit" value="import" />
 
     </form>
+    <br />
+    <a href="<?= base_url().'timetable' ?>">back</a>
   </body>
   <?php $this->load->view('templates/footer'); ?>
 </html>
