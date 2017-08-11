@@ -167,13 +167,15 @@ function displayTimetable() {
                 continue;
             }
 
+            datum["elements"].push([]);
+
             //Style each half-hour "block"
             for (var block = 0; block < blocks; block++) {
 
                 var cell = $('#timetable tr.hour_' + (datum.startTime + block*50) + ' td.' + day);
 
                 //Add cell to data for future reference
-                datum["elements"].push(cell);
+                datum["elements"][datum["elements"].length-1].push(cell);
                 console.log(datum.elements);
 
                 if(cell.data('index') === undefined) {
@@ -334,21 +336,42 @@ $(document).ready(function(){
         var datum_idx_array = $(this).data('index');
         if(datum_idx_array === undefined) { return; }
         var datum_idx = datum_idx_array[datum_idx_array.length-1];
-        var elements = view_courses[datum_idx]["elements"];
+        var element_groups = view_courses[datum_idx]["elements"];
 
-        for(var element_idx in elements) {
-            var element = elements[element_idx];
-            element.css('border-width', '3px');
+        for(var element_group_idx in element_groups) {
+            for(var element_idx in element_groups[element_group_idx]) {
+                console.log(element_groups[element_group_idx]);
+                console.log(typeof element_idx);
+                var element = element_groups[element_group_idx][element_idx];
+
+                if(element_idx == 0) {
+                    console.log('0');
+                    element.css('border-top-style', 'solid');
+                    element.css('border-bottom-style', 'none');
+                }
+
+                if(element_idx == element_groups[element_group_idx].length-1) {
+                    console.log('-1');
+                    element.css('border-top-style', 'none');
+                    element.css('border-bottom-style', 'solid');
+                }
+
+                element.css('border-width', '3px');
+            }
         }
     }, function(){
         var datum_idx_array = $(this).data('index');
         if(datum_idx_array === undefined) { return; }
         var datum_idx = datum_idx_array[datum_idx_array.length-1];
-        var elements = view_courses[datum_idx]["elements"];
+        var element_groups = view_courses[datum_idx]["elements"];
 
-        for(var element_idx in elements) {
-            var element = elements[element_idx];
-            element.css('border-width', '1px');
+        for(var element_group_idx in element_groups) {
+            for(var element_idx in element_groups[element_group_idx]) {
+                var element = element_groups[element_group_idx][element_idx];
+                element.css('border-width', '1px');
+                element.css('border-top-style', '');
+                element.css('border-bottom-style', '');
+            }
         }
     });
 
@@ -394,8 +417,6 @@ $(document).ready(function(){
 
         //Get form inputs as key-value pairs
         var obj = $(this).serializeObject();
-        console.log("OBJ");
-        console.log(obj);
 
         var day_array = ['mon','tue','wed','thu','fri','sat','sun'];
         var days = {};
@@ -412,6 +433,7 @@ $(document).ready(function(){
         obj['days'] = days;
         obj["startTime"] = timeToInt(obj["startTime"]);
         obj["endTime"] = timeToInt(obj["endTime"]);
+        obj["elements"] =[];
 
         clearCourseForm($("#course-edit"));
 
