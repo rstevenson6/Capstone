@@ -76,10 +76,6 @@ function formatDays(day_obj) {
 
 function timeToInt(time_string) {
 
-    if(parseInt(time_string) % 50 === 0) {
-        return parseInt(time_string);
-    }
-
     var match = /(\d{1,2}):(\d{2})/.exec(time_string);
     var first = match[1];
     var second = match[2];
@@ -96,7 +92,8 @@ function timeToInt(time_string) {
             second = "00";
             break;
         default:
-            throw "Unusual Time: " + second;
+            window.alert('Times should be on half-hour intervals');
+            throw "Unusual Time: " + first + ':' + second;
     }
 
     return parseInt(first+second);
@@ -167,15 +164,25 @@ function displayTimetable() {
                 continue;
             }
 
+            datum["elements"].push([]);
+
             //Style each half-hour "block"
             for (var block = 0; block < blocks; block++) {
 
                 var cell = $('#timetable tr.hour_' + (datum.startTime + block*50) + ' td.' + day);
 
+                //Add cell to data for future reference
+                datum["elements"][datum["elements"].length-1].push(cell);
+
+                if(cell.data('index') === undefined) {
+                    cell.data('index', []);
+                }
+                cell.text('').css({'background-color': ''}).removeClass('block block-single block-top block-bot');
+
                 //Set seeded color
                 cell.css("background-color", colorize(datum.subj, datum.courseNo, datum.section));
                 //Store index to course data for future reference
-                cell.data('index', datum_idx);
+                cell.data('index').push(datum_idx);
 
                 if(blocks === 1) {
                     cell.addClass('block block-single').text(datum.subj + ' ' + datum.courseNo + ' ' + datum.section);
@@ -243,8 +250,6 @@ function courseInList(course, course_list) {
         $.each(this.serializeArray(), function () {
             result[this.name] = this.value;
         });
-        console.log('fn');
-        console.log(this.serializeArray());
         return result;
     };
 
@@ -262,8 +267,9 @@ $(document).ready(function(){
             success: function(result){
                 result = result.map(function(val) {
                     val["days"] = parseDays(val["days"]);
-                    val["startTime"] = timeToInt(val["startTime"]);;
+                    val["startTime"] = timeToInt(val["startTime"]);
                     val["endTime"] = timeToInt(val["endTime"]);
+                    val["elements"] = [];
                     return val;
                 });
                 newTimetable(result);
@@ -310,12 +316,52 @@ $(document).ready(function(){
 
     //Edit course on click
     $('#timetable td').click(function() {
-        var datum_idx = $(this).data("index");
-        console.log(datum_idx);
+        var data_idx_array = $(this).data("index");
+        var datum_idx = data_idx_array[data_idx_array.length-1];
         if(datum_idx === undefined) { console.log("datum_idx undefined!"); return; }
         populateCourseForm($('#course-edit'), datum_idx);
         $('#edit-menu').slideDown();
         $('#course-menu').slideUp();
+    });
+
+    //Show border shadow on hover to indicate clickability
+    $('#timetable td').hover(function(){
+        var datum_idx_array = $(this).data('index');
+        if(datum_idx_array === undefined) { return; }
+        var datum_idx = datum_idx_array[datum_idx_array.length-1];
+        var element_groups = view_courses[datum_idx]["elements"];
+
+        for(var element_group_idx in element_groups) {
+            for(var element_idx in element_groups[element_group_idx]) {
+                var element = element_groups[element_group_idx][element_idx];
+
+                if(element_idx == 0) {
+                    element.css('border-top-style', 'solid');
+                    element.css('border-bottom-style', 'none');
+                }
+
+                if(element_idx == element_groups[element_group_idx].length-1) {
+                    element.css('border-top-style', 'none');
+                    element.css('border-bottom-style', 'solid');
+                }
+
+                element.css('border-width', '3px');
+            }
+        }
+    }, function(){
+        var datum_idx_array = $(this).data('index');
+        if(datum_idx_array === undefined) { return; }
+        var datum_idx = datum_idx_array[datum_idx_array.length-1];
+        var element_groups = view_courses[datum_idx]["elements"];
+
+        for(var element_group_idx in element_groups) {
+            for(var element_idx in element_groups[element_group_idx]) {
+                var element = element_groups[element_group_idx][element_idx];
+                element.css('border-width', '1px');
+                element.css('border-top-style', '');
+                element.css('border-bottom-style', '');
+            }
+        }
     });
 
     //Populates a form with course data
@@ -360,8 +406,6 @@ $(document).ready(function(){
 
         //Get form inputs as key-value pairs
         var obj = $(this).serializeObject();
-        console.log("OBJ");
-        console.log(obj);
 
         var day_array = ['mon','tue','wed','thu','fri','sat','sun'];
         var days = {};
@@ -378,6 +422,7 @@ $(document).ready(function(){
         obj['days'] = days;
         obj["startTime"] = timeToInt(obj["startTime"]);
         obj["endTime"] = timeToInt(obj["endTime"]);
+        obj["elements"] =[];
 
         clearCourseForm($("#course-edit"));
 

@@ -548,15 +548,15 @@
                 Manual Entry
             </h2>
             <form id="course-entry">
-                <input type="text" name="subj">Subject<br>
-                <input type="text" name="courseNo">Course Number<br>
-                <input type="text" name="section">Section<br>
-                <input type="text" name="actType">Activity Type<br>
-                <input type="text" name="instructor">Instructor<br>
-                <input type="text" name="TAName">TA Name<br>
-                <input type="text" name="term">Term<br>
-                <input type="time" name="startTime">Start<br>
-                <input type="time" name="endTime">End<br>
+                <input placeholder="COSC" type="text" name="subj">Subject<br>
+                <input placeholder="419J" type="text" name="courseNo">Course Number<br>
+                <input placeholder="L01" type="text" name="section">Section<br>
+                <input placeholder="LAB" type="text" name="actType">Activity Type<br>
+                <input placeholder="Fazackerley, Scott" type="text" name="instructor">Instructor<br>
+                <input placeholder="Teacher, Assistant" type="text" name="TAName">TA Name<br>
+                <input placeholder="2" type="number" min="1" max="3" name="term">Term<br>
+                <input placeholder="14:00" type="time" name="startTime">Start<br>
+                <input placeholder="15:30" type="time" name="endTime">End<br>
                 <input type="checkbox" name="mon" >mon<br>
                 <input type="checkbox" name="tue" >tue<br>
                 <input type="checkbox" name="wed" >wed<br>
@@ -573,15 +573,15 @@
                 Edit Selected Course
             </h2>
             <form id="course-edit">
-                <input type="text" name="subj">Subject<br>
-                <input type="text" name="courseNo">Course Number<br>
-                <input type="text" name="section">Section<br>
-                <input type="text" name="actType">Activity Type<br>
-                <input type="text" name="instructor">Instructor<br>
-                <input type="text" name="TAName">TA Name<br>
-                <input type="text" name="term">Term<br>
-                <input type="time" name="startTime">Start<br>
-                <input type="time" name="endTime">End<br>
+                <input placeholder="COSC" type="text" name="subj">Subject<br>
+                <input placeholder="419J" type="text" name="courseNo">Course Number<br>
+                <input placeholder="L01" type="text" name="section">Section<br>
+                <input placeholder="LAB" type="text" name="actType">Activity Type<br>
+                <input placeholder="Fazackerley, Scott" type="text" name="instructor">Instructor<br>
+                <input placeholder="Teacher, Assistant" type="text" name="TAName">TA Name<br>
+                <input placeholder="2" type="number" min="1" max="3" name="term">Term<br>
+                <input placeholder="14:00" type="time" name="startTime">Start<br>
+                <input placeholder="15:30" type="time" name="endTime">End<br>
                 <input type="checkbox" name="mon" >mon<br>
                 <input type="checkbox" name="tue" >tue<br>
                 <input type="checkbox" name="wed" >wed<br>
