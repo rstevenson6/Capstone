@@ -22,16 +22,17 @@ class Main extends CI_Controller {
 		}
 		else
 		{
-			echo $username = $this->input->post('username');
+			$username = $this->input->post('username');
 			$password = $this->input->post('password'); // unused for now
 
 			$this->ldap->connect();
 
 			$msg = "";
-			//$msg .= $this->users->getUserRole($username)."<br />";
+			$msg .= $this->users->getUserRole($username)."<br />";
 			$msg .= $this->ldap->auth_ldap($username,$password)."<br />";
 
 			$data['msg'] = $msg;
+			print_r($msg);
 
 			//$this->load->view('temp/display', $data);
 			//$this->load->view('timetable', $data);
