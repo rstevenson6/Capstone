@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class LDAP
+class Ldap
 {
   // define test username and test plaintext pass
   var $username = '';
