@@ -40,7 +40,7 @@ class Ldap
       exit();
     }
 
-    if (auth_ldap($this->username, $this->plainpass)===TRUE) {
+    if ($this->auth_ldap($this->username, $this->plainpass)===TRUE) {
       $this->connected = TRUE;
       $this->m_debug_write('Authentication successful');
     } else {
