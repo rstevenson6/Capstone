@@ -43,9 +43,11 @@ class Ldap
     if ($this->auth_ldap($this->username, $this->plainpass)===TRUE) {
       $this->connected = TRUE;
       $this->m_debug_write('Authentication successful');
+      return TRUE;
     } else {
       $this->connected = FALSE;
       $this->m_debug_write('Authentication failure');
+      return FALSE;
     }
   }
 
@@ -56,7 +58,7 @@ class Ldap
     // ensure that a blank username or password cannot be used to authenticate
     if (!$username or !$plainpass) {
       $this->m_debug_write('username or password undifined.'.$this->eol);
-      return null;
+      return FALSE;
     }
 
     $ldap_host = $this->ldap_host;
