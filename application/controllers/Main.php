@@ -7,13 +7,12 @@ class Main extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('form');
     $this->load->library('form_validation');
-
-		// TODO: LDAP integration with login
 	}
 
 	public function index()
 	{
     $this->load->library('users');
+		$this->load->library('ldap');
 		$this->form_validation->set_rules('username', 'Username', 'required');
     $this->form_validation->set_rules('password', 'Password', 'required');
 
@@ -23,10 +22,19 @@ class Main extends CI_Controller {
 		}
 		else
 		{
-			$username = $this->input->post('username');
+			echo $username = $this->input->post('username');
 			$password = $this->input->post('password'); // unused for now
-			$data['msg'] = $this->users->getUserRole($username);
-			$this->load->view('timetable', $data);
+
+			$this->ldap->connect();
+
+			$msg = "";
+			//$msg .= $this->users->getUserRole($username)."<br />";
+			$msg .= $this->ldap->auth_ldap($username,$password)."<br />";
+
+			$data['msg'] = $msg;
+
+			//$this->load->view('temp/display', $data);
+			//$this->load->view('timetable', $data);
 		}
 	}
 
