@@ -29,6 +29,9 @@ class Ajax extends CI_Controller {
     {
         $classes = $this->input->post('classes');
 
+        $db_debug_mode = $this->db->db_debug;
+        $this->db->db_debug = FALSE;
+
         $this->db->trans_start();
         foreach($classes as $class) {
             $subj      = empty($class['subj'])       ? null : $class['subj'];
@@ -64,6 +67,8 @@ class Ajax extends CI_Controller {
         $this->db->trans_complete();
 
         echo $this->db->trans_status();
+
+        $this->db->db_debug = $db_debug_mode;
     }
 
     public function insertClasses()

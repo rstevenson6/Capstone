@@ -70,7 +70,6 @@ function formatDays(day_obj) {
     if(day_obj["sun"]) {
         day_string += 'N'
     }
-    day_string = day_string.substring(0, day_string.length-2);
     return day_string
 }
 
@@ -135,8 +134,7 @@ function newTimetable(data) {
 
     view_courses = data;
 
-    clearTimetable();
-    displayTimetable();
+    refreshTimetable();
 }
 
 // Takes an array of course objects
@@ -145,6 +143,10 @@ function appendTimetable(data) {
 
     view_courses = view_courses.concat(data);
 
+    refreshTimetable();
+}
+
+function refreshTimetable() {
     clearTimetable();
     displayTimetable();
 }
@@ -155,6 +157,8 @@ function displayTimetable() {
         var datum = view_courses[datum_idx];
         var duration = datum.endTime - datum.startTime;
         var blocks = duration / 50;
+
+        datum["elements"] = [];
 
         //Iterate through the days
         for(var day in datum.days) {
@@ -180,9 +184,16 @@ function displayTimetable() {
                 cell.text('').css({'background-color': ''}).removeClass('block block-single block-top block-bot');
 
                 //Set seeded color
-                cell.css("background-color", colorize(datum.subj, datum.courseNo, datum.section));
+                var color = colorize(datum.subj, datum.courseNo, datum.section);
+                datum["color"] = color;
+                cell.css("background-color", color);
                 //Store index to course data for future reference
-                cell.data('index').push(datum_idx);
+                var indices = cell.data('index');
+                indices.push(datum_idx);
+
+                if(indices.length > 1) {
+                    cell.addClass('right-clickable');
+                }
 
                 if(blocks === 1) {
                     cell.addClass('block block-single').text(datum.subj + ' ' + datum.courseNo + ' ' + datum.section);
@@ -203,7 +214,7 @@ function displayTimetable() {
 
 //Clear timetable but retain course data
 function clearTimetable() {
-    $('#timetable td').removeData('index').text('').css({'background-color': ''}).removeClass('block block-single block-top block-bot');
+    $('#timetable td').removeData('index').text('').css({'background-color': ''}).removeClass('block block-single block-top block-bot right-clickable');
 }
 
 //Clear timetable and delete course data
@@ -324,6 +335,58 @@ $(document).ready(function(){
         $('#course-menu').slideUp();
     });
 
+    $('#modal').hide();
+
+    $('#timetable td').contextmenu(function(e) {
+
+        var modal = $('#modal');
+        var modal_table = $('#modal table tbody');
+        var cell = $(this);
+        var indices = cell.data('index');
+        console.log("Indices: " +indices );
+
+
+        if(indices.length > 1) {
+            e.preventDefault();
+
+            modal_table.html('');
+
+            var click = {
+                x: e.originalEvent.pageX,
+                y: e.originalEvent.pageY
+            };
+
+            for(var index_idx in indices) {
+                var course = view_courses[indices[index_idx]];
+                modal_table.append('<tr><td style="background-color: ' + course.color + '">' + course.subj + ' ' + course.courseNo + ' ' + course.section + '</td></tr>');
+                $('td', modal_table).last().data('index', indices[index_idx]);
+            }
+
+            // Bind event on generated TDs
+            $('#modal td').click(function() {
+                console.log("CLICKED!");
+                $('#modal').hide();
+
+                var cell = $(this);
+                var index = cell.data('index');
+
+                console.log("Deleting index: " + index);
+                var new_top_course = view_courses.splice(index, 1)[0];
+                view_courses.push(new_top_course);
+                console.log(view_courses);
+
+                refreshTimetable();
+            });
+
+            // Position and show modal
+
+            modal.css('left', click.x);
+            modal.css('top', click.y);
+
+            modal.show();
+        }
+    });
+
     //Show border shadow on hover to indicate clickability
     $('#timetable td').hover(function(){
         var datum_idx_array = $(this).data('index');
@@ -331,16 +394,21 @@ $(document).ready(function(){
         var datum_idx = datum_idx_array[datum_idx_array.length-1];
         var element_groups = view_courses[datum_idx]["elements"];
 
+        // Go through each group of cells for each class time
         for(var element_group_idx in element_groups) {
+            // Through the cell elements within in class/grouping
             for(var element_idx in element_groups[element_group_idx]) {
                 var element = element_groups[element_group_idx][element_idx];
 
-                if(element_idx == 0) {
+                if(element_groups[element_group_idx].length === 1) {
+                    element.css('border-top-style', 'solid');
+                    element.css('border-bottom-style', 'solid');
+                }
+                else if(element_idx == 0) {
                     element.css('border-top-style', 'solid');
                     element.css('border-bottom-style', 'none');
                 }
-
-                if(element_idx == element_groups[element_group_idx].length-1) {
+                else if(element_idx == element_groups[element_group_idx].length-1) {
                     element.css('border-top-style', 'none');
                     element.css('border-bottom-style', 'solid');
                 }
@@ -392,6 +460,12 @@ $(document).ready(function(){
         form.removeData('edit-index');
     }
 
+    function closeEditForm() {
+        $('#edit-menu').slideUp();
+        $('#course-menu').slideDown();
+        clearCourseForm($('#course-edit'));
+    }
+
     //Course edit form submission
     $("#course-edit").submit(function(event){
         event.preventDefault();
@@ -441,13 +515,29 @@ $(document).ready(function(){
         }
     });
 
+    $('input[name=cancel]').click(function(){
+        closeEditForm();
+    });
+
     $('#save').click(function(){
         $.ajax({
             type: "POST",
             url: "/ajax/pushClasses",
             data: {classes: diff_courses},
             success: function (result) {
-                console.log(result);
+                if (result === "1") {
+                    diff_courses = [];
+                }
+                else if (result === "") {
+                    window.alert("Save failed. Nothing saved to DB.");
+                }
+                else {
+                    throw "Unexpected result: " + result;
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                window.alert("Request to save failed. Nothing saved to DB. " + errorThrown + ": " + textStatus);
+                throw errorThrown + ": " + textStatus;
             }
         });
     });
