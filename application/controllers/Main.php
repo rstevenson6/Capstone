@@ -99,13 +99,19 @@ class Main extends CI_Controller {
 	{
 		$this->isLoggedIn();
 
-		unset($_SESSION);
+		unset(
+			$_SESSION['logged_in'],
+			$_SESSION['user'],
+			$_SESSION['file']
+		);
+		
+		redirect('index');
 	}
 
 	private function isLoggedIn()
 	{
 		if (!$this->session->userdata('logged_in')) {
-			redirect('main/index');
+			redirect('index');
 		}
 	}
 
