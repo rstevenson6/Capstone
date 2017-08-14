@@ -12,6 +12,14 @@
 </head>
 
 <body>
+<div id="modal">
+    Bring to front:
+    <table>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
 <div id="main-container" class="container">
     <div id="left-container" class="container">
         <div id="timetable-menu">
@@ -551,22 +559,55 @@
                 Manual Entry
             </h2>
             <form id="course-entry">
-                <input placeholder="COSC" type="text" name="subj">Subject<br>
-                <input placeholder="419J" type="text" name="courseNo">Course Number<br>
-                <input placeholder="L01" type="text" name="section">Section<br>
-                <input placeholder="LAB" type="text" name="actType">Activity Type<br>
-                <input placeholder="Fazackerley, Scott" type="text" name="instructor">Instructor<br>
-                <input placeholder="Teacher, Assistant" type="text" name="TAName">TA Name<br>
-                <input placeholder="2" type="number" min="1" max="3" name="term">Term<br>
-                <input placeholder="14:00" type="time" name="startTime">Start<br>
-                <input placeholder="15:30" type="time" name="endTime">End<br>
-                <input type="checkbox" name="mon" >mon<br>
-                <input type="checkbox" name="tue" >tue<br>
-                <input type="checkbox" name="wed" >wed<br>
-                <input type="checkbox" name="thu" >thu<br>
-                <input type="checkbox" name="fri" >fri<br>
-                <input type="checkbox" name="sat" >sat<br>
-                <input type="checkbox" name="sun" >sun<br>
+
+                <input id="subj1" placeholder="COSC" type="text" name="subj">
+                <label for="subj1">Subject</label><br>
+
+                <input id="courseNo1" placeholder="419J" type="text" name="courseNo">
+                <label for="courseNo1">Course Number</label><br>
+
+                <input id="section1" placeholder="L01" type="text" name="section">
+                <label for="section1">Section</label><br>
+
+                <input id="actType1" placeholder="LAB" type="text" name="actType">
+                <label for="actType1">Activity Type</label><br>
+
+                <input id="instructor1" placeholder="Fazackerley, Scott" type="text" name="instructor">
+                <label for="instructor1">Instructor</label><br>
+
+                <input id="TAName1" placeholder="Teacher, Assistant" type="text" name="TAName">
+                <label for="TAName1">TA Name</label><br>
+
+                <input id="term1" placeholder="2" type="number" min="1" max="3" name="term">
+                <label for="term1">Term</label><br>
+
+                <input id="startTime1" placeholder="14:00" type="time" name="startTime">
+                <label for="startTime1">Start</label><br>
+
+                <input id="endTime1" placeholder="15:30" type="time" name="endTime">
+                <label for="endTime1">End</label><br>
+
+                <input id="mon1" type="checkbox" name="mon" >
+                <label for="mon1">mon</label><br>
+
+                <input id="tue1" type="checkbox" name="tue" >
+                <label for="tue1">tue</label><br>
+
+                <input id="wed1" type="checkbox" name="wed" >
+                <label for="wed1">wed</label><br>
+
+                <input id="thu1" type="checkbox" name="thu" >
+                <label for="thu1">thu</label><br>
+
+                <input id="fri1" type="checkbox" name="fri" >
+                <label for="fri1">fri</label><br>
+
+                <input id="sat1" type="checkbox" name="sat" >
+                <label for="sat1">sat</label><br>
+
+                <input id="sun1" type="checkbox" name="sun" >
+                <label for="sun1">sun</label><br>
+
                 <input type="submit" name="submit"><br>
             </form>
         </div>
@@ -576,23 +617,58 @@
                 Edit Selected Course
             </h2>
             <form id="course-edit">
-                <input placeholder="COSC" type="text" name="subj">Subject<br>
-                <input placeholder="419J" type="text" name="courseNo">Course Number<br>
-                <input placeholder="L01" type="text" name="section">Section<br>
-                <input placeholder="LAB" type="text" name="actType">Activity Type<br>
-                <input placeholder="Fazackerley, Scott" type="text" name="instructor">Instructor<br>
-                <input placeholder="Teacher, Assistant" type="text" name="TAName">TA Name<br>
-                <input placeholder="2" type="number" min="1" max="3" name="term">Term<br>
-                <input placeholder="14:00" type="time" name="startTime">Start<br>
-                <input placeholder="15:30" type="time" name="endTime">End<br>
-                <input type="checkbox" name="mon" >mon<br>
-                <input type="checkbox" name="tue" >tue<br>
-                <input type="checkbox" name="wed" >wed<br>
-                <input type="checkbox" name="thu" >thu<br>
-                <input type="checkbox" name="fri" >fri<br>
-                <input type="checkbox" name="sat" >sat<br>
-                <input type="checkbox" name="sun" >sun<br>
-                <input type="checkbox" name="delete" >Delete?<br>
+
+                <input id="subj2" placeholder="COSC" type="text" name="subj">
+                <label for="subj2">Subject</label><br>
+
+                <input id="courseNo2" placeholder="419J" type="text" name="courseNo">
+                <label for="courseNo2">Course Number</label><br>
+
+                <input id="section2" placeholder="L01" type="text" name="section">
+                <label for="section2">Section</label><br>
+
+                <input id="actType2" placeholder="LAB" type="text" name="actType">
+                <label for="actType2">Activity Type</label><br>
+
+                <input id="instructor2" placeholder="Fazackerley, Scott" type="text" name="instructor">
+                <label for="instructor2">Instructor</label><br>
+
+                <input id="TAName2" placeholder="Teacher, Assistant" type="text" name="TAName">
+                <label for="TAName2">TA Name</label><br>
+
+                <input id="term2" placeholder="2" type="number" min="1" max="3" name="term">
+                <label for="term2">Term</label><br>
+
+                <input id="startTime2" placeholder="14:00" type="time" name="startTime">
+                <label for="startTime2">Start</label><br>
+
+                <input id="endTime2" placeholder="15:30" type="time" name="endTime">
+                <label for="endTime2">End</label><br>
+
+                <input id="mon2" type="checkbox" name="mon" >
+                <label for="mon2">mon</label><br>
+
+                <input id="tue2" type="checkbox" name="tue" >
+                <label for="tue2">tue</label><br>
+
+                <input id="wed2" type="checkbox" name="wed" >
+                <label for="wed2">wed</label><br>
+
+                <input id="thu2" type="checkbox" name="thu" >
+                <label for="thu2">thu</label><br>
+
+                <input id="fri2" type="checkbox" name="fri" >
+                <label for="fri2">fri</label><br>
+
+                <input id="sat2" type="checkbox" name="sat" >
+                <label for="sat2">sat</label><br>
+
+                <input id="sun2" type="checkbox" name="sun" >
+                <label for="sun2">sun</label><br>
+
+                <input id="delete" type="checkbox" name="delete" >
+                <label for="delete">Delete?</label><br>
+
                 <input type="hidden" name="index" value="">
                 <input type="submit" name="submit"><input type="button" name="cancel" value="Cancel"><br>
             </form>
