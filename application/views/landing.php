@@ -2,6 +2,7 @@
 <html>
   <body>
     <h1>Timetable Visualizer</h1>
+    <?php if(isset($error)) echo '<p>'.$error.'</p>'; ?>
     <?= validation_errors(); ?>
     <?= form_open('main/index'); ?>
 

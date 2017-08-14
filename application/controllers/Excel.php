@@ -7,6 +7,13 @@ class Excel extends CI_Controller {
   public function __construct()
   {
     parent::__construct();
+    parent::Controller()
+		{
+			if (! $this->session->userdata('logged_in')) {
+				redirect('index');
+			}
+		}
+
     $this->load->model('db_model');
     $this->load->library('excel/Lib_PHPExcel');
     $this->load->library('excel_import_logic');
@@ -23,7 +30,6 @@ class Excel extends CI_Controller {
     //$file = './files/test_excel_files/edplan.xlsx'; // temp: for testing
     $file = $_SESSION['file'];
     if (!isset($file) || !file_exists($file)) {
-      // TODO: display an error message saying the file was not found
       show_404();
       exit();
     }
@@ -37,7 +43,7 @@ class Excel extends CI_Controller {
 
     // delete file
     unlink($file);
-    
+
     redirect('/timetable');
   }
 

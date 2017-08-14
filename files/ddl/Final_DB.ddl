@@ -54,13 +54,14 @@ FOREIGN KEY (TAName) REFERENCES TA(name)
 );
 
 CREATE TABLE user (
-userName varchar(30) NOT NULL,
-userRole varchar(10) NOT NULL,
+userName VARCHAR(30) NOT NULL,
+userRole VARCHAR(10) NOT NULL,
+pass		 VARCHAR(255) NOT NULL,
 PRIMARY KEY (username)
 );
 
 CREATE TABLE excelHeader (
-header varchar(50) NOT NULL,
+header VARCHAR(50) NOT NULL,
 PRIMARY KEY (header)
 );
 

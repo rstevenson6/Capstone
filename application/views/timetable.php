@@ -676,6 +676,10 @@
         <button id="save">
             Save to DB
         </button>
+        <br /><br /><br /><br />
+        <button onclick="location.href='<?= base_url().'logout' ?>'">
+            Logout
+        </button>
     </div>
 </div>
 </body>

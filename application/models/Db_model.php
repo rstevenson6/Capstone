@@ -157,11 +157,12 @@ class Db_model extends CI_Model
         return $this->db->insert('excelHeader', $data);
     }
 
-    public function insertUser($userName, $userRole)
+    public function insertUser($userName, $userRole, $pass)
     {
         $data = array(
           'userName' => $userName,
-          'userRole' => $userRole
+          'userRole' => $userRole,
+          'pass' => $pass
         );
         return $this->db->insert('user', $data);
     }

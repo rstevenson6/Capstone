@@ -90,7 +90,7 @@ class Testing extends CI_Controller
 
     private function insertUserTest()
     {
-        $this->unit->run($this->db_model->insertUser("johnyD", "user"), TRUE, "Insert User Test");
+        $this->unit->run($this->db_model->insertUser("johnyD", "user", "pass"), TRUE, "Insert User Test");
     }
 
     private function deleteClassTest()
