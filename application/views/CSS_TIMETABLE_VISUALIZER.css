@@ -1,7 +1,17 @@
-body {
-    background-image: url("greenclock.jpg");
+
+	body {
     background-color: #cccccc;
-}
+	opacity:1;
+	position:relative;
+	    background-image: url("greenclock.jpg");
+    height: 100%; 
+background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	    margin: 0;
+
+		
+		}
 
 
 
@@ -19,17 +29,17 @@ color:white;
 #leftnav {
 	float: left;
 	width: 350px;
-	height:2000px;
-	border-right: 1px dashed #694717;
-	background-color:white;
+	height:100%;
+	color:white;
+
 }
 
 #rightnav {
 	float: right;
 	width: 350px;
-	height:2000px;
-	border-left: 1px dashed;
-		background-color:white;
+	height:100%;
+	color:white;
+
 
 }
 
@@ -37,8 +47,9 @@ color:white;
 	margin:auto;
 	width: 1500px;
 	padding: 10px 0px 0px 10;
-	height:2000px;
-		background-color:white;
+	height:100%;
+	color:white;
+
 
 }
 
