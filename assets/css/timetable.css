@@ -17,6 +17,12 @@
     display: none;
 }
 
+#modal {
+    position: absolute;
+    background-color: darkgray;
+    border: 1px solid black;
+}
+
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
@@ -53,6 +59,13 @@ td {
 
 .block-single {
     border-radius: 16px 16px 16px 16px;
+}
+
+.right-clickable {
+    background-image: url('../images/icons/right-click.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: right;
 }
 
 input[name=delete], label[for=delete] {

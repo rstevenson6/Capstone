@@ -12,6 +12,14 @@
 </head>
 
 <body>
+<div id="modal">
+    Bring to front:
+    <table>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
 <div id="main-container" class="container">
     <div id="left-container" class="container">
         <div id="timetable-menu">

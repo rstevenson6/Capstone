@@ -134,8 +134,7 @@ function newTimetable(data) {
 
     view_courses = data;
 
-    clearTimetable();
-    displayTimetable();
+    refreshTimetable();
 }
 
 // Takes an array of course objects
@@ -144,6 +143,10 @@ function appendTimetable(data) {
 
     view_courses = view_courses.concat(data);
 
+    refreshTimetable();
+}
+
+function refreshTimetable() {
     clearTimetable();
     displayTimetable();
 }
@@ -181,9 +184,16 @@ function displayTimetable() {
                 cell.text('').css({'background-color': ''}).removeClass('block block-single block-top block-bot');
 
                 //Set seeded color
-                cell.css("background-color", colorize(datum.subj, datum.courseNo, datum.section));
+                var color = colorize(datum.subj, datum.courseNo, datum.section);
+                datum["color"] = color;
+                cell.css("background-color", color);
                 //Store index to course data for future reference
-                cell.data('index').push(datum_idx);
+                var indices = cell.data('index');
+                indices.push(datum_idx);
+
+                if(indices.length > 1) {
+                    cell.addClass('right-clickable');
+                }
 
                 if(blocks === 1) {
                     cell.addClass('block block-single').text(datum.subj + ' ' + datum.courseNo + ' ' + datum.section);
@@ -204,7 +214,7 @@ function displayTimetable() {
 
 //Clear timetable but retain course data
 function clearTimetable() {
-    $('#timetable td').removeData('index').text('').css({'background-color': ''}).removeClass('block block-single block-top block-bot');
+    $('#timetable td').removeData('index').text('').css({'background-color': ''}).removeClass('block block-single block-top block-bot right-clickable');
 }
 
 //Clear timetable and delete course data
@@ -323,6 +333,58 @@ $(document).ready(function(){
         populateCourseForm($('#course-edit'), datum_idx);
         $('#edit-menu').slideDown();
         $('#course-menu').slideUp();
+    });
+
+    $('#modal').hide();
+
+    $('#timetable td').contextmenu(function(e) {
+
+        var modal = $('#modal');
+        var modal_table = $('#modal table tbody');
+        var cell = $(this);
+        var indices = cell.data('index');
+        console.log("Indices: " +indices );
+
+
+        if(indices.length > 1) {
+            e.preventDefault();
+
+            modal_table.html('');
+
+            var click = {
+                x: e.originalEvent.pageX,
+                y: e.originalEvent.pageY
+            };
+
+            for(var index_idx in indices) {
+                var course = view_courses[indices[index_idx]];
+                modal_table.append('<tr><td style="background-color: ' + course.color + '">' + course.subj + ' ' + course.courseNo + ' ' + course.section + '</td></tr>');
+                $('td', modal_table).last().data('index', indices[index_idx]);
+            }
+
+            // Bind event on generated TDs
+            $('#modal td').click(function() {
+                console.log("CLICKED!");
+                $('#modal').hide();
+
+                var cell = $(this);
+                var index = cell.data('index');
+
+                console.log("Deleting index: " + index);
+                var new_top_course = view_courses.splice(index, 1)[0];
+                view_courses.push(new_top_course);
+                console.log(view_courses);
+
+                refreshTimetable();
+            });
+
+            // Position and show modal
+
+            modal.css('left', click.x);
+            modal.css('top', click.y);
+
+            modal.show();
+        }
     });
 
     //Show border shadow on hover to indicate clickability
