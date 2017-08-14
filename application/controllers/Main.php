@@ -7,8 +7,6 @@ class Main extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('form');
     $this->load->library('form_validation');
-
-		// TODO: LDAP integration with login
 	}
 
 	public function index()
@@ -24,7 +22,7 @@ class Main extends CI_Controller {
 		else
 		{
 			$username = $this->input->post('username');
-			$password = $this->input->post('password'); // unused for now
+			$password = $this->input->post('password');
 			$data['msg'] = $this->users->getUserRole($username);
 			$this->load->view('timetable', $data);
 		}
