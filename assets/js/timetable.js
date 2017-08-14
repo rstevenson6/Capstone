@@ -70,7 +70,6 @@ function formatDays(day_obj) {
     if(day_obj["sun"]) {
         day_string += 'N'
     }
-    day_string = day_string.substring(0, day_string.length-2);
     return day_string
 }
 
@@ -155,6 +154,8 @@ function displayTimetable() {
         var datum = view_courses[datum_idx];
         var duration = datum.endTime - datum.startTime;
         var blocks = duration / 50;
+
+        datum["elements"] = [];
 
         //Iterate through the days
         for(var day in datum.days) {
@@ -331,16 +332,21 @@ $(document).ready(function(){
         var datum_idx = datum_idx_array[datum_idx_array.length-1];
         var element_groups = view_courses[datum_idx]["elements"];
 
+        // Go through each group of cells for each class time
         for(var element_group_idx in element_groups) {
+            // Through the cell elements within in class/grouping
             for(var element_idx in element_groups[element_group_idx]) {
                 var element = element_groups[element_group_idx][element_idx];
 
-                if(element_idx == 0) {
+                if(element_groups[element_group_idx].length === 1) {
+                    element.css('border-top-style', 'solid');
+                    element.css('border-bottom-style', 'solid');
+                }
+                else if(element_idx == 0) {
                     element.css('border-top-style', 'solid');
                     element.css('border-bottom-style', 'none');
                 }
-
-                if(element_idx == element_groups[element_group_idx].length-1) {
+                else if(element_idx == element_groups[element_group_idx].length-1) {
                     element.css('border-top-style', 'none');
                     element.css('border-bottom-style', 'solid');
                 }

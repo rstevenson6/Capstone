@@ -55,6 +55,9 @@ td {
     border-radius: 16px 16px 16px 16px;
 }
 
+input[name=delete], label[for=delete] {
+    background-color: red;
+}
 
 /*
 
