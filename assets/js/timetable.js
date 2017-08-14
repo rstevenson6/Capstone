@@ -398,6 +398,12 @@ $(document).ready(function(){
         form.removeData('edit-index');
     }
 
+    function closeEditForm() {
+        $('#edit-menu').slideUp();
+        $('#course-menu').slideDown();
+        clearCourseForm($('#course-edit'));
+    }
+
     //Course edit form submission
     $("#course-edit").submit(function(event){
         event.preventDefault();
@@ -445,6 +451,10 @@ $(document).ready(function(){
           view_courses.splice(datum_idx, 1);
           newTimetable(view_courses);
         }
+    });
+
+    $('input[name=cancel]').click(function(){
+        closeEditForm();
     });
 
     $('#save').click(function(){
