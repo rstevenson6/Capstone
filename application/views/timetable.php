@@ -519,6 +519,9 @@
         <button onclick="location.href='<?= base_url().'upload' ?>'">
             Import Excel
         </button>
+        <button onclick="location.href='<?= base_url().'excel/export' ?>'">
+            Export Excel
+        </button>
         <br><br>
         <button id="load-courses">
             Load Example Courses
