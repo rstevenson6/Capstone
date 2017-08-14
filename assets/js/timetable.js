@@ -463,7 +463,19 @@ $(document).ready(function(){
             url: "/ajax/pushClasses",
             data: {classes: diff_courses},
             success: function (result) {
-                console.log(result);
+                if (result === "1") {
+                    diff_courses = [];
+                }
+                else if (result === "") {
+                    window.alert("Save failed. Nothing saved to DB.");
+                }
+                else {
+                    throw "Unexpected result: " + result;
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                window.alert("Request to save failed. Nothing saved to DB. " + errorThrown + ": " + textStatus);
+                throw errorThrown + ": " + textStatus;
             }
         });
     });
