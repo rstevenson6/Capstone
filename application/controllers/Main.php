@@ -23,19 +23,9 @@ class Main extends CI_Controller {
 		else
 		{
 			$username = $this->input->post('username');
-			$password = $this->input->post('password'); // unused for now
-
-			$this->ldap->connect();
-
-			$msg = "";
-			$msg .= $this->users->getUserRole($username)."<br />";
-			$msg .= $this->ldap->auth_ldap($username,$password)."<br />";
-
-			$data['msg'] = $msg;
-			print_r($msg);
-
-			//$this->load->view('temp/display', $data);
-			//$this->load->view('timetable', $data);
+			$password = $this->input->post('password');
+			$data['msg'] = $this->users->getUserRole($username);
+			$this->load->view('timetable', $data);
 		}
 	}
 
