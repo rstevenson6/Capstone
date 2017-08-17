@@ -1,0 +1,109 @@
+#main-container {
+    width: 100%;
+}
+
+#left-container {
+    float: left;
+    width: 75%;
+    overflow: hidden;
+}
+
+#right-container {
+    float: right;
+    width: 25%;
+}
+
+#edit-menu {
+    display: none;
+}
+
+#modal {
+    position: absolute;
+    background-color: darkgray;
+    border: 1px solid black;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+table {
+    width: 95%;
+}
+
+th {
+    padding: 4px;
+}
+
+td {
+}
+
+.block {
+    background-color: darkgray;
+    border-top-style: none;
+    border-bottom-style: none;
+}
+
+.block-top {
+    border-radius: 16px 16px 0 0;
+    border-top-style: solid;
+    border-bottom-style: none;
+}
+
+.block-bot {
+    border-radius: 0 0 16px 16px;
+    border-top-style: none;
+    border-bottom-style: solid;
+}
+
+.block-single {
+    border-radius: 16px 16px 16px 16px;
+}
+
+.right-clickable {
+    background-image: url('../images/icons/right-click.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: right;
+}
+
+input[name=delete], label[for=delete] {
+    background-color: red;
+}
+
+/*
+
+.hour {
+    background-color: #7fcdff;
+}
+
+.mon {
+    background-color: #ff0000;
+}
+
+.tue {
+    background-color: #ff4000;
+}
+
+.wed {
+    background-color: #ffa500;
+}
+
+.thu {
+    background-color: #ffe500;
+}
+
+.fri {
+    background-color: #a8ff00;
+}
+
+.sat {
+    background-color: #55ff00;
+}
+
+.sun {
+    background-color: #00ffaf;
+}
+
+*/

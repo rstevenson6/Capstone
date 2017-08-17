@@ -1,0 +1,49 @@
+body {
+    background-image: url("greenclock.jpg");
+    background-color: #cccccc;
+}
+
+
+
+#header    {
+		clear: both;
+font-size:100px;
+color:white;
+    height: 150px;
+    position: relative;
+    border-bottom: 2px solid #000000;
+	text-align:center;
+	
+}
+
+#leftnav {
+	float: left;
+	width: 350px;
+	height:2000px;
+	border-right: 1px dashed #694717;
+	background-color:white;
+}
+
+#rightnav {
+	float: right;
+	width: 350px;
+	height:2000px;
+	border-left: 1px dashed;
+		background-color:white;
+
+}
+
+#body {
+	margin:auto;
+	width: 1500px;
+	padding: 10px 0px 0px 10;
+	height:2000px;
+		background-color:white;
+
+}
+
+#footer {
+	clear: both;
+		height:100px;
+color:white;
+}
