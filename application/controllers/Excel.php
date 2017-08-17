@@ -41,6 +41,9 @@ class Excel extends CI_Controller {
     // delete file
     unlink($file);
 
+    // remove file path
+    unset($_SESSION['file']);
+
     redirect('/timetable');
   }
 
