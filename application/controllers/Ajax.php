@@ -6,6 +6,7 @@ class Ajax extends CI_Controller {
     {
         parent::__construct();
         if (!$this->session->userdata('logged_in')) {
+            echo "Not logged in!";
     			redirect('index');
     		}
 
@@ -15,6 +16,12 @@ class Ajax extends CI_Controller {
     public function index()
     {
         show_404();
+    }
+
+    public function getClasses()
+    {
+        $query = $this->db_model->loadClasses();
+        echo json_encode($query->result());
     }
 
     public function getTermOneClasses()

@@ -23,7 +23,6 @@
 <div id="main-container" class="container">
     <div id="left-container" class="container">
         <div id="timetable-menu">
-            Timetable Menu
         </div>
         <div id="timetable-container" class="container">
             Timetable
@@ -532,10 +531,16 @@
         </button>
         <br><br>
         <button id="load-courses">
-            Load Example Courses
+            Load All Courses
         </button>
         <button id="wipe-courses">
             Wipe Timetable
+        </button><br>
+        <button id="load-term1">
+            Load Term 1
+        </button>
+        <button id="load-term2">
+            Load Term 2
         </button>
         <br><br>
         <select id="instructor-list">

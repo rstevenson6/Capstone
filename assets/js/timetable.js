@@ -269,11 +269,49 @@ function courseInList(course, course_list) {
 //Wait for document load
 $(document).ready(function(){
 
-    //Load example courses on click
+    //Load all courses on click
     $('#load-courses').click(function(){
         $.ajax({
             type: "POST",
+            url: "/ajax/getClasses",
+            dataType: 'json',
+            success: function(result){
+                result = result.map(function(val) {
+                    val["days"] = parseDays(val["days"]);
+                    val["startTime"] = timeToInt(val["startTime"]);
+                    val["endTime"] = timeToInt(val["endTime"]);
+                    val["elements"] = [];
+                    return val;
+                });
+                newTimetable(result);
+            }
+        });
+    });
+
+    //Load term 1 courses on click
+    $('#load-term1').click(function(){
+        $.ajax({
+            type: "POST",
             url: "/ajax/getTermOneClasses",
+            dataType: 'json',
+            success: function(result){
+                result = result.map(function(val) {
+                    val["days"] = parseDays(val["days"]);
+                    val["startTime"] = timeToInt(val["startTime"]);
+                    val["endTime"] = timeToInt(val["endTime"]);
+                    val["elements"] = [];
+                    return val;
+                });
+                newTimetable(result);
+            }
+        });
+    });
+
+    //Load term 2 courses on click
+    $('#load-term2').click(function(){
+        $.ajax({
+            type: "POST",
+            url: "/ajax/getTermTwoClasses",
             dataType: 'json',
             success: function(result){
                 result = result.map(function(val) {
